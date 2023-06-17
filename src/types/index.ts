@@ -1,0 +1,41 @@
+export interface Product {
+  name: string;
+  brand: string;
+  category: string;
+  color: string[];
+  description: string;
+  gender: string[];
+  imageUrl: string;
+  type: string;
+  size: string[];
+  price: string;
+  _createdAt: string;
+  _id: string;
+  _rev: string;
+  timeline: string;
+  _type: string;
+}
+export interface CartRequest {
+  name: string;
+  category: string;
+  color: string;
+  image: string;
+  size: string;
+  price: string;
+  _id: string;
+  _type: string;
+}
+export interface CartResponse {
+  name: string;
+  brand: string;
+  category: string;
+  color: string;
+  image: string;
+  imageUrl: string;
+  size: string;
+  price: string;
+  _createdAt: string;
+  _id: string;
+  _rev: string;
+  _type: string;
+}
