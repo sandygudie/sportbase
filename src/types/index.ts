@@ -22,7 +22,7 @@ export interface CartRequest {
   image: string;
   size: string;
   price: string;
-  _id: string;
+  productID: string;
   _type: string;
 }
 export interface CartResponse {
@@ -36,6 +36,7 @@ export interface CartResponse {
   price: string;
   _createdAt: string;
   _id: string;
+  productID: string;
   _rev: string;
   _type: string;
 }

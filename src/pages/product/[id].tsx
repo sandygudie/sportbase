@@ -30,7 +30,7 @@ function Index({ product, similarProducts }: Props) {
         category: product._type,
         image: product.imageUrl,
         price: product.price,
-        _id: product._id,
+        productID: product._id,
       };
       client.create(cartProduct).then((res) => {
         console.log(res);
