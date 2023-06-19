@@ -14,9 +14,11 @@ type Props = {
 function Index({ product, similarProducts }: Props) {
   const [selectedColor, setSelectedColor] = useState<string>(" ");
   const [selectedSize, setSelectedSize] = useState<string>(" ");
+
   const [error, setError] = useState<string>("");
   const router = useRouter();
 
+  // console.log(product)
   function addToCart(doc: Product) {
     if ((selectedColor || selectedColor) === " ") {
       setError("Select color and size to proceed");
@@ -31,9 +33,10 @@ function Index({ product, similarProducts }: Props) {
         image: product.imageUrl,
         price: product.price,
         productID: product._id,
+        qty: 1,
+        totalPrice: Number(product.price),
       };
       client.create(cartProduct).then((res) => {
-        console.log(res);
         router.push("/cart");
       });
     }
@@ -177,3 +180,6 @@ export const getStaticPaths = async () => {
     fallback: "blocking",
   };
 };
+
+
+// sort out already in cart 

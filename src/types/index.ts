@@ -24,6 +24,8 @@ export interface CartRequest {
   price: string;
   productID: string;
   _type: string;
+  qty:number,
+  totalPrice:number
 }
 export interface CartResponse {
   name: string;
@@ -33,10 +35,14 @@ export interface CartResponse {
   image: string;
   imageUrl: string;
   size: string;
-  price: string;
+  price: number;
   _createdAt: string;
   _id: string;
   productID: string;
   _rev: string;
   _type: string;
+  qty:number,
+  totalPrice:number
+
+  
 }

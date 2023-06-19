@@ -2,8 +2,6 @@
 import { brands, category, products } from "@/data";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 import dynamic from "next/dynamic";
-import Head from "next/head";
-
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import { useState } from "react";
@@ -14,8 +12,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   return (
     <>
-     
-
       <main>
         <div className="">
           <ReactPlayer
@@ -157,5 +153,5 @@ export default function Home() {
   );
 }
 
-
-// swim suit
+// swim suit add to product
+// remove dollar from money

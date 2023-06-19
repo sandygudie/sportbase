@@ -16,11 +16,4 @@ export const titleCase = (ele: string | undefined) => {
     ?.join(" ");
 };
 
-export const deleteProduct = async (id: string) => {
-  const res = await client.patch(id).unset([`[_id==${id}]`]).commit()
-  // const res = await client
-  //   .patch(id)
-  //   .commit();
-  console.log(res);
-  return res;
-};
+
