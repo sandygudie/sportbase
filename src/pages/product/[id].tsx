@@ -1,10 +1,11 @@
-import { CartRequest, Product } from "@/types";
+import { AppContextState, CartRequest, CartResponse, Product } from "@/types";
 import { client, titleCase } from "@/utilis";
 import Button from "@mui/material/Button";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import Card from "@/components/Card";
 import { useRouter } from "next/router";
+import { AppContext } from "@/context";
 
 type Props = {
   product: Product;
@@ -15,15 +16,14 @@ function Index({ product, similarProducts }: Props) {
   const [selectedColor, setSelectedColor] = useState<string>(" ");
   const [selectedSize, setSelectedSize] = useState<string>(" ");
 
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
   const router = useRouter();
-
-  // console.log(product)
+  const { setCartQty} = useContext(AppContext) as AppContextState;
   function addToCart(doc: Product) {
     if ((selectedColor || selectedColor) === " ") {
-      setError("Select color and size to proceed");
+      setError(true);
     } else {
-      setError(" ");
+      setError(false);
       const cartProduct: CartRequest = {
         _type: "cart",
         name: doc.name,
@@ -36,9 +36,26 @@ function Index({ product, similarProducts }: Props) {
         qty: 1,
         totalPrice: Number(product.price),
       };
-      client.create(cartProduct).then((res) => {
-        router.push("/cart");
-      });
+      let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
+      let isProductExisting = cartItem.find(
+        (ele: CartResponse) =>
+          ele.color === cartProduct.color && ele.size === cartProduct.size
+      );
+
+      if (isProductExisting === undefined) {
+        client.create(cartProduct).then((res) => {
+          const updatedProduct = [...cartItem];
+          updatedProduct.push(res);
+          updatedProduct.sort(function (a: any, b: any) {
+            return a._updatedAt < b._updatedAt ? 1 : -1;
+          });
+          localStorage.setItem("cart", JSON.stringify(updatedProduct));
+          setCartQty(updatedProduct.length)
+          return router.push("/cart");
+        });
+      } else {
+        return router.push("/cart");
+      }
     }
   }
   return (
@@ -77,7 +94,7 @@ function Index({ product, similarProducts }: Props) {
               {product?.color.map((ele: string, index: number) => (
                 <button
                   style={{ backgroundColor: ele }}
-                  className=" border border-dark w-8 h-8 contrast-75"
+                  className=" border cursor-pointer border-dark w-8 h-8 contrast-75"
                   key={index}
                   onClick={() => setSelectedColor(ele)}
                 >
@@ -100,7 +117,7 @@ function Index({ product, similarProducts }: Props) {
                     selectedSize === ele
                       ? "bg-dark text-white"
                       : "bg-white text-dark"
-                  } text-xs text-center  flex justify-center items-center border border-dark w-fit p-3 h-8`}
+                  } text-xs text-center cursor-pointer flex justify-center items-center border border-dark w-fit p-3 h-8`}
                   key={index}
                   onClick={() => setSelectedSize(ele)}
                 >
@@ -109,7 +126,13 @@ function Index({ product, similarProducts }: Props) {
               ))}
             </div>
           </div>
-          {error && <p className=" py-2 text-md text-error">{error}</p>}
+          {error ? (
+            <p className="py-2 text-md text-error">
+              Select color and size to proceed
+            </p>
+          ) : (
+            ""
+          )}
           <Button
             variant="contained"
             className="w-full p-3"
@@ -181,5 +204,4 @@ export const getStaticPaths = async () => {
   };
 };
 
-
-// sort out already in cart 
+// sort out already in cart

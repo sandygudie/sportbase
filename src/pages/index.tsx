@@ -155,3 +155,8 @@ export default function Home() {
 
 // swim suit add to product
 // remove dollar from money
+// fix all things before going to the login and payout
+// check spelling case(letter)
+// review your structure
+// work on responsiveness
+// loading and performances

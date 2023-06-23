@@ -46,3 +46,10 @@ export interface CartResponse {
 
   
 }
+
+export interface AppContextState {
+products: Product[];
+cartQty: number,
+setCartQty: Dispatch<SetStateAction<number>>
+
+}

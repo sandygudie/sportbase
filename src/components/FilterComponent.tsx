@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary, {
@@ -6,17 +6,43 @@ import MuiAccordionSummary, {
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { filterElement } from "../data";
+import {
+  category,
+  filterElement_accesories,
+  filterElement_apparels,
+  filterElement_footwear,
+} from "../data";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { Product } from "@/types";
 
-type Props = {};
+type Props = {
+  products: Product[];
+  productSlug: string;
+};
 
-function FilterComponent({}: Props) {
+function FilterComponent({ products, productSlug }: Props) {
   const [expanded, setExpanded] = useState<number | false>();
+  const [filterElement, setFilterElement] = useState<any[]>([]);
+  console.log(productSlug);
+
+  useEffect(() => {
+    let selectedFilter;
+    if (productSlug === "footwear") {
+   setFilterElement(filterElement_footwear);
+    } else if (productSlug === "apparels") {
+      setFilterElement(filterElement_apparels);
+    } else if (productSlug === "accessories") {
+      setFilterElement(filterElement_accesories);
+    }
+  }, [filterElement]);
+  let countValue = (key: string, value: any) =>
+    products.filter(
+      (x: Product | any) => x[key] == value || x[key]?.includes(value)
+    ).length;
 
   const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -78,11 +104,18 @@ function FilterComponent({}: Props) {
             </AccordionSummary>
             <AccordionDetails>
               <FormGroup>
-                {ele.selection.map((item, index) => (
+                {ele.selection.map((item:string, index:number) => (
                   <FormControlLabel
                     key={index}
                     control={<Checkbox />}
-                    label={item}
+                    label={
+                      <div className="flex items-center gap-6">
+                        <p>{item}</p>
+                        <p className="p-3 text-xs bg-gray-100 flex items-center justify-center rounded-full w-3 text-sm h-3 p-2 ">
+                          {countValue(ele.name, item)}
+                        </p>
+                      </div>
+                    }
                   />
                 ))}
               </FormGroup>

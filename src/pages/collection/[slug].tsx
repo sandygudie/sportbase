@@ -29,25 +29,16 @@ function Index({ productData, productSlug, setShowSubNav }: Props) {
 
   return (
     <>
-      {/* <div
-        style={{
-          backgroundImage: `url(${
-            products[Math.floor(Math.random() * products.length)]?.imageUrl
-          })`,
-          backgroundPosition: "center",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: "#f6f6f6",
-        }}
-        className=" w-full h-[600px]"
-      ></div> */}
-      <div className="p-8 w-full bg-dark sticky top-10 z-40">
+      <div className="p-8 w-full bg-dark sticky top-10 z-40 flex items-center gap-4">
         <h1 className="text-white font-medium text-xl">
-          {productSlug && `${titleCase(productSlug)} Collections`}{" "}
+          {productSlug && `${titleCase(productSlug)} Collections`}
         </h1>
+        <p className="flex items-center justify-center rounded-full w-5 font-bold h-5 p-2 bg-gray-100">
+          {products?.length}
+        </p>
       </div>
-      <div className="my-12  mx-8 flex items-start relative ">
-        <FilterComponent />
+      <div className="my-12 mx-8 flex items-start relative ">
+        <FilterComponent products={products} productSlug={productSlug} />
         <Products products={products} />
       </div>
     </>
@@ -69,8 +60,6 @@ export async function getStaticProps(context: { params: { slug: any } }) {
       ? ele.brand === productSlug
       : ele?.gender?.includes(productSlug)
       ? ele?.gender?.includes(productSlug)
-      : ele.category === productSlug
-      ? ele.category === productSlug
       : ele.timeline === productSlug
   );
   productData.sort(function (a: any, b: any) {

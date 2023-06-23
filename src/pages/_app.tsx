@@ -5,18 +5,22 @@ import theme from "@/theme";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import { AppContext, AppProvider } from "@/context";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [showSubNav, setShowSubNav] = useState(false);
+  
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Navbar showSubNav={showSubNav} setShowSubNav={setShowSubNav} />
-        <div className="z-10 pt-20 pb-36 relative">
-          <Component setShowSubNav={setShowSubNav} {...pageProps} />
-        </div>
-        <Footer />
-      </ThemeProvider>
+      <AppProvider>
+        <ThemeProvider theme={theme}>
+          <Navbar showSubNav={showSubNav} setShowSubNav={setShowSubNav} />
+          <div className="z-10 pt-20 pb-36 relative">
+            <Component setShowSubNav={setShowSubNav} {...pageProps} />
+          </div>
+          <Footer />
+        </ThemeProvider>
+      </AppProvider>
     </>
   );
 };

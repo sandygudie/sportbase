@@ -1,5 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import {
   accessoriesNav,
@@ -9,6 +16,8 @@ import {
   collections,
   gender,
 } from "../data";
+import { AppContext } from "@/context";
+import { AppContextState } from "@/types";
 
 type Props = {
   showSubNav: boolean;
@@ -17,6 +26,8 @@ type Props = {
 
 export default function Navbar({ showSubNav, setShowSubNav }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+
+  const { cartQty } = useContext(AppContext) as AppContextState;
 
   const handleClickOver = (e: any) => {
     if (ref.current && ref.current.contains(e.target)) {
@@ -124,6 +135,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
       </div>
     );
   };
+
   return (
     <header className="z-40 fixed w-full bg-white  text-lg 2xl:text-3xl">
       <div onMouseOver={(e) => handleClickOut(e)} className=" px-8 bg-white">
@@ -138,7 +150,9 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
             <div
               ref={ref}
               onMouseOver={(e) => handleClickOver(e)}
-              className={`${showSubNav? "border-solid ": "border-none"} pt-6 pb-4 relative inline-block ml-6 border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
+              className={`${
+                showSubNav ? "border-solid " : "border-none"
+              } pt-6 pb-4 relative inline-block ml-6 border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
             >
               Shop
             </div>
@@ -152,7 +166,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
               alt="sneaker base logo"
             />{" "}
           </Link>
-          <div>
+          <div className="flex items-center ">
             <Link
               href="/login"
               className="pt-6 pb-4 md:mr-8  hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
@@ -163,7 +177,13 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
               href="/cart"
               className=" pt-6 pb-4 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
             >
-              Cart
+              <div className="flex items-center">
+                <span> Cart</span>
+                <span className="ml-2 flex items-center justify-center rounded-full w-3 text-sm h-3 p-2 bg-gray-200/40">
+                  {cartQty}
+                </span>
+              </div>
+              {/* <AddShoppingCartIcon className="text-xl"/> */}
             </Link>
           </div>
         </div>

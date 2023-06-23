@@ -1,11 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { client, titleCase } from "@/utilis";
-import { CartResponse, Product } from "@/types";
+import { AppContextState, CartResponse, Product } from "@/types";
 import Button from "@mui/material/Button";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Link from "next/link";
+import Spinner from "@/components/Spinner";
+import CircularProgress from "@mui/material/CircularProgress";
+import { AppContext } from "@/context";
 
 type Props = {};
 
@@ -13,32 +16,42 @@ function Index({}: Props) {
   const numbers = [0, 1, 2, 3, 4, 5];
 
   const [products, setProducts] = useState<CartResponse[]>([]);
-  const [checkoutAmount, setCheckoutAmount] = useState<Number>();
-
+  const [isDelete, setDelete] = useState<Boolean>(false);
+  const [selectedID, setSelectedID] = useState<string>("");
+  const { setCartQty} = useContext(AppContext) as AppContextState;
   useEffect(() => {
     getCartData();
-  }, [setProducts]);
+  }, [ setProducts]);
+
 
   const getCartData = async () => {
-    const cartResponse = await client.fetch(`*[_type == "cart"]{
-        ...,
-        "imageUrl": image.asset->url
-      }`);
+    let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
+    if (cartItem.length <= 0) {
+      const cartResponse = await client.fetch(`*[_type == "cart"]{
+          ...,
+          "imageUrl": image.asset->url
+        }`);
 
-    cartResponse.sort(function (a: any, b: any) {
-      return a._createdAt < b._createdAt ? 1 : -1;
-    });
-    setProducts(cartResponse);
+      cartResponse.sort(function (a: any, b: any) {
+        return a._updatedAt < b._updatedAt ? 1 : -1;
+      });
+      localStorage.setItem("cart", JSON.stringify(cartResponse));
+    }
+    setProducts(cartItem);
   };
 
-  // console.log(products);
-
   const deleteItem = async (id: string) => {
+    setSelectedID(id);
+    setDelete(true);
     await client.delete(id).then((res) => {
       if (res) {
         const tempProducts = products.filter((ele) => ele._id !== id);
+        localStorage.setItem("cart", JSON.stringify(tempProducts));
         setProducts(tempProducts);
+        setCartQty(tempProducts.length)
       }
+   
+      setDelete(false);
     });
   };
   //   const OnChangeQty =(id)=>{
@@ -94,19 +107,23 @@ function Index({}: Props) {
                         <Autocomplete
                           value={ele.qty}
                           onChange={(event, newValue) => {
-                            const currentTodoIndex = products.findIndex(
-                              (todo) => todo._id === ele._id
+                            const currentProductIndex = products.findIndex(
+                              (product) => product._id === ele._id
                             );
-                            const updatedTodo = Object.assign(
+                            const updatedProduct = Object.assign(
                               {},
-                              products[currentTodoIndex]
+                              products[currentProductIndex]
                             );
-                            updatedTodo.qty = Number(newValue);
-                            updatedTodo.totalPrice =
-                              updatedTodo.qty * ele.price;
-                            const newTodos = products.slice();
-                            newTodos[currentTodoIndex] = updatedTodo;
-                            setProducts(newTodos);
+                            updatedProduct.qty = Number(newValue);
+                            updatedProduct.totalPrice =
+                              updatedProduct.qty * ele.price;
+                            const newProducts = products.slice();
+                            newProducts[currentProductIndex] = updatedProduct;
+                            localStorage.setItem(
+                              "cart",
+                              JSON.stringify(newProducts)
+                            );
+                            setProducts(newProducts);
                           }}
                           selectOnFocus
                           clearOnBlur
@@ -126,10 +143,18 @@ function Index({}: Props) {
                         {/* )} */}
                         <div className="mt-3">
                           <div
-                            className="cursor-pointer hover:underline"
+                            className="cursor-pointer text-center hover:underline"
                             onClick={() => deleteItem(ele._id)}
                           >
-                            Remove
+                            {isDelete && selectedID === ele._id ? (
+                              <CircularProgress
+                                className="text-gray-500"
+                                color="success"
+                                size={20}
+                              />
+                            ) : (
+                              "Remove"
+                            )}
                           </div>
                         </div>
                       </div>
@@ -161,13 +186,15 @@ function Index({}: Props) {
             </div>
           </div>
         </div>
-      ) : (
-        <div className="flex  flex-col h-[28em] items-center justify-center">
+      ) : products.length <= 0 ? (
+        <div className="flex flex-col h-[28em] items-center justify-center">
           <p className="pb-4">Your cart is empty</p>
           <Button variant="contained" className="px-3 w-64">
             Shop our products
           </Button>
         </div>
+      ) : (
+        <Spinner />
       )}
     </div>
   );
