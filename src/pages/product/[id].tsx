@@ -18,7 +18,7 @@ function Index({ product, similarProducts }: Props) {
 
   const [error, setError] = useState<boolean>(false);
   const router = useRouter();
-  const { setCartQty} = useContext(AppContext) as AppContextState;
+  const { setCartQty } = useContext(AppContext) as AppContextState;
   function addToCart(doc: Product) {
     if ((selectedColor || selectedColor) === " ") {
       setError(true);
@@ -50,7 +50,7 @@ function Index({ product, similarProducts }: Props) {
             return a._updatedAt < b._updatedAt ? 1 : -1;
           });
           localStorage.setItem("cart", JSON.stringify(updatedProduct));
-          setCartQty(updatedProduct.length)
+          setCartQty(updatedProduct.length);
           return router.push("/cart");
         });
       } else {

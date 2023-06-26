@@ -1,12 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useContext, useRef } from "react";
 import Link from "next/link";
 import {
   accessoriesNav,
@@ -18,7 +11,9 @@ import {
 } from "../data";
 import { AppContext } from "@/context";
 import { AppContextState } from "@/types";
-
+import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 type Props = {
   showSubNav: boolean;
   setShowSubNav: Dispatch<SetStateAction<boolean>>;
@@ -43,78 +38,65 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
 
   const Dropdown = () => {
     return (
-      <div className="mx-8 bg-white py-6 flex justify-between items-start gap-16">
-        <div>
-          <p className="font-medium">Footwears</p>
+      <div className="mx-8 bg-white py-6 flex justify-between items-start">
+        <div className="w-10 md:w-full">
+          <p className="text-sm md:text-base font-medium">Footwears</p>
           {footwearNav.map((ele: any) => {
             return (
               <Link
                 href={`/collection/footwear?category=${ele.name.toLowerCase()}`}
                 key={ele.id}
-                className="my-4 text-sm flex justify-start items-start"
+                className="my-4 text-sm flex justify-start items-start hover:text-primary"
               >
                 {ele.name}
               </Link>
             );
           })}
         </div>
-        <div>
-          <p className="font-medium">Apparels</p>
+        <div className="w-10 md:w-full">
+          <p className="text-sm md:text-base font-medium">Apparels</p>
           {apparelNav.map((ele: any) => {
             return (
               <Link
                 href={`/collection/apparels?category=${ele.name.toLowerCase()}`}
                 key={ele.id}
-                className="my-4 text-sm flex justify-start items-start"
+                className="my-4 text-sm flex justify-start items-start hover:text-primary"
               >
                 {ele.name}
               </Link>
             );
           })}
         </div>
-        <div>
-          <p className="font-medium">Accessories</p>
+        <div className="w-10 md:w-full">
+          <p className="text-sm md:text-base font-medium">Accessories</p>
           {accessoriesNav.map((ele: any) => {
             return (
               <Link
                 href={`/collection/accessories?category=${ele.name.toLowerCase()}`}
                 key={ele.id}
-                className="my-4 text-sm flex justify-start items-start"
+                className="my-4 text-sm flex justify-start items-start hover:text-primary"
               >
                 {ele.name}
               </Link>
             );
           })}
         </div>
-        <div>
-          <p className="font-medium">Brand</p>
+        <div className="w-10 md:w-full">
+          <p className="text-sm md:text-base font-medium">Brand</p>
           {brands.map((ele: any) => {
             return (
               <Link
                 href={`/collection/${ele.name.toLowerCase()}`}
                 key={ele.id}
-                className="my-4 text-sm flex justify-start items-start"
+                className="my-4 text-sm flex justify-start items-start hover:text-primary"
               >
                 {ele.name}
               </Link>
             );
           })}
         </div>
-        <div>
-          <p className="font-medium">Collections</p>
-          {gender.map((ele: any) => {
-            return (
-              <Link
-                href={`/collection${ele.link.toLowerCase()}`}
-                key={ele.id}
-                className="my-4 text-sm flex justify-start items-start"
-              >
-                {ele.name}
-              </Link>
-            );
-          })}
-        </div>
-        <div className="flex gap-8">
+
+        <div className="hidden lg:flex gap-8">
           {collections.map((ele) => {
             return (
               <div key={ele.id} className="my-4">
@@ -122,8 +104,8 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
                   href={`/collection${ele.link.toLowerCase()}`}
                   className="hover:no-underline"
                 >
-                  <img className="w-48 h-48" src={ele.image} alt={ele.name} />
-                  <p className="text-center  hover:bg-primary/75  text-white m-auto py-1.5  mt-4 bg-primary  px-4 rounded-sm">
+                  <img className="w-60 h-60" src={ele.image} alt={ele.name} />
+                  <p className="text-center hover:bg-primary/75 text-white m-auto py-1.5 mt-4 bg-primary px-4 rounded-sm">
                     {" "}
                     {ele.name}
                   </p>
@@ -138,52 +120,80 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
 
   return (
     <header className="z-40 fixed w-full bg-white  text-lg 2xl:text-3xl">
+      <div className="bg-gray-100 px-8 py-3 flex items-center justify-between">
+        <div className="flex justify-center gap-2 items-center">
+          {" "}
+          <HeadsetMicOutlinedIcon
+            className="flex justify-center items-center"
+            sx={{ fontSize: "15px" }}
+          />
+          <span className="text-xs"> Call us: +31 416 652 803</span>
+        </div>
+        <div className="text-xs flex gap-2 justify-center items-center">
+          {" "}
+          <Link  className="hover:text-primary" href={"/"}>Sign In</Link>
+          <span>|</span>
+          <Link  className="hover:text-primary" href={"/"}>Help</Link>
+        </div>
+      </div>
+
       <div onMouseOver={(e) => handleClickOut(e)} className=" px-8 bg-white">
-        <div className="max-w-[80em] m-auto flex justify-between items-center">
-          <div>
-            <Link
-              className=" pt-6 pb-4  hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
-              href={"/"}
-            >
-              Home
-            </Link>
+        <div className="text-center max-w-[80em] m-auto flex justify-between items-center">
+          <div className="flex gap-8 items-center basis-full">
             <div
               ref={ref}
               onMouseOver={(e) => handleClickOver(e)}
               className={`${
                 showSubNav ? "border-solid " : "border-none"
-              } pt-6 pb-4 relative inline-block ml-6 border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
+              } py-4 relative inline-block border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
             >
               Shop
             </div>
+            <div className="hidden md:block py-4 ">
+              {gender.map((ele: any) => {
+                return (
+                  <Link
+                    href={`/collection${ele.link.toLowerCase()}`}
+                    key={ele.id}
+                    className="py-4 md:mr-8 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
+                  >
+                    {ele.name}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
-          <Link className="hover:no-underline" href="/">
+          <Link
+            className="flex items-center justify-center hover:no-underline basis-full"
+            href="/"
+          >
             {" "}
             <img
-              className="w-8 h-8 2xl:w-20 2xl:h-20"
+              className=" w-6 md:w-10 h-10 2xl:w-20 2xl:h-20"
               src={"/images/sneakerbase-logo.svg"}
               alt="sneaker base logo"
             />{" "}
           </Link>
-          <div className="flex items-center ">
+          <div className="flex items-center justify-end basis-full text-right gap-4">
             <Link
               href="/login"
-              className="pt-6 pb-4 md:mr-8  hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
+              className="hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
             >
-              Login
+              <FavoriteBorderIcon sx={{ fontSize: "20px" }} />
             </Link>
+
             <Link
               href="/cart"
-              className=" pt-6 pb-4 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
+              className="relative hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
             >
-              <div className="flex items-center">
-                <span> Cart</span>
-                <span className="ml-2 flex items-center justify-center rounded-full w-3 text-sm h-3 p-2 bg-gray-200/40">
-                  {cartQty}
-                </span>
-              </div>
-              {/* <AddShoppingCartIcon className="text-xl"/> */}
+              <span className="relative flex items-center justify-center text-center">
+                {" "}
+                <ShoppingCartOutlinedIcon sx={{ fontSize: "20px" }} />
+              </span>
+              <span className="absolute top-0 left-4 ml-2 rounded-full w-3 font-bold text-sm h-3 ">
+                {cartQty}
+              </span>
             </Link>
           </div>
         </div>

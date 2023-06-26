@@ -4,6 +4,7 @@ import { Product } from "@/types";
 import { client, titleCase } from "@/utilis";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Spinner from "@/components/Spinner";
 
 type Props = {
   productData: Product[];
@@ -19,28 +20,38 @@ function Index({ productData, productSlug, setShowSubNav }: Props) {
   useEffect(() => {
     setShowSubNav(false);
     if (category?.length) {
-      let categoryData = products.filter((ele: Product) =>
+      let categoryData = productData.filter((ele: Product) =>
         ele.category === category ? ele : ele.type === category
       );
       setProductData(categoryData);
-      console.log(categoryData);
     }
-  }, [category, setShowSubNav]);
-
+    if (products.length === 0) {
+      router.reload();
+    }
+    
+  }, [category, products.length, setShowSubNav]);
+console.log(products)
   return (
     <>
-      <div className="p-8 w-full bg-dark sticky top-10 z-40 flex items-center gap-4">
-        <h1 className="text-white font-medium text-xl">
-          {productSlug && `${titleCase(productSlug)} Collections`}
-        </h1>
-        <p className="flex items-center justify-center rounded-full w-5 font-bold h-5 p-2 bg-gray-100">
-          {products?.length}
-        </p>
-      </div>
-      <div className="my-12 mx-8 flex items-start relative ">
-        <FilterComponent products={products} productSlug={productSlug} />
-        <Products products={products} />
-      </div>
+      {products?.length ? (
+        <>
+          {" "}
+          <div className="p-8 w-full bg-dark sticky top-10 z-40 flex items-center gap-4">
+            <h1 className="text-white font-medium text-xl">
+              {productSlug && `${titleCase(productSlug)} Collections`}
+            </h1>
+            <p className="flex items-center justify-center rounded-full w-5 font-bold h-5 p-2 bg-gray-100">
+              {products?.length}
+            </p>
+          </div>
+          <div className="my-12 mx-8 flex items-start relative ">
+            <FilterComponent products={products} productSlug={productSlug} />
+            <Products products={products} />
+          </div>
+        </>
+      ) : (
+        <Spinner />
+      )}
     </>
   );
 }

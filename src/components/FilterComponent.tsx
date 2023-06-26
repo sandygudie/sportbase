@@ -27,16 +27,16 @@ type Props = {
 function FilterComponent({ products, productSlug }: Props) {
   const [expanded, setExpanded] = useState<number | false>();
   const [filterElement, setFilterElement] = useState<any[]>([]);
-  console.log(productSlug);
+
 
   useEffect(() => {
-    let selectedFilter;
-    if (productSlug === "footwear") {
-   setFilterElement(filterElement_footwear);
-    } else if (productSlug === "apparels") {
+
+   if (productSlug === "apparels") {
       setFilterElement(filterElement_apparels);
     } else if (productSlug === "accessories") {
       setFilterElement(filterElement_accesories);
+    }else{
+      setFilterElement(filterElement_footwear);
     }
   }, [filterElement]);
   let countValue = (key: string, value: any) =>

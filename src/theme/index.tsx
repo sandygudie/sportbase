@@ -24,25 +24,25 @@ const theme = createTheme({
     },
   },
   components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableTouchRipple: true,
-      },
-      styleOverrides: {
-        root: {
-          "&.MuiPickersDay-root": {
-            backgroundColor: "inherit " + "!important",
-          },
-          "&.MuiPickersDay-root:not(.Mui-disabled)": {
-            color: tailwindTheme`textColor.base` + "!important",
-          },
-          "&.MuiPickersDay-root.Mui-selected": {
-            backgroundColor: tailwindTheme`colors.primary` + "!important",
-            color: tailwindTheme`colors.white` + "!important",
-          },
-        },
-      },
-    },
+    // MuiButtonBase: {
+    //   defaultProps: {
+    //     disableTouchRipple: true,
+    //   },
+    //   styleOverrides: {
+    //     root: {
+    //       "&.MuiPickersDay-root": {
+    //         backgroundColor: "inherit " + "!important",
+    //       },
+    //       "&.MuiPickersDay-root:not(.Mui-disabled)": {
+    //         color: tailwindTheme`textColor.base` + "!important",
+    //       },
+    //       "&.MuiPickersDay-root.Mui-selected": {
+    //         backgroundColor: tailwindTheme`colors.primary` + "!important",
+    //         color: tailwindTheme`colors.white` + "!important",
+    //       },
+    //     },
+    //   },
+    // },
     // MuiTypography: {
     //   styleOverrides: {
     //     root: {
@@ -68,34 +68,34 @@ const theme = createTheme({
     //     },
     //   },
     // },
-    MuiButton: {
-      defaultProps: {
-        disableElevation: true,
-        size: "large",
-        variant: "contained",
-      },
-      styleOverrides: {
-        root: {
-          textTransform: "none",
-        },
-        containedPrimary: {
-          ...tw`bg-primary`,
-          color: tailwindTheme`colors.white` + "!important",
-          "&.Mui-disabled:disabled": {
-            backgroundColor: tailwindTheme`colors.gray.200`,
-            color: tailwindTheme`colors.white`,
-          },
-        },
-        outlinedPrimary: {
-          borderColor: tailwindTheme`colors.gray.200`,
-          color: tailwindTheme`colors.gray.200`,
-        },
-        sizeLarge: {
-          height: "3.5rem",
-          ...tw`px-8 text-base`,
-        },
-      },
-    },
+    // MuiButton: {
+    //   defaultProps: {
+    //     disableElevation: true,
+    //     size: "large",
+    //     variant: "contained",
+    //   },
+    //   styleOverrides: {
+    //     root: {
+    //       textTransform: "none",
+    //     },
+    //     containedPrimary: {
+    //       ...tw`bg-primary`,
+    //       color: tailwindTheme`colors.white` + "!important",
+    //       "&.Mui-disabled:disabled": {
+    //         backgroundColor: tailwindTheme`colors.gray.200`,
+    //         color: tailwindTheme`colors.white`,
+    //       },
+    //     },
+    //     outlinedPrimary: {
+    //       borderColor: tailwindTheme`colors.gray.200`,
+    //       color: tailwindTheme`colors.gray.200`,
+    //     },
+    //     sizeLarge: {
+    //       height: "3.5rem",
+    //       ...tw`px-8 text-base`,
+    //     },
+    //   },
+    // },
     // MuiIconButton: {
     //   styleOverrides: {
     //     root: {

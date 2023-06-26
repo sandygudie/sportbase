@@ -9,13 +9,13 @@ import { AppContext, AppProvider } from "@/context";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [showSubNav, setShowSubNav] = useState(false);
-  
+
   return (
     <>
       <AppProvider>
         <ThemeProvider theme={theme}>
           <Navbar showSubNav={showSubNav} setShowSubNav={setShowSubNav} />
-          <div className="z-10 pt-20 pb-36 relative">
+          <div className="z-10 pt-24 pb-36 relative">
             <Component setShowSubNav={setShowSubNav} {...pageProps} />
           </div>
           <Footer />

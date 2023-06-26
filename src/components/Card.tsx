@@ -4,7 +4,7 @@ export default function Card({ item }: any) {
   return (
     <Link  href={`/product/${item._id}`}>
       <div className="relative overflow-hidden">
-        {item.timeline === "newest" && (
+        {item.timeline === "latest" && (
           <p className="absolute font-medium right-0 top-0 z-30 bg-primary/60 py-1.5 px-4">
             Latest{" "}
           </p>

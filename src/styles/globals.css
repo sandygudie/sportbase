@@ -47,7 +47,7 @@
 @layer base {
   :root {
     --color-background: hsla(45, 100%, 98%, 1);
-    --color-text: hsla(0, 0%, 20%, 1);
+    --color-text: hsla(0, 0%, 100%, 1);
     --color-input-background: white;
     --color-shadow: rgba(163, 133, 41, 0.1);
   }
@@ -61,7 +61,6 @@
     @apply font-futura;
     @apply font-light;
     @apply text-base;
-    /* font-size: max(calc(16 * (100vw / 1920)), 16px); */
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
@@ -69,6 +68,7 @@
   *,
   body,
   html {
+    color: hsla(0, 0%, 9%, 1);
     margin: 0;
     padding: 0;
     position: relative;
@@ -84,6 +84,7 @@
     @apply font-futura;
     line-height: 1.25;
   }
+
   a {
     color: inherit;
     text-decoration: none;

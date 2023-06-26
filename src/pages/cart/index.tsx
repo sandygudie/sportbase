@@ -54,9 +54,7 @@ function Index({}: Props) {
       setDelete(false);
     });
   };
-  //   const OnChangeQty =(id)=>{
-
-  //   }
+ 
   return (
     <div className="px-8 ">
       {products.length ? (
