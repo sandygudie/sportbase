@@ -17,7 +17,7 @@ export const titleCase = (ele: string | undefined) => {
     ?.join(" ");
 };
 
-export const addProduct = async (payload: CartRequest, id: string|null) => {
+export const addProduct = async (payload: CartRequest, id: string | null) => {
   let response = await fetch(`/api/cart/${id}`, {
     method: "POST",
     headers: {
@@ -37,5 +37,29 @@ export const getCartProducts = async (id: string) => {
   return response;
 };
 
-export const randomID = "649d31612760f3fe7baa5a21";
+export const deleteCartProduct = async (cartID: string | null, id: string) => {
+  let response = await fetch(`/api/cart/${cartID}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response;
+};
 
+export const updateCartProduct = async (
+  cartID: string | null,
+  id: string,
+  payload: any
+) => {
+  let response = await fetch(`/api/cart/${cartID}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  return response;
+};
+
+export const randomID = "649d31612760f3fe7baa5a21";

@@ -14,6 +14,7 @@ import { connectToDB } from "@/config/db/db";
 import Cart from "@/models/cart";
 import Product from "@/models/product";
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
+import { UsbOff } from "@mui/icons-material";
 
 /**
  * @param {import('next').NextApiRequest} req
@@ -41,12 +42,11 @@ async function getCart(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { id },
   } = req;
-  console.log(id);
+
   try {
     await connectToDB();
     let cart = await Cart.findById(id);
     if (cart) {
-      console.log(cart);
       return res.status(200).json({
         data: cart,
         success: true,
@@ -104,6 +104,43 @@ const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+const updateProduct = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    await connectToDB();
+    const {
+      query: { id },
+    } = req;
+    const { qty, price } = req.body;
+
+    const [cartId, productId]: string | any = id;
+    const updatedproduct = await Product.findByIdAndUpdate(
+      { _id: productId },
+      {
+        qty: qty,
+        price: price,
+        totalPrice: qty * price,
+      },
+      { new: true }
+    );
+    await Cart.updateOne(
+      { _id: cartId, "product._id": id },
+      {
+        $set: {
+          "product.$.qty": updatedproduct.qty,
+          "product.$.price": updatedproduct.price,
+          "product.$.totalPrice": updatedproduct.qty * updatedproduct.price,
+        },
+      }
+    );
+    return res.status(200).json({
+      message: updatedproduct,
+      success: true,
+    });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 // create product is adding a new product to array
 const deleteProduct = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -111,36 +148,20 @@ const deleteProduct = async (req: NextApiRequest, res: NextApiResponse) => {
     const {
       query: { id },
     } = req;
-    console.log(id);
-    const removedProduct = await Product.findByIdAndDelete(id);
-    //  if(removedProduct{
-    //   await Cart.findById()
-    //  })
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
-const updateProduct = async (req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    await connectToDB();
-    const {
-      query: { id },
-    } = req;
 
-    // Image.findOneAndRemove({ _id: id }).exec(function (err, removed) {
-    //   User.findOneAndUpdate(
-    //     { email: email },
-    //     // no _id it is array of objectId not object with _ids
-    //     { $pull: { favorites: id } },
-    //     { new: true },
-    //     function (err, removedFromUser) {
-    //       if (err) {
-    //         console.error(err);
-    //       }
-    //       res.status(200).send(removedFromUser);
-    //     }
-    //   );
-    // });
+    const [cartId, productId]: string | any = id;
+    await Product.findByIdAndDelete(productId);
+    await Cart.findByIdAndUpdate(cartId, {
+      $pull: {
+        product: {
+          _id: productId,
+        },
+      },
+    });
+    return res.status(200).json({
+      message: "product deleted",
+      success: true,
+    });
   } catch (error) {
     res.status(400).json(error);
   }

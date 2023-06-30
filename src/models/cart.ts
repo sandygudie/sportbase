@@ -1,17 +1,11 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 import { productSchema } from "./product";
 
 const cartSchema = new Schema(
   {
-    // product: {
-    //   type: [productSchema],
-    // },
-    product: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-      },
-    ],
+    product: {
+      type: [productSchema],
+    },
   },
 
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }

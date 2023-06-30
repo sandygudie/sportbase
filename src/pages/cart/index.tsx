@@ -1,6 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useContext, useEffect, useState } from "react";
-import { client, getCartProducts, randomID } from "@/utilis";
+import {
+  client,
+  deleteCartProduct,
+  getCartProducts,
+  randomID,
+  updateCartProduct,
+} from "@/utilis";
 import { AppContextState, CartResponse, Product } from "@/types";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -19,26 +25,28 @@ function Index({}: Props) {
   const [isDelete, setDelete] = useState<Boolean>(false);
   const [selectedID, setSelectedID] = useState<string>("");
   const { setCartQty } = useContext(AppContext) as AppContextState;
+
   useEffect(() => {
-    getCartData();
+    let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
+    let cartID = localStorage.getItem("cartID");
+    getCartData(cartItem, cartID);
   }, [setProducts]);
 
   // get product from localstorage , if it's not there get from api
-  const getCartData = async () => {
+  const getCartData = async (cartItem: any, cartID: any) => {
     try {
-      let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
       if (cartItem.length <= 0) {
-        let cartID = localStorage.getItem("cartID");
         if (cartID) {
           await getCartProducts(cartID)
             .then((response) => response.json())
             .then((data) => {
-              let cartResponse = data.message;
+              let cartResponse = data.data.product;
               cartResponse.sort(function (a: any, b: any) {
                 return a.updated_at < b.updated_at ? 1 : -1;
               });
               localStorage.setItem("cart", JSON.stringify(cartResponse));
             });
+          setProducts(cartItem);
         }
       }
       setProducts(cartItem);
@@ -47,44 +55,53 @@ function Index({}: Props) {
     }
   };
 
-  const deleteItem = async (id: string) => {
-    setSelectedID(id);
-    setDelete(true);
-    await client.delete(id).then((res) => {
-      if (res) {
-        const tempProducts = products.filter((ele) => ele._id !== id);
-        localStorage.setItem("cart", JSON.stringify(tempProducts));
-        setProducts(tempProducts);
-        setCartQty(tempProducts.length);
-      }
+  const updateItem = async (id: string, itemUpdated: any) => {
+    try {
+      let cartID = localStorage.getItem("cartID");
+      await updateCartProduct(cartID, id, itemUpdated);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-      setDelete(false);
-    });
+  const deleteItem = async (id: string) => {
+    try {
+      setSelectedID(id);
+      setDelete(true);
+      let cartID = localStorage.getItem("cartID");
+      await deleteCartProduct(cartID, id);
+      const tempProducts = products.filter((ele) => ele._id !== id);
+      localStorage.setItem("cart", JSON.stringify(tempProducts));
+      setProducts(tempProducts);
+      setCartQty(tempProducts.length);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="px-8 ">
+    <div className=" px-5 md:px-8 ">
       {products.length ? (
         <div className="py-4">
           <h1 className=" text-center text-lg my-4"> Your Cart</h1>
-          <div className="flex gap-4 mt-6 items-start">
-            <div className="w-9/12  shadow-lg shadow-dark/10  p-8 ">
+          <div className="block md:flex gap-4 mt-6 items-start">
+            <div className="w-full md:w-9/12 md:shadow-lg shadow-dark/10 md:p-8 ">
               <div className="flex mb-5 text-lg justify-between items-center ">
                 <p className="w-[60%]">Product</p>
-                <p>Quantity</p>
-                <p>Total</p>
+                <p className="sm:w-1/3 hidden sm:block">Quantity</p>
+                <p className="hidden sm:block">Total</p>
               </div>
               <div className="">
                 {products.map((ele, index) => {
                   return (
                     <div
-                      className="flex justify-between items-center border-t-1 border-b-0 border-x-0 border-primary/20 border-solid py-8 "
+                      className="sm:flex justify-between items-center border-t-1 border-b-0 border-x-0 border-primary/20 border-solid py-8 "
                       key={ele._id}
                     >
-                      <div className="gap-x-2 flex items-center w-[60%]">
+                      <div className="w-full gap-x-2 flex items-center sm:w-[40%]">
                         <Link href={`product/${ele.productID}`}>
                           <img
-                            className="w-36 h-36"
+                            className=" w-28 h-28 md:w-36 md:h-36"
                             src={ele?.imageUrl}
                             alt={ele.name}
                           />
@@ -97,18 +114,18 @@ function Index({}: Props) {
                           <p className="text-sm font-bold">{ele.name}</p>
                           <p className="text-sm font-bold">${ele.price}</p>
                           <div className="mt-4">
-                            <p className="text-base">
+                            <p className="text-sm md:text-base">
                               Color :{" "}
                               <span className="font-medium">{ele.color}</span>
                             </p>
-                            <p className="text-base">
+                            <p className="text-sm md:text-base">
                               Size :{" "}
                               <span className="font-medium">{ele.size}</span>
                             </p>
                           </div>
                         </div>
                       </div>
-                      <div>
+                      <div className="sm:w-1/3 my-6 md:my-0 flex sm:block gap-3">
                         <Autocomplete
                           value={ele.qty}
                           onChange={(event, newValue) => {
@@ -124,6 +141,13 @@ function Index({}: Props) {
                               updatedProduct.qty * ele.price;
                             const newProducts = products.slice();
                             newProducts[currentProductIndex] = updatedProduct;
+                            const itemUpdated = {
+                              qty: updatedProduct.qty,
+                              price: updatedProduct.price,
+                              totalPrice:
+                                updatedProduct.qty * updatedProduct.price,
+                            };
+                            updateItem(ele._id, itemUpdated);
                             localStorage.setItem(
                               "cart",
                               JSON.stringify(newProducts)
@@ -139,7 +163,7 @@ function Index({}: Props) {
                           renderOption={(props, option) => (
                             <li {...props}>{option}</li>
                           )}
-                          sx={{ width: 80 }}
+                          className="w-5/6 lg:w-full"
                           freeSolo
                           renderInput={(params) => (
                             <TextField {...params} label="qty" />
@@ -148,7 +172,7 @@ function Index({}: Props) {
                         {/* )} */}
                         <div className="mt-3">
                           <div
-                            className="cursor-pointer text-center hover:underline"
+                            className="text-sm md:text-base cursor-pointer text-center hover:underline"
                             onClick={() => deleteItem(ele._id)}
                           >
                             {isDelete && selectedID === ele._id ? (
@@ -163,16 +187,20 @@ function Index({}: Props) {
                           </div>
                         </div>
                       </div>
-                      <p>${Number(ele.totalPrice)}</p>
+                      <p className="font-medium md:mt-0">
+                        {" "}
+                        <span className="mr-5 sm:hidden ">Total price:</span>$
+                        {Number(ele.totalPrice)}
+                      </p>
                     </div>
                   );
                 })}
               </div>
             </div>
-            <div className="p-8 w-3/12 shadow-lg shadow-dark/40 sticky top-20">
+            <div className="w-full p-0 md:p-8 md:w-3/12 md:shadow-lg shadow-dark/40 md:sticky top-20">
               <h2 className="text-lg font-medium">Your Order Info</h2>
-              <div className="border-t-1 mt-8 border-b-0 border-x-0 border-solid border-primary/20">
-                <div className="text-xl pt-8  mb-4 font-bold flex justify-between items-center">
+              <div className="border-t-1 mt-2 md:mt-8 border-b-0 border-x-0 border-solid border-primary/20">
+                <div className="md:text-sm lg:text-xl pt-8  mb-6 font-bold flex flex-wrap justify-between items-center">
                   <p>TOTAL :</p>{" "}
                   <p>
                     $

@@ -95,7 +95,7 @@ function Index({ product, similarProducts }: Props) {
           <p className="text-xs font-medium py-2">
             {product?.brand.toUpperCase()} COLLECTION{" "}
           </p>
-          <p className=" pt-4 pb-1 font-bold text-2xl md:text-3xl">
+          <p className=" pt-4 pb-1 font-bold text-xl md:text-3xl">
             {product?.name.toUpperCase()}
           </p>
           <p className="text-3xl font-medium">${product?.price}</p>
@@ -160,14 +160,15 @@ function Index({ product, similarProducts }: Props) {
           ) : (
             ""
           )}
-          <Button
+          <div className="text-center"> <Button
             variant="contained"
-            className="w-full p-3"
+            className="w-full md:w-5/6 p-3"
             onClick={() => addToCart(product)}
           >
             {" "}
             Add To Cart
-          </Button>
+          </Button></div>
+         
         </div>
       </div>
       {similarProducts.length > 0 && (

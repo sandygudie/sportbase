@@ -50,6 +50,15 @@ module.exports = {
         futura: ["Futura", "ui-sans-serif", "system-ui"],
       },
     },
-    plugins: [],
+    screens: {
+ 
+
+      'sm': '600px',
+      // => @media (min-width: 576px) { ... }
+
+      'md': '1000px',
+      // => @media (min-width: 960px) { ... }
+
+    }
   },
 };

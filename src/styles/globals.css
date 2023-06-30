@@ -94,3 +94,6 @@
     text-decoration: underline;
   }
 }
+.css-1h51icj-MuiAutocomplete-root .MuiOutlinedInput-root{
+  @apply py-[2px] md:py-1
+}
