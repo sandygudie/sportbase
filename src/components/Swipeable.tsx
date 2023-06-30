@@ -46,7 +46,7 @@ export default function Swipeable() {
                     {step.label?.toUpperCase()}
                   </p>
                   <Button
-                    className="text-sm md:text-base text-white  w-36 font-bold p-3"
+                    className="text-sm md:text-[16px] text-white  w-36 font-bold p-3"
                     variant="contained"
                   >
                     SHOP NOW{" "}

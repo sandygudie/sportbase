@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useContext, useEffect, useState } from "react";
-import { client, titleCase } from "@/utilis";
+import { client, getCartProducts, randomID } from "@/utilis";
 import { AppContextState, CartResponse, Product } from "@/types";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -18,26 +18,33 @@ function Index({}: Props) {
   const [products, setProducts] = useState<CartResponse[]>([]);
   const [isDelete, setDelete] = useState<Boolean>(false);
   const [selectedID, setSelectedID] = useState<string>("");
-  const { setCartQty} = useContext(AppContext) as AppContextState;
+  const { setCartQty } = useContext(AppContext) as AppContextState;
   useEffect(() => {
     getCartData();
-  }, [ setProducts]);
+  }, [setProducts]);
 
-
+  // get product from localstorage , if it's not there get from api
   const getCartData = async () => {
-    let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
-    if (cartItem.length <= 0) {
-      const cartResponse = await client.fetch(`*[_type == "cart"]{
-          ...,
-          "imageUrl": image.asset->url
-        }`);
-
-      cartResponse.sort(function (a: any, b: any) {
-        return a._updatedAt < b._updatedAt ? 1 : -1;
-      });
-      localStorage.setItem("cart", JSON.stringify(cartResponse));
+    try {
+      let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
+      if (cartItem.length <= 0) {
+        let cartID = localStorage.getItem("cartID");
+        if (cartID) {
+          await getCartProducts(cartID)
+            .then((response) => response.json())
+            .then((data) => {
+              let cartResponse = data.message;
+              cartResponse.sort(function (a: any, b: any) {
+                return a.updated_at < b.updated_at ? 1 : -1;
+              });
+              localStorage.setItem("cart", JSON.stringify(cartResponse));
+            });
+        }
+      }
+      setProducts(cartItem);
+    } catch (error) {
+      console.log(error);
     }
-    setProducts(cartItem);
   };
 
   const deleteItem = async (id: string) => {
@@ -48,13 +55,13 @@ function Index({}: Props) {
         const tempProducts = products.filter((ele) => ele._id !== id);
         localStorage.setItem("cart", JSON.stringify(tempProducts));
         setProducts(tempProducts);
-        setCartQty(tempProducts.length)
+        setCartQty(tempProducts.length);
       }
-   
+
       setDelete(false);
     });
   };
- 
+
   return (
     <div className="px-8 ">
       {products.length ? (
@@ -78,7 +85,7 @@ function Index({}: Props) {
                         <Link href={`product/${ele.productID}`}>
                           <img
                             className="w-36 h-36"
-                            src={ele?.image}
+                            src={ele?.imageUrl}
                             alt={ele.name}
                           />
                         </Link>
@@ -171,7 +178,7 @@ function Index({}: Props) {
                     $
                     {products?.reduce(
                       (accum: any, item: { totalPrice: any }) =>
-                        accum + item.totalPrice,
+                        accum + Number(item.totalPrice),
                       0
                     )}
                     .00

@@ -19,11 +19,10 @@ export interface CartRequest {
   name: string;
   category: string;
   color: string;
-  image: string;
+  imageUrl: string;
   size: string;
-  price: string;
+  price: number;
   productID: string;
-  _type: string;
   qty:number,
   totalPrice:number
 }

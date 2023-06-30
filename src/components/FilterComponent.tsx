@@ -28,14 +28,12 @@ function FilterComponent({ products, productSlug }: Props) {
   const [expanded, setExpanded] = useState<number | false>();
   const [filterElement, setFilterElement] = useState<any[]>([]);
 
-
   useEffect(() => {
-
-   if (productSlug === "apparels") {
+    if (productSlug === "apparels") {
       setFilterElement(filterElement_apparels);
     } else if (productSlug === "accessories") {
       setFilterElement(filterElement_accesories);
-    }else{
+    } else {
       setFilterElement(filterElement_footwear);
     }
   }, [filterElement]);
@@ -80,7 +78,7 @@ function FilterComponent({ products, productSlug }: Props) {
     };
 
   return (
-    <div className="sticky top-36 w-1/6 font-bold text-xl">
+    <div className="hidden md:block sticky top-36 w-1/6 font-bold text-xl">
       {" "}
       {filterElement.map((ele) => {
         return (
@@ -104,7 +102,7 @@ function FilterComponent({ products, productSlug }: Props) {
             </AccordionSummary>
             <AccordionDetails>
               <FormGroup>
-                {ele.selection.map((item:string, index:number) => (
+                {ele.selection.map((item: string, index: number) => (
                   <FormControlLabel
                     key={index}
                     control={<Checkbox />}

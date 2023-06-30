@@ -25,18 +25,17 @@ function Index({ productData, productSlug, setShowSubNav }: Props) {
       );
       setProductData(categoryData);
     }
-    if (products.length === 0) {
-      router.reload();
-    }
-    
-  }, [category, products.length, setShowSubNav]);
-console.log(products)
+    // if (products.length === 0) {
+    //   router.reload();
+    // }
+  }, [category, setShowSubNav]);
+
   return (
-    <>
+    <main>
       {products?.length ? (
         <>
           {" "}
-          <div className="p-8 w-full bg-dark sticky top-10 z-40 flex items-center gap-4">
+          <div className="p-8 bg-dark sticky top-16 z-40 flex items-center gap-4">
             <h1 className="text-white font-medium text-xl">
               {productSlug && `${titleCase(productSlug)} Collections`}
             </h1>
@@ -44,7 +43,7 @@ console.log(products)
               {products?.length}
             </p>
           </div>
-          <div className="my-12 mx-8 flex items-start relative ">
+          <div className="my-12 md:mx-8 flex items-start relative ">
             <FilterComponent products={products} productSlug={productSlug} />
             <Products products={products} />
           </div>
@@ -52,7 +51,7 @@ console.log(products)
       ) : (
         <Spinner />
       )}
-    </>
+    </main>
   );
 }
 

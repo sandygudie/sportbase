@@ -40,7 +40,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
     return (
       <div className="mx-8 bg-white py-6 flex justify-between items-start">
         <div className="w-10 md:w-full">
-          <p className="text-sm md:text-base font-medium">Footwears</p>
+          <p className="text-sm md:text-[16px] font-medium">Footwears</p>
           {footwearNav.map((ele: any) => {
             return (
               <Link
@@ -120,7 +120,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
 
   return (
     <header className="z-40 fixed w-full bg-white  text-lg 2xl:text-3xl">
-      <div className="bg-gray-100 px-8 py-3 flex items-center justify-between">
+      <div className="bg-gray-100 px-4 md:px-8 py-3 flex items-center justify-between">
         <div className="flex justify-center gap-2 items-center">
           {" "}
           <HeadsetMicOutlinedIcon
@@ -137,7 +137,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
         </div>
       </div>
 
-      <div onMouseOver={(e) => handleClickOut(e)} className=" px-8 bg-white">
+      <div onMouseOver={(e) => handleClickOut(e)} className=" px-4 md:px-8 bg-white">
         <div className="text-center max-w-[80em] m-auto flex justify-between items-center">
           <div className="flex gap-8 items-center basis-full">
             <div

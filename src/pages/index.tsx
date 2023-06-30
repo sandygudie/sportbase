@@ -25,7 +25,6 @@ export default function Home() {
     let filtered = productResponse.filter(
       (ele: Product) => ele.timeline === "latest"
     );
-    console.log(filtered);
     setlatestProducts(filtered);
   };
 
@@ -33,7 +32,8 @@ export default function Home() {
     <>
       <main>
         <div className="">
-          <Swipeable />
+          {/* <Swipeable /> */}
+          {/* https://swiperjs.com/ */}
           <div className="py-28">
             <div className="px-4 md:px-8 ">
               <h1 className=" text-2xl text-center font-thin mb-4 md:mb-20">
@@ -76,11 +76,11 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="my-10 md:my-28 px-4 md:px-12">
-              <h2 className="font-thin text-center mb-4 md:mb-20  text-2xl">
+            <div className="my-20 md:my-28 px-4 md:px-12">
+              <h2 className="font-thin text-center mb-8 md:mb-20  text-2xl">
                 Our Brands
               </h2>
-              <div className="flex items-center justify-center flex-wrap gap-10">
+              <div className="flex items-center justify-center flex-wrap gap-8 md:gap-10">
                 {brands.map((item) => {
                   return (
                     <Link
@@ -89,7 +89,7 @@ export default function Home() {
                       className="relative flex items-center justify-center border border-1 border-gray-200/20 border-solid py-2 px-4"
                     >
                       <img
-                        className="w-20 h-16"
+                        className="w-16 md:w-20 h-16"
                         src={item.image}
                         alt={item.name}
                       />
@@ -100,16 +100,19 @@ export default function Home() {
             </div>
 
             <div className="px-0 md:px-12 bg-gray-100/30">
-              <div className="py-20">
-                <h2 className="text-center font-thin mb-4 md:mb-20 text-2xl">
+              <div className="py-16 md:py-20">
+                <h2 className="text-center font-thin mb-12 md:mb-20 text-2xl">
                   New Arrivals
                 </h2>
                 <div className="overflow-hidden my-5">
                   <div className="w-[22em] md:w-full m-auto flex overflow-x-auto items-center md:justify-center gap-12">
                     {latestProduct.map((item: Product, i: number) => {
                       return (
-                        <div className=" bg-gray-100 p-8" key={item._id}>
+                        <div className=" bg-gray-100 p-8 " key={item._id}>
+                          <div className="w-72 2xl:w-[30em]">
                           {i < 5 && <Card item={item} />}
+                          </div>
+                          
                         </div>
                       );
                     })}
@@ -165,3 +168,6 @@ export default function Home() {
 // idea box
 // price comparism for restaurant
 // rent your outfit, wedding dress
+
+
+// rewrite functions that are repetitive

@@ -47,7 +47,8 @@
 @layer base {
   :root {
     --color-background: hsla(45, 100%, 98%, 1);
-    --color-text: hsla(0, 0%, 100%, 1);
+    /* --color-text: hsla(0, 0%, 100%, 1);   */
+      --color-text: hsla(0, 0%, 20%, 1);
     --color-input-background: white;
     --color-shadow: rgba(163, 133, 41, 0.1);
   }

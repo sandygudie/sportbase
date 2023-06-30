@@ -1,3 +1,4 @@
+import { CartRequest } from "@/types";
 import { createClient } from "next-sanity";
 
 export const client = createClient({
@@ -16,4 +17,25 @@ export const titleCase = (ele: string | undefined) => {
     ?.join(" ");
 };
 
+export const addProduct = async (payload: CartRequest, id: string|null) => {
+  let response = await fetch(`/api/cart/${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  return response;
+};
+export const getCartProducts = async (id: string) => {
+  let response = await fetch(`/api/cart/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response;
+};
+
+export const randomID = "649d31612760f3fe7baa5a21";
 

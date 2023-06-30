@@ -1,11 +1,12 @@
 import { AppContextState, CartRequest, CartResponse, Product } from "@/types";
-import { client, titleCase } from "@/utilis";
+import { addProduct, client } from "@/utilis";
 import Button from "@mui/material/Button";
 import React, { useContext, useEffect, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import Card from "@/components/Card";
 import { useRouter } from "next/router";
 import { AppContext } from "@/context";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 type Props = {
   product: Product;
@@ -13,54 +14,73 @@ type Props = {
 };
 
 function Index({ product, similarProducts }: Props) {
+  const { setCartQty } = useContext(AppContext) as AppContextState;
   const [selectedColor, setSelectedColor] = useState<string>(" ");
   const [selectedSize, setSelectedSize] = useState<string>(" ");
-
   const [error, setError] = useState<boolean>(false);
   const router = useRouter();
-  const { setCartQty } = useContext(AppContext) as AppContextState;
-  function addToCart(doc: Product) {
+
+  useEffect(() => {
+    setSelectedColor(" ");
+    setSelectedSize(" ");
+  }, [router.query.id]);
+
+  async function addToCart(doc: Product) {
     if ((selectedColor || selectedColor) === " ") {
       setError(true);
     } else {
       setError(false);
       const cartProduct: CartRequest = {
-        _type: "cart",
         name: doc.name,
         color: selectedColor,
         size: selectedSize,
         category: product._type,
-        image: product.imageUrl,
-        price: product.price,
+        imageUrl: product.imageUrl,
+        price: Number(product.price),
         productID: product._id,
         qty: 1,
         totalPrice: Number(product.price),
       };
-      let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
-      let isProductExisting = cartItem.find(
-        (ele: CartResponse) =>
-          ele.color === cartProduct.color && ele.size === cartProduct.size
-      );
 
-      if (isProductExisting === undefined) {
-        client.create(cartProduct).then((res) => {
+      let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
+      let cartID: string | null;
+      let cartIdStorage = localStorage.getItem("cartID");
+      if (cartIdStorage !== null) {
+        cartID = cartIdStorage;
+      } else {
+        cartID = "649d31612760f3fe7baa5a21";
+      }
+
+      if (cartItem) {
+        let isProductExisting = cartItem.find(
+          (ele: CartResponse) =>
+            ele.color === cartProduct.color && ele.size === cartProduct.size
+        );
+        if (isProductExisting) {
+          return router.push("/cart");
+        }
+      }
+      await addProduct(cartProduct, cartID)
+        .then((response) => response.json())
+        .then((data) => {
+          const { newProduct, cartId } = data.message;
           const updatedProduct = [...cartItem];
-          updatedProduct.push(res);
+          updatedProduct.push(newProduct);
           updatedProduct.sort(function (a: any, b: any) {
-            return a._updatedAt < b._updatedAt ? 1 : -1;
+            return a.updated_at < b.updated_at ? 1 : -1;
           });
           localStorage.setItem("cart", JSON.stringify(updatedProduct));
-          setCartQty(updatedProduct.length);
+          setCartQty(updatedProduct.length); // to update the navbar from context, think of another option
+          if (cartIdStorage === null) {
+            localStorage.setItem("cartID", cartId);
+          }
           return router.push("/cart");
         });
-      } else {
-        return router.push("/cart");
-      }
     }
   }
   return (
-    <div className="px-8 ">
-      <div className="flex gap-8 justify-between items-start">
+    <div className="py-8 md:py-16 px-4 md:px-8">
+      <div className="block md:flex gap-8 justify-between items-start">
         <div
           style={{
             backgroundImage: `url(${product?.imageUrl})`,
@@ -69,14 +89,16 @@ function Index({ product, similarProducts }: Props) {
             backgroundColor: "#f6f6f6",
             backgroundRepeat: "no-repeat",
           }}
-          className="grow w-[40em] h-[450px]"
+          className="grow basis-1/3 h-[450px]"
         ></div>
-        <div className="grow basis-1/2">
+        <div className="pt-8 md:pt-0 grow md:px-8 basis-1/3">
           <p className="text-xs font-medium py-2">
             {product?.brand.toUpperCase()} COLLECTION{" "}
           </p>
-          <p className=" pt-4 pb-1 text-3xl">{titleCase(product?.name)}</p>
-          <p className="text-3xl font-bold ">{product?.price}</p>
+          <p className=" pt-4 pb-1 font-bold text-2xl md:text-3xl">
+            {product?.name.toUpperCase()}
+          </p>
+          <p className="text-3xl font-medium">${product?.price}</p>
           <p className="text-sm py-4">
             {" "}
             Product code : {product?._id.toUpperCase().slice(-9)}
@@ -87,19 +109,20 @@ function Index({ product, similarProducts }: Props) {
             <p className="text-xl leading-10"> {product?.description}</p>
           </div>
           <div className="py-6">
-            <h3 className="text-base pb-2">
-              Available color: {selectedColor}{" "}
+            <h3 className="text-base font-medium pb-2">
+              Available color:
+              <span className="font-bold"> {selectedColor} </span>
             </h3>
             <div className="flex gap-3">
               {product?.color.map((ele: string, index: number) => (
                 <button
                   style={{ backgroundColor: ele }}
-                  className=" border cursor-pointer border-dark w-8 h-8 contrast-75"
+                  className=" border-none cursor-pointer border-dark w-8 h-8 contrast-75"
                   key={index}
                   onClick={() => setSelectedColor(ele)}
                 >
                   {selectedColor === ele ? (
-                    <CheckIcon className=" text-white" />
+                    <CheckIcon sx={{ fill: "white" }} />
                   ) : (
                     ""
                   )}
@@ -109,8 +132,11 @@ function Index({ product, similarProducts }: Props) {
           </div>
 
           <div className="mb-10">
-            <h3 className="text-base pb-2"> Available size: {selectedSize} </h3>
-            <div className="flex gap-3">
+            <h3 className="text-base font-medium pb-2">
+              {" "}
+              Available size:<span className="font-bold"> {selectedSize} </span>
+            </h3>
+            <div className="flex flex-wrap gap-3">
               {product?.size.map((ele: string, index: number) => (
                 <button
                   className={`${
@@ -127,8 +153,9 @@ function Index({ product, similarProducts }: Props) {
             </div>
           </div>
           {error ? (
-            <p className="py-2 text-md text-error">
-              Select color and size to proceed
+            <p className="py-2 flex gap-2 text-md text-error">
+              <ErrorOutlineIcon sx={{ fill: "red !important" }} /> Select color
+              and size to proceed
             </p>
           ) : (
             ""
@@ -148,10 +175,19 @@ function Index({ product, similarProducts }: Props) {
           <h2 className="text-center font-medium pb-8 text-xl ">
             You may also like
           </h2>
-          <div className="flex gap-4">
-            {similarProducts?.map((item: Product) => {
-              return <Card item={item} key={item._id} />;
-            })}
+
+          <div className="overflow-hidden my-5">
+            <div className="w-[22em] md:w-full m-auto flex overflow-x-auto items-center md:justify-center gap-12">
+              {similarProducts?.map((item: Product, i: number) => {
+                return (
+                  <div className=" bg-gray-100 p-8" key={item._id}>
+                    <div className="w-72 2xl:w-[30em]">
+                      {i < 5 && <Card item={item} />}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
