@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { brands, category, products } from "@/data";
+import { brands, products } from "@/data";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -32,8 +32,7 @@ export default function Home() {
     <>
       <main>
         <div className="">
-          {/* <Swipeable /> */}
-          {/* https://swiperjs.com/ */}
+          <Swipeable />
           <div className="py-28">
             <div className="px-4 md:px-8 ">
               <h1 className=" text-2xl text-center font-thin mb-4 md:mb-20">
@@ -110,9 +109,8 @@ export default function Home() {
                       return (
                         <div className=" bg-gray-100 p-8 " key={item._id}>
                           <div className="w-72 2xl:w-[30em]">
-                          {i < 5 && <Card item={item} />}
+                            {i < 5 && <Card item={item} />}
                           </div>
-                          
                         </div>
                       );
                     })}
@@ -168,6 +166,5 @@ export default function Home() {
 // idea box
 // price comparism for restaurant
 // rent your outfit, wedding dress
-
 
 // rewrite functions that are repetitive

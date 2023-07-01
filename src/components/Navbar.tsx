@@ -38,65 +38,66 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
 
   const Dropdown = () => {
     return (
-      <div className="mx-8 bg-white py-6 flex justify-between items-start">
-        <div className="w-10 md:w-full">
-          <p className="text-sm md:text-[16px] font-medium">Footwears</p>
-          {footwearNav.map((ele: any) => {
-            return (
-              <Link
-                href={`/collection/footwear?category=${ele.name.toLowerCase()}`}
-                key={ele.id}
-                className="my-4 text-sm flex justify-start items-start hover:text-primary"
-              >
-                {ele.name}
-              </Link>
-            );
-          })}
+      <div className="mx-8 bg-white py-6 block md:flex justify-between items-start">
+        <div className="flex justify-between items-start w-4/5">
+          <div className="w-10 sm:w-full">
+            <p className="text-sm md:text-[16px] font-medium">Footwears</p>
+            {footwearNav.map((ele: any) => {
+              return (
+                <Link
+                  href={`/collection/footwear?category=${ele.name.toLowerCase()}`}
+                  key={ele.id}
+                  className="my-4 text-sm flex justify-start items-start hover:text-primary"
+                >
+                  {ele.name}
+                </Link>
+              );
+            })}
+          </div>
+          <div className="w-10 sm:w-full">
+            <p className="text-sm md:text-base font-medium">Apparels</p>
+            {apparelNav.map((ele: any) => {
+              return (
+                <Link
+                  href={`/collection/apparels?category=${ele.name.toLowerCase()}`}
+                  key={ele.id}
+                  className="my-4 text-sm flex justify-start items-start hover:text-primary"
+                >
+                  {ele.name}
+                </Link>
+              );
+            })}
+          </div>
+          <div className="w-10 sm:w-full">
+            <p className="text-sm md:text-base font-medium">Accessories</p>
+            {accessoriesNav.map((ele: any) => {
+              return (
+                <Link
+                  href={`/collection/accessories?category=${ele.name.toLowerCase()}`}
+                  key={ele.id}
+                  className="my-4 text-sm flex justify-start items-start hover:text-primary"
+                >
+                  {ele.name}
+                </Link>
+              );
+            })}
+          </div>
+          <div className="w-10 sm:w-full">
+            <p className="text-sm md:text-base font-medium">Brand</p>
+            {brands.map((ele: any) => {
+              return (
+                <Link
+                  href={`/collection/${ele.name.toLowerCase()}`}
+                  key={ele.id}
+                  className="my-4 text-sm flex justify-start items-start hover:text-primary"
+                >
+                  {ele.name}
+                </Link>
+              );
+            })}
+          </div>
         </div>
-        <div className="w-10 md:w-full">
-          <p className="text-sm md:text-base font-medium">Apparels</p>
-          {apparelNav.map((ele: any) => {
-            return (
-              <Link
-                href={`/collection/apparels?category=${ele.name.toLowerCase()}`}
-                key={ele.id}
-                className="my-4 text-sm flex justify-start items-start hover:text-primary"
-              >
-                {ele.name}
-              </Link>
-            );
-          })}
-        </div>
-        <div className="w-10 md:w-full">
-          <p className="text-sm md:text-base font-medium">Accessories</p>
-          {accessoriesNav.map((ele: any) => {
-            return (
-              <Link
-                href={`/collection/accessories?category=${ele.name.toLowerCase()}`}
-                key={ele.id}
-                className="my-4 text-sm flex justify-start items-start hover:text-primary"
-              >
-                {ele.name}
-              </Link>
-            );
-          })}
-        </div>
-        <div className="w-10 md:w-full">
-          <p className="text-sm md:text-base font-medium">Brand</p>
-          {brands.map((ele: any) => {
-            return (
-              <Link
-                href={`/collection/${ele.name.toLowerCase()}`}
-                key={ele.id}
-                className="my-4 text-sm flex justify-start items-start hover:text-primary"
-              >
-                {ele.name}
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="hidden lg:flex gap-8">
+        <div className="block sm:flex gap-8">
           {collections.map((ele) => {
             return (
               <div key={ele.id} className="my-4">
@@ -104,7 +105,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
                   href={`/collection${ele.link.toLowerCase()}`}
                   className="hover:no-underline"
                 >
-                  <img className="w-60 h-60" src={ele.image} alt={ele.name} />
+                  <img className="w-48 h-48 md:w-48 md:h-60" src={ele.image} alt={ele.name} />
                   <p className="text-center hover:bg-primary/75 text-white m-auto py-1.5 mt-4 bg-primary px-4 rounded-sm">
                     {" "}
                     {ele.name}
@@ -114,6 +115,8 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
             );
           })}
         </div>
+
+        {/* <div>make a side bar for small screen</div> */ }
       </div>
     );
   };
@@ -131,14 +134,21 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
         </div>
         <div className="text-xs flex gap-2 justify-center items-center">
           {" "}
-          <Link  className="hover:text-primary" href={"/"}>Sign In</Link>
+          <Link className="hover:text-primary" href={"/"}>
+            Sign In
+          </Link>
           <span>|</span>
-          <Link  className="hover:text-primary" href={"/"}>Help</Link>
+          <Link className="hover:text-primary" href={"/"}>
+            Help
+          </Link>
         </div>
       </div>
 
-      <div onMouseOver={(e) => handleClickOut(e)} className=" px-4 md:px-8 bg-white">
-        <div className="text-center max-w-[80em] m-auto flex justify-between items-center">
+      <div
+        onMouseOver={(e) => handleClickOut(e)}
+        className=" px-4 md:px-8 bg-white"
+      >
+        <div className="text-center m-auto flex justify-between items-center">
           <div className="flex gap-8 items-center basis-full">
             <div
               ref={ref}

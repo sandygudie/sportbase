@@ -7,6 +7,12 @@ import Card from "@/components/Card";
 import { useRouter } from "next/router";
 import { AppContext } from "@/context";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Navigation, Pagination } from "swiper";
 
 type Props = {
   product: Product;
@@ -160,15 +166,17 @@ function Index({ product, similarProducts }: Props) {
           ) : (
             ""
           )}
-          <div className="text-center"> <Button
-            variant="contained"
-            className="w-full md:w-5/6 p-3"
-            onClick={() => addToCart(product)}
-          >
+          <div className="text-center">
             {" "}
-            Add To Cart
-          </Button></div>
-         
+            <Button
+              variant="contained"
+              className="w-full md:w-5/6 p-3"
+              onClick={() => addToCart(product)}
+            >
+              {" "}
+              Add To Cart
+            </Button>
+          </div>
         </div>
       </div>
       {similarProducts.length > 0 && (
@@ -178,16 +186,65 @@ function Index({ product, similarProducts }: Props) {
           </h2>
 
           <div className="overflow-hidden my-5">
-            <div className="w-[22em] md:w-full m-auto flex overflow-x-auto items-center md:justify-center gap-12">
-              {similarProducts?.map((item: Product, i: number) => {
-                return (
-                  <div className=" bg-gray-100 p-8" key={item._id}>
-                    <div className="w-72 2xl:w-[30em]">
-                      {i < 5 && <Card item={item} />}
-                    </div>
-                  </div>
-                );
-              })}
+            <div className=" m-auto flex overflow-x-auto items-center md:justify-center gap-12">
+              {/* <Swiper
+                spaceBetween={60}
+                centeredSlides={true}
+                pagination={{
+                  clickable: true,
+                }}
+                navigation={true}
+                modules={[Navigation]}
+                className="mySwiper"
+              >
+                {similarProducts?.map((item: Product, i: number) => {
+                  return (
+                    <SwiperSlide className=" bg-gray-100 p-8" key={item._id}>
+                      <div className="w-72 2xl:w-[30em]">
+                        <Card item={item} />
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper> */}
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={10}
+                pagination={{
+                  clickable: true,
+                }}
+                breakpoints={{
+                  200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                  },
+                  500: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  751: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                  },
+
+                  1000: {
+                    slidesPerView: 4,
+                    spaceBetween: 40,
+                  },
+                }}
+                modules={[Pagination]}
+                className="mySwiper p-4 m-auto w-full"
+              >
+                {similarProducts?.map((item: Product, i: number) => {
+                  return (
+                    <SwiperSlide className="md:w-72" key={item._id}>
+                      <div>
+                        <Card item={item} />
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
             </div>
           </div>
         </div>
