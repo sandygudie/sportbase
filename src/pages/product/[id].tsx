@@ -50,12 +50,12 @@ function Index({ product, similarProducts }: Props) {
       };
 
       let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
-      let cartID: string | null;
-      let cartIdStorage = localStorage.getItem("cartID");
-      if (cartIdStorage !== null) {
-        cartID = cartIdStorage;
+      let temp_CartID: string | null;
+      let cartID = localStorage.getItem("cartID");
+      if (cartID !== null) {
+        temp_CartID = cartID;
       } else {
-        cartID = "649d31612760f3fe7baa5a21";
+        temp_CartID = "649d31612760f3fe7baa5a21";
       }
 
       if (cartItem) {
@@ -67,7 +67,7 @@ function Index({ product, similarProducts }: Props) {
           return router.push("/cart");
         }
       }
-      await addProduct(cartProduct, cartID)
+      await addProduct(cartProduct, temp_CartID)
         .then((response) => response.json())
         .then((data) => {
           const { newProduct, cartId } = data.message;
@@ -78,7 +78,7 @@ function Index({ product, similarProducts }: Props) {
           });
           localStorage.setItem("cart", JSON.stringify(updatedProduct));
           setCartQty(updatedProduct.length); // to update the navbar from context, think of another option
-          if (cartIdStorage === null) {
+          if (cartID === null) {
             localStorage.setItem("cartID", cartId);
           }
           return router.push("/cart");
@@ -126,7 +126,9 @@ function Index({ product, similarProducts }: Props) {
                   style={{ backgroundColor: ele }}
                   className="hover:scale-110 border-none cursor-pointer border-dark w-8 h-8 contrast-75"
                   key={index}
-                  onClick={() =>{ setSelectedColor(ele), setError(false)}}
+                  onClick={() => {
+                    setSelectedColor(ele), setError(false);
+                  }}
                 >
                   {selectedColor === ele ? (
                     <CheckIcon sx={{ fill: "white" }} />
@@ -153,7 +155,9 @@ function Index({ product, similarProducts }: Props) {
                   } text-xs text-center cursor-pointer flex justify-center items-center border border-dark w-fit 
                   hover:bg-primary/10 p-3 h-8`}
                   key={index}
-                  onClick={() => {setSelectedSize(ele) , setError(false)}}
+                  onClick={() => {
+                    setSelectedSize(ele), setError(false);
+                  }}
                 >
                   {ele}
                 </button>
@@ -190,26 +194,6 @@ function Index({ product, similarProducts }: Props) {
 
           <div className="overflow-hidden my-5">
             <div className=" m-auto flex overflow-x-auto items-center md:justify-center gap-12">
-              {/* <Swiper
-                spaceBetween={60}
-                centeredSlides={true}
-                pagination={{
-                  clickable: true,
-                }}
-                navigation={true}
-                modules={[Navigation]}
-                className="mySwiper"
-              >
-                {similarProducts?.map((item: Product, i: number) => {
-                  return (
-                    <SwiperSlide className=" bg-gray-100 p-8" key={item._id}>
-                      <div className="w-72 2xl:w-[30em]">
-                        <Card item={item} />
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper> */}
               <Swiper
                 slidesPerView={1}
                 spaceBetween={10}
@@ -238,11 +222,11 @@ function Index({ product, similarProducts }: Props) {
                 modules={[Pagination]}
                 className="mySwiper p-4 m-auto w-full"
               >
-                {similarProducts?.map((item: Product, i: number) => {
+                {similarProducts?.map((product: Product, i: number) => {
                   return (
-                    <SwiperSlide className="md:w-72" key={item._id}>
+                    <SwiperSlide className="md:w-72" key={product._id}>
                       <div>
-                        <Card item={item} />
+                        <Card similarProducts={true} product={product} />
                       </div>
                     </SwiperSlide>
                   );

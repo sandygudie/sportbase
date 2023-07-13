@@ -118,11 +118,11 @@ export default function Home() {
                     </div>
                   ) : (
                     <div className="w-[22em] md:w-full m-auto flex overflow-x-auto items-center md:justify-center gap-12">
-                      {latestProduct.map((item: Product, i: number) => {
+                      {latestProduct.map((product: Product, i: number) => {
                         return (
-                          <div className=" bg-gray-100 p-8 " key={item._id}>
+                          <div className=" bg-gray-100 p-8 " key={product._id}>
                             <div className="w-72 2xl:w-[30em]">
-                              {i < 5 && <Card item={item} />}
+                              {i < 5 && <Card product={product} />}
                             </div>
                           </div>
                         );
