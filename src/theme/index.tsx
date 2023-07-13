@@ -68,34 +68,39 @@ const theme = createTheme({
     //     },
     //   },
     // },
-    // MuiButton: {
-    //   defaultProps: {
-    //     disableElevation: true,
-    //     size: "large",
-    //     variant: "contained",
-    //   },
-    //   styleOverrides: {
-    //     root: {
-    //       textTransform: "none",
-    //     },
-    //     containedPrimary: {
-    //       ...tw`bg-primary`,
-    //       color: tailwindTheme`colors.white` + "!important",
-    //       "&.Mui-disabled:disabled": {
-    //         backgroundColor: tailwindTheme`colors.gray.200`,
-    //         color: tailwindTheme`colors.white`,
-    //       },
-    //     },
-    //     outlinedPrimary: {
-    //       borderColor: tailwindTheme`colors.gray.200`,
-    //       color: tailwindTheme`colors.gray.200`,
-    //     },
-    //     sizeLarge: {
-    //       height: "3.5rem",
-    //       ...tw`px-8 text-base`,
-    //     },
-    //   },
-    // },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+        size: "large",
+        variant: "contained",
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+        containedPrimary: {
+          ...tw`h-[3.5em]`,
+          color: tailwindTheme`colors.white` + "!important",
+          backgroundSize: "200% 200%",
+          backgroundImage:
+            "linear-gradient(to right, black 50%, hsla(18, 90%, 57%, 1) 50%)",
+          transition: "background-position 1s",
+          backgroundPosition: "right",
+          "&:hover": {
+            backgroundPosition: "left",
+            color: tailwindTheme`colors.primary` + "!important",
+          },
+          outlinedPrimary: {
+            borderColor: tailwindTheme`colors.gray.200`,
+            color: tailwindTheme`colors.gray.200`,
+          },
+          sizeLarge: {
+            height: "3.5rem",
+            ...tw`px-8 text-base`,
+          },
+        },
+      },
+    },
     // MuiIconButton: {
     //   styleOverrides: {
     //     root: {

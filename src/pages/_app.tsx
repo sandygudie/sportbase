@@ -1,16 +1,17 @@
 import "@/styles/globals.css";
+import { useState } from "react";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "@mui/material";
 import theme from "@/theme";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useState } from "react";
 import { AppProvider } from "@/context";
 import { useRouter } from "next/router";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const [showSubNav, setShowSubNav] = useState(false);
   const router = useRouter();
+  const [showSubNav, setShowSubNav] = useState(false);
+
   return (
     <>
       <AppProvider>

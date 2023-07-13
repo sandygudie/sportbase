@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { brands, products } from "@/data";
-const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
-import dynamic from "next/dynamic";
+// const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
+// import dynamic from "next/dynamic";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
@@ -9,23 +9,31 @@ import { Product } from "@/types";
 import Swipeable from "@/components/Swipeable";
 import { client } from "@/utilis";
 import Card from "@/components/Card";
+import Spinner from "@/components/Spinner";
 
 export default function Home() {
   const [latestProduct, setlatestProducts] = useState<Product[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getLatestProduct();
   }, []);
 
   const getLatestProduct = async () => {
-    const productResponse = await client.fetch(`*[]{
-      ...,
-    "imageUrl": image.asset->url
-  }`);
-    let filtered = productResponse.filter(
-      (ele: Product) => ele.timeline === "latest"
-    );
-    setlatestProducts(filtered);
+    setLoading(true);
+    try {
+      const productResponse = await client.fetch(`*[]{
+        ...,
+      "imageUrl": image.asset->url
+    }`);
+      let filtered = productResponse.filter(
+        (ele: Product) => ele.timeline === "latest"
+      );
+      setLoading(false);
+      setlatestProducts(filtered);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -35,7 +43,7 @@ export default function Home() {
           <Swipeable />
           <div className="py-28">
             <div className="px-4 md:px-8 ">
-              <h1 className=" text-2xl text-center font-thin mb-4 md:mb-20">
+              <h1 className="text-2xl text-center font-thin mb-4 md:mb-20">
                 {" "}
                 Collections
               </h1>
@@ -53,17 +61,17 @@ export default function Home() {
                             backgroundImage: `url(${item.image})`,
                             backgroundPosition: "center",
                             backgroundSize: "cover",
-                            backgroundRepeat: " no-repeat",
+                            backgroundRepeat: "no-repeat",
                           }}
                           className="w-full 2xl:h-[650px] h-[550px] transition-transform ease-in delay-150 hover:scale-110 duration-1000"
                         ></div>
                       </div>
                       <div className="p-6 absolute bottom-5">
-                        <p className="font-medium text-white text-2xl pb-8">
+                        <p className="font-medium text-white text-3xl pb-8">
                           {item.name}
                         </p>
                         <Button
-                          className=" w-48 text-sm bg-white text-dark font-thin tracking-widest px-2 h-[3.5em] rounded-sm"
+                          className="w-48 text-sm bg-white font-medium tracking-wider px-2 rounded-sm"
                           variant="contained"
                         >
                           {`SHOP ${item.name.toUpperCase()}`}{" "}
@@ -104,17 +112,21 @@ export default function Home() {
                   New Arrivals
                 </h2>
                 <div className="overflow-hidden my-5">
-                  <div className="w-[22em] md:w-full m-auto flex overflow-x-auto items-center md:justify-center gap-12">
-                    {latestProduct.map((item: Product, i: number) => {
-                      return (
-                        <div className=" bg-gray-100 p-8 " key={item._id}>
-                          <div className="w-72 2xl:w-[30em]">
-                            {i < 5 && <Card item={item} />}
+                  {isLoading ? (
+                    <Spinner />
+                  ) : (
+                    <div className="w-[22em] md:w-full m-auto flex overflow-x-auto items-center md:justify-center gap-12">
+                      {latestProduct.map((item: Product, i: number) => {
+                        return (
+                          <div className=" bg-gray-100 p-8 " key={item._id}>
+                            <div className="w-72 2xl:w-[30em]">
+                              {i < 5 && <Card item={item} />}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
                 <div className="text-center mt-12 md:mt-24">
                   <Button variant="contained" className="p-3 font-bold w-64">
@@ -168,3 +180,14 @@ export default function Home() {
 // rent your outfit, wedding dress
 
 // rewrite functions that are repetitive
+
+// install husky
+
+// separation of concern , put things where they belong example APIs
+
+// uninstall not needed packages
+
+// error handling
+// install toast
+
+// 404 page

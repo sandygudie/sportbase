@@ -38,7 +38,7 @@ export default function Swipeable() {
               className="h-[500px] w-full"
             ></div>
             <div className="p-6 absolute bottom-10 ">
-              <p className=" w-64 text-2xl font-bold md:w-96 text-white lg:text-3xl pb-6">
+              <p className=" w-64 text-4xl font-bold  text-white  pb-6">
                 {step.label?.toUpperCase()}
               </p>
               <Button

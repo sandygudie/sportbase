@@ -20,25 +20,25 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { Product } from "@/types";
 
 type Props = {
-  products: Product[];
-  productSlug: string;
+  collection: Product[];
+  collectionSlug: string;
 };
 
-function FilterComponent({ products, productSlug }: Props) {
+function FilterComponent({ collection, collectionSlug }: Props) {
   const [expanded, setExpanded] = useState<number | false>();
   const [filterElement, setFilterElement] = useState<any[]>([]);
 
   useEffect(() => {
-    if (productSlug === "apparels") {
+    if (collectionSlug === "apparels") {
       setFilterElement(filterElement_apparels);
-    } else if (productSlug === "accessories") {
+    } else if (collectionSlug === "accessories") {
       setFilterElement(filterElement_accesories);
     } else {
       setFilterElement(filterElement_footwear);
     }
   }, [filterElement]);
   let countValue = (key: string, value: any) =>
-    products.filter(
+    collection.filter(
       (x: Product | any) => x[key] == value || x[key]?.includes(value)
     ).length;
 

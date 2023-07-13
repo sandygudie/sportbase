@@ -23,8 +23,8 @@ export interface CartRequest {
   size: string;
   price: number;
   productID: string;
-  qty:number,
-  totalPrice:number
+  qty: number;
+  totalPrice: number;
 }
 export interface CartResponse {
   name: string;
@@ -40,15 +40,11 @@ export interface CartResponse {
   productID: string;
   _rev: string;
   _type: string;
-  qty:number,
-  totalPrice:number
-
-  
+  qty: number;
+  totalPrice: number;
 }
 
 export interface AppContextState {
-products: Product[];
-cartQty: number,
-setCartQty: Dispatch<SetStateAction<number>>
-
+  cartQty: number;
+  setCartQty: Dispatch<SetStateAction<number>>;
 }

@@ -1,7 +1,8 @@
-import { AppContextState, CartRequest, CartResponse, Product } from "@/types";
-import { addProduct, client } from "@/utilis";
-import Button from "@mui/material/Button";
 import React, { useContext, useEffect, useState } from "react";
+import { AppContextState, CartRequest, CartResponse, Product } from "@/types";
+import { client } from "@/utilis";
+import { addProduct } from "@/utilis/cart";
+import Button from "@mui/material/Button";
 import CheckIcon from "@mui/icons-material/Check";
 import Card from "@/components/Card";
 import { useRouter } from "next/router";
@@ -12,19 +13,19 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { Navigation, Pagination } from "swiper";
+import { Pagination } from "swiper";
 
-type Props = {
+interface Props {
   product: Product;
   similarProducts: Product[];
-};
+}
 
 function Index({ product, similarProducts }: Props) {
+  const router = useRouter();
   const { setCartQty } = useContext(AppContext) as AppContextState;
   const [selectedColor, setSelectedColor] = useState<string>(" ");
   const [selectedSize, setSelectedSize] = useState<string>(" ");
   const [error, setError] = useState<boolean>(false);
-  const router = useRouter();
 
   useEffect(() => {
     setSelectedColor(" ");
@@ -123,9 +124,9 @@ function Index({ product, similarProducts }: Props) {
               {product?.color.map((ele: string, index: number) => (
                 <button
                   style={{ backgroundColor: ele }}
-                  className=" border-none cursor-pointer border-dark w-8 h-8 contrast-75"
+                  className="hover:scale-110 border-none cursor-pointer border-dark w-8 h-8 contrast-75"
                   key={index}
-                  onClick={() => setSelectedColor(ele)}
+                  onClick={() =>{ setSelectedColor(ele), setError(false)}}
                 >
                   {selectedColor === ele ? (
                     <CheckIcon sx={{ fill: "white" }} />
@@ -147,30 +148,32 @@ function Index({ product, similarProducts }: Props) {
                 <button
                   className={`${
                     selectedSize === ele
-                      ? "bg-dark text-white"
+                      ? "bg-dark text-white hover:bg-dark hover:text-primary"
                       : "bg-white text-dark"
-                  } text-xs text-center cursor-pointer flex justify-center items-center border border-dark w-fit p-3 h-8`}
+                  } text-xs text-center cursor-pointer flex justify-center items-center border border-dark w-fit 
+                  hover:bg-primary/10 p-3 h-8`}
                   key={index}
-                  onClick={() => setSelectedSize(ele)}
+                  onClick={() => {setSelectedSize(ele) , setError(false)}}
                 >
                   {ele}
                 </button>
               ))}
             </div>
           </div>
-          {error ? (
-            <p className="py-2 flex gap-2 text-md text-error">
-              <ErrorOutlineIcon sx={{ fill: "red !important" }} /> Select color
-              and size to proceed
-            </p>
-          ) : (
-            ""
-          )}
-          <div className="text-center">
-            {" "}
+
+          <div className="relative text-center mt-14">
+            {error && (
+              <p className="absolute -top-8 left-0 items-center flex gap-2 text-sm text-error">
+                <ErrorOutlineIcon
+                  className="text-sm"
+                  sx={{ fill: "red !important" }}
+                />{" "}
+                Select color and size to proceed
+              </p>
+            )}{" "}
             <Button
               variant="contained"
-              className="w-full md:w-5/6 p-3"
+              className="w-full p-3"
               onClick={() => addToCart(product)}
             >
               {" "}

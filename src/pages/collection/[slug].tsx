@@ -7,45 +7,48 @@ import { useRouter } from "next/router";
 import Spinner from "@/components/Spinner";
 
 type Props = {
-  productData: Product[];
-  productSlug: string;
+  collectionData: Product[];
+  collectionSlug: string;
   setShowSubNav: Dispatch<SetStateAction<boolean>>;
 };
 
-function Index({ productData, productSlug, setShowSubNav }: Props) {
-  const [products, setProductData] = useState(productData);
+function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
   const router = useRouter();
-  var category = router.query["category"];
+  const [collection, setCollection] = useState(collectionData);
+  let category = router.query["category"];
 
   useEffect(() => {
     setShowSubNav(false);
+    filterCollection();
+  }, []);
+
+  const filterCollection = () => {
     if (category?.length) {
-      let categoryData = productData.filter((ele: Product) =>
+      let categoryData = collectionData.filter((ele: Product) =>
         ele.category === category ? ele : ele.type === category
       );
-      setProductData(categoryData);
+      setCollection(categoryData);
     }
-    // if (products.length === 0) {
-    //   router.reload();
-    // }
-  }, [category, setShowSubNav]);
-
+  };
   return (
     <main>
-      {products?.length ? (
+      {collection?.length ? (
         <>
           {" "}
           <div className="p-8 bg-dark sticky top-16 z-40 flex items-center gap-4">
             <h1 className="text-white font-medium text-xl">
-              {productSlug && `${titleCase(productSlug)} Collections`}
+              {collectionSlug && `${titleCase(collectionSlug)} Collections`}
             </h1>
             <p className="flex items-center justify-center rounded-full w-5 font-bold h-5 p-2 bg-gray-100">
-              {products?.length}
+              {collection?.length}
             </p>
           </div>
           <div className="my-12 md:mx-8 flex items-start relative ">
-            <FilterComponent products={products} productSlug={productSlug} />
-            <Products products={products} />
+            <FilterComponent
+              collection={collection}
+              collectionSlug={collectionSlug}
+            />
+            <Products collection={collection} />
           </div>
         </>
       ) : (
@@ -58,28 +61,28 @@ function Index({ productData, productSlug, setShowSubNav }: Props) {
 export default Index;
 
 export async function getStaticProps(context: { params: { slug: any } }) {
-  const productSlug = context.params?.slug;
+  const collectionSlug = context.params?.slug;
   const productResponse = await client.fetch(`*[]{
     ...,
   "imageUrl": image.asset->url
 }`);
-  const productData = productResponse.filter((ele: Product) =>
-    ele._type === productSlug
+  const collectionData = productResponse.filter((ele: Product) =>
+    ele._type === collectionSlug
       ? ele
-      : ele.brand === productSlug
-      ? ele.brand === productSlug
-      : ele?.gender?.includes(productSlug)
-      ? ele?.gender?.includes(productSlug)
-      : ele.timeline === productSlug
+      : ele.brand === collectionSlug
+      ? ele.brand === collectionSlug
+      : ele?.gender?.includes(collectionSlug)
+      ? ele?.gender?.includes(collectionSlug)
+      : ele.timeline === collectionSlug
   );
-  productData.sort(function (a: any, b: any) {
+  collectionData.sort(function (a: any, b: any) {
     if (a._type === b._type) return 0;
     return a._type < b._type ? 1 : -1;
   });
   return {
     props: {
-      productData,
-      productSlug,
+      collectionData,
+      collectionSlug,
     },
     revalidate: 60,
   };
