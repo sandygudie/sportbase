@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import FilterComponent from "@/components/FilterComponent";
-import Products from "@/components/Products";
+import Products from "@/components/Collection";
 import { Product } from "@/types";
 import { client, titleCase } from "@/utilis";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
@@ -35,15 +35,15 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
       {collection?.length ? (
         <>
           {" "}
-          <div className="p-8 bg-dark sticky top-16 z-40 flex items-center gap-4">
-            <h1 className="text-white font-medium text-xl">
+          <div className="p-4 md:p-8 bg-dark sticky top-16 z-40 flex items-center gap-4">
+            <h1 className="text-white font-medium text-base md:text-xl">
               {collectionSlug && `${titleCase(collectionSlug)} Collections`}
             </h1>
-            <p className="flex items-center justify-center rounded-full w-5 font-bold h-5 p-2 bg-gray-100">
+            <p className="flex items-center justify-center rounded-full w-5 font-bold h-5 md:p-2 bg-gray-100">
               {collection?.length}
             </p>
           </div>
-          <div className="my-12 md:mx-8 flex items-start relative ">
+          <div className="my-12 md:mx-8 flex items-start relative">
             <FilterComponent
               collection={collection}
               collectionSlug={collectionSlug}

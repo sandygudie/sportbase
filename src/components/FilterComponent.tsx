@@ -15,6 +15,7 @@ import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Product } from "@/types";
+import TuneIcon from "@mui/icons-material/Tune";
 
 type Props = {
   collection: Product[];
@@ -47,6 +48,10 @@ function FilterComponent({ collection, collectionSlug }: Props) {
   return (
     <div className="hidden md:block sticky top-36 w-1/6 font-bold text-xl">
       {" "}
+      <p className="mb-6 flex items-center justify-between">
+        <span className="text-base font-normal">Filter </span>
+        <TuneIcon />
+      </p>
       {filterElement.map((ele) => {
         return (
           <MuiAccordion

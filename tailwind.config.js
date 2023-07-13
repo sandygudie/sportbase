@@ -51,12 +51,10 @@ module.exports = {
       },
     },
     screens: {
- 
-
       'sm': '600px',
       // => @media (min-width: 576px) { ... }
 
-      'md': '1000px',
+      'md': '1200px',
       // => @media (min-width: 960px) { ... }
 
     }
