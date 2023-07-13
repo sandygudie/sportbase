@@ -285,4 +285,3 @@ export const getStaticPaths = async () => {
   };
 };
 
-// sort out already in cart

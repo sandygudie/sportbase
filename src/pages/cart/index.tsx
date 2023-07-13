@@ -85,7 +85,7 @@ function Index({}: Props) {
           <div className="block md:flex gap-4 mt-6 items-start">
             <div className="w-full md:w-9/12 md:shadow-lg shadow-dark/10 md:p-8 ">
               <div className="flex mb-5 text-lg justify-between items-center ">
-                <p className="w-[60%]">Product</p>
+                <p className="w-[50%]">Product</p>
                 <p className="sm:w-1/3 hidden sm:block">Quantity</p>
                 <p className="hidden sm:block">Total</p>
               </div>
@@ -123,7 +123,8 @@ function Index({}: Props) {
                           </div>
                         </div>
                       </div>
-                      <div className="sm:w-1/3 my-6 md:my-0 flex sm:block gap-3">
+                      <div className="sm:w-[45%] mt-4 :my-6 md:my-0 block sm:flex items-center justify-between gap-3">
+                      <div className="mt-3 w-3/6">
                         <Autocomplete
                           value={ele.qty}
                           onChange={(event, newValue) => {
@@ -161,14 +162,14 @@ function Index({}: Props) {
                           renderOption={(props, option) => (
                             <li {...props}>{option}</li>
                           )}
-                          className="w-5/6 lg:w-full"
+                          className="md:w-6/6 lg:w-full"
                           freeSolo
                           renderInput={(params) => (
                             <TextField {...params} label="qty" />
                           )}
                         />
                         {/* )} */}
-                        <div className="mt-3">
+                        
                           <div
                             className="text-sm md:text-base cursor-pointer text-center hover:underline"
                             onClick={() => deleteItem(ele._id)}
@@ -184,12 +185,13 @@ function Index({}: Props) {
                             )}
                           </div>
                         </div>
-                      </div>
-                      <p className="font-medium md:mt-0">
+                        <p className="font-medium my-4 md:my-0">
                         {" "}
                         <span className="mr-5 sm:hidden ">Total price:</span>$
                         {Number(ele.totalPrice)}
                       </p>
+                      </div>
+                      
                     </div>
                   );
                 })}
@@ -234,4 +236,4 @@ function Index({}: Props) {
 }
 
 export default Index;
-// don't accept if there exist same item wthe color and size
+
