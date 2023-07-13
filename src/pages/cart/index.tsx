@@ -225,7 +225,9 @@ function Index({}: Props) {
           </Button>
         </div>
       ) : (
-        <Spinner />
+        <div className="flex flex-col items-center justify-center">
+          <Spinner />
+        </div>
       )}
     </div>
   );

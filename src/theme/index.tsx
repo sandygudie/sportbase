@@ -68,6 +68,43 @@ const theme = createTheme({
     //     },
     //   },
     // },
+    MuiAccordion: {
+      defaultProps: {
+        disableGutters: true,
+        elevation: 0,
+        square: true,
+      },
+      styleOverrides: {
+        root: {
+          borderBottom: `1px solid hsl(0deg 0% 50.2% / 48%)`,
+          "&:not(:last-child)": {},
+          "&:before": {
+            display: "none",
+          },
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#f6f6f6",
+          padding: "10px 16px",
+          margin: "0px",
+          "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+            transform: "rotate(90deg)",
+          },
+          "& .MuiAccordionSummary-content": {},
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          padding: "10px",
+          borderTop: "1px solid rgba(0, 0, 0, .125)",
+        },
+      },
+    },
     MuiButton: {
       defaultProps: {
         disableElevation: true,
@@ -111,13 +148,18 @@ const theme = createTheme({
     //     },
     //   },
     // },
-    // MuiCheckbox: {
-    //   styleOverrides: {
-    //     root: {
-    //       ...tw`p-1`,
-    //     },
-    //   },
-    // },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          ...tw`text-gray-200/40`,
+          "&.Mui-checked": {
+            ...tw`text-primary`,
+          },
+          // color: tailwindTheme`colors.primary` + "!important",
+
+        },
+      },
+    },
     // MuiInputBase: {
     //   styleOverrides: {
     //     root: {

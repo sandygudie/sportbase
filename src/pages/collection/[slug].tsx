@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import FilterComponent from "@/components/FilterComponent";
 import Products from "@/components/Products";
 import { Product } from "@/types";
@@ -16,7 +17,6 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
   const router = useRouter();
   const [collection, setCollection] = useState(collectionData);
   let category = router.query["category"];
-
   useEffect(() => {
     setShowSubNav(false);
     filterCollection();
@@ -24,10 +24,10 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
 
   const filterCollection = () => {
     if (category?.length) {
-      let categoryData = collectionData.filter((ele: Product) =>
+      let categoryItems = collectionData.filter((ele: Product) =>
         ele.category === category ? ele : ele.type === category
       );
-      setCollection(categoryData);
+      setCollection(categoryItems);
     }
   };
   return (
@@ -52,7 +52,9 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
           </div>
         </>
       ) : (
-        <Spinner />
+        <div className="flex items-center justify-center flex-col h-80">
+          <Spinner />
+        </div>
       )}
     </main>
   );
@@ -62,11 +64,11 @@ export default Index;
 
 export async function getStaticProps(context: { params: { slug: any } }) {
   const collectionSlug = context.params?.slug;
-  const productResponse = await client.fetch(`*[]{
+  const res = await client.fetch(`*[]{
     ...,
   "imageUrl": image.asset->url
 }`);
-  const collectionData = productResponse.filter((ele: Product) =>
+  const collectionData = res.filter((ele: Product) =>
     ele._type === collectionSlug
       ? ele
       : ele.brand === collectionSlug
@@ -89,11 +91,11 @@ export async function getStaticProps(context: { params: { slug: any } }) {
 }
 
 export const getStaticPaths = async () => {
-  const posts = await client.fetch(`*[_type == "footwear"]{
+  const collections = await client.fetch(`*[_type == "footwear"]{
         name,
       _id
       }`);
-  const pathsWithParams = posts.map((item: any) => ({
+  const pathsWithParams = collections.map((item: any) => ({
     params: { slug: item.name },
   }));
 

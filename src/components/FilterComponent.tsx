@@ -1,13 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
-import MuiAccordionSummary, {
-  AccordionSummaryProps,
-} from "@mui/material/AccordionSummary";
+import MuiAccordion from "@mui/material/Accordion";
+import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import {
-  category,
   filterElement_accesories,
   filterElement_apparels,
   filterElement_footwear,
@@ -36,41 +33,11 @@ function FilterComponent({ collection, collectionSlug }: Props) {
     } else {
       setFilterElement(filterElement_footwear);
     }
-  }, [filterElement]);
-  let countValue = (key: string, value: any) =>
+  }, []);
+  let itemQuantity = (key: string, value: any) =>
     collection.filter(
       (x: Product | any) => x[key] == value || x[key]?.includes(value)
     ).length;
-
-  const Accordion = styled((props: AccordionProps) => (
-    <MuiAccordion disableGutters elevation={0} square {...props} />
-  ))(({ theme }) => ({
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    "&:not(:last-child)": {},
-    "&:before": {
-      display: "none",
-    },
-  }));
-
-  const AccordionSummary = styled((props: AccordionSummaryProps) => (
-    <MuiAccordionSummary {...props} />
-  ))(({ theme }) => ({
-    backgroundColor:
-      theme.palette.mode === "dark"
-        ? "rgba(255, 255, 255, .05)"
-        : "rgba(0, 0, 0, .03)",
-    padding: "10px 16px",
-    margin: "0px",
-    "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-      transform: "rotate(90deg)",
-    },
-    "& .MuiAccordionSummary-content": {},
-  }));
-
-  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-    padding: theme.spacing(2),
-    borderTop: "1px solid rgba(0, 0, 0, .125)",
-  }));
 
   const handleChange =
     (panel: number) => (event: React.SyntheticEvent, newExpanded: boolean) => {
@@ -82,12 +49,12 @@ function FilterComponent({ collection, collectionSlug }: Props) {
       {" "}
       {filterElement.map((ele) => {
         return (
-          <Accordion
+          <MuiAccordion
             key={ele.id}
             expanded={expanded === ele.id}
             onChange={handleChange(ele.id)}
           >
-            <AccordionSummary
+            <MuiAccordionSummary
               aria-controls="panel1d-content"
               id="panel1d-header"
             >
@@ -99,8 +66,8 @@ function FilterComponent({ collection, collectionSlug }: Props) {
                   <AddIcon sx={{ fontSize: "0.9rem" }} />
                 )}
               </div>
-            </AccordionSummary>
-            <AccordionDetails>
+            </MuiAccordionSummary>
+            <MuiAccordionDetails>
               <FormGroup>
                 {ele.selection.map((item: string, index: number) => (
                   <FormControlLabel
@@ -110,15 +77,15 @@ function FilterComponent({ collection, collectionSlug }: Props) {
                       <div className="flex items-center gap-6">
                         <p>{item}</p>
                         <p className="p-3 text-xs bg-gray-100 flex items-center justify-center rounded-full w-3 text-sm h-3 p-2 ">
-                          {countValue(ele.name, item)}
+                          {itemQuantity(ele.name, item)}
                         </p>
                       </div>
                     }
                   />
                 ))}
               </FormGroup>
-            </AccordionDetails>
-          </Accordion>
+            </MuiAccordionDetails>
+          </MuiAccordion>
         );
       })}
     </div>

@@ -113,7 +113,9 @@ export default function Home() {
                 </h2>
                 <div className="overflow-hidden my-5">
                   {isLoading ? (
-                    <Spinner />
+                    <div className="flex flex-col items-center justify-center">
+                      <Spinner />
+                    </div>
                   ) : (
                     <div className="w-[22em] md:w-full m-auto flex overflow-x-auto items-center md:justify-center gap-12">
                       {latestProduct.map((item: Product, i: number) => {
