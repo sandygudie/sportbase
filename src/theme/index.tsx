@@ -76,8 +76,9 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderBottom: `1px solid hsl(0deg 0% 50.2% / 48%)`,
-          "&:not(:last-child)": {},
+          "&:not(:last-child)": {
+            borderBottom: `1px solid hsl(0deg 0% 50.2% / 48%)`,
+          },
           "&:before": {
             display: "none",
           },
@@ -87,8 +88,9 @@ const theme = createTheme({
     MuiAccordionSummary: {
       styleOverrides: {
         root: {
-          backgroundColor: "#f6f6f6",
-          padding: "10px 16px",
+          // backgroundColor: "#f6f6f6",
+          // padding: "10px 16px",
+          ...tw`px-3 py-3`,
           margin: "0px",
           "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
             transform: "rotate(90deg)",
@@ -156,7 +158,6 @@ const theme = createTheme({
             ...tw`text-primary`,
           },
           // color: tailwindTheme`colors.primary` + "!important",
-
         },
       },
     },

@@ -17,7 +17,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <AppProvider>
         <ThemeProvider theme={theme}>
           <Navbar showSubNav={showSubNav} setShowSubNav={setShowSubNav} />
-          <div className="z-10 pt-24 pb-36 relative">
+          <div className="z-10 pt-20 md:pt-24 pb-36 relative">
             <Component
               setShowSubNav={setShowSubNav}
               key={router.asPath}

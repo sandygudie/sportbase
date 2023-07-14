@@ -41,12 +41,11 @@ function FilterComponent({ collection, collectionSlug }: Props) {
     ).length;
 
   const handleChange =
-    (panel: number) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+    (panel: number) => (event: React.SyntheticEvent, newExpanded: boolean) =>
       setExpanded(newExpanded ? panel : false);
-    };
 
   return (
-    <div className="hidden md:block sticky top-36 w-1/6 font-bold text-xl">
+    <div className="hidden md:block sticky -top-8 w-1/6 font-bold text-xl">
       {" "}
       <p className="mb-6 flex items-center justify-between">
         <span className="text-base font-normal">Filter </span>
@@ -62,6 +61,7 @@ function FilterComponent({ collection, collectionSlug }: Props) {
             <MuiAccordionSummary
               aria-controls="panel1d-content"
               id="panel1d-header"
+              className="bg-gray-100"
             >
               <div className="w-full flex items-center justify-between">
                 <Typography>{ele.name}</Typography>
