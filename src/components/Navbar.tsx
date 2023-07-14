@@ -45,11 +45,11 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
                   {list.category.map((ele: any) => {
                     return (
                       <Link
-                      href={
-                       list.name === "Brand"
-                           ? `/collection/${ele.name.toLowerCase()}`
-                           : `/collection/${list.name.toLowerCase()}?category=${ele.name.toLowerCase()}`
-                       }
+                        href={
+                          list.name === "Brand"
+                            ? `/collection/${ele.name.toLowerCase()}`
+                            : `/collection/${list.name.toLowerCase()}?category=${ele.name.toLowerCase()}`
+                        }
                         key={ele.id}
                         className="my-4 text-sm flex justify-start items-start hover:text-primary"
                       >
@@ -75,7 +75,10 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
                     src={ele.image}
                     alt={ele.name}
                   />
-                  <Button  className="w-48 text-sm bg-white font-medium tracking-wider px-2 rounded-sm" variant="contained">
+                  <Button
+                    className="w-48 text-sm bg-white font-medium tracking-wider px-2 rounded-sm"
+                    variant="contained"
+                  >
                     {" "}
                     {ele.name}
                   </Button>
@@ -89,8 +92,8 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
   };
 
   return (
-    <header className="z-40 fixed w-full bg-white  text-lg 2xl:text-3xl">
-      <div className="bg-gray-100 px-4 md:px-8 py-3 flex items-center justify-between">
+    <header className="z-40 fixed w-full bg-white text-lg 2xl:text-3xl">
+      <div className="bg-gray-100 px-2 md:px-8 py-3 flex items-center justify-between">
         <div className="flex justify-center gap-2 items-center">
           {" "}
           <HeadsetMicOutlinedIcon
@@ -99,7 +102,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
           />
           <span className="text-xs"> Call us: +31 416 652 803</span>
         </div>
-        <div className="text-xs flex gap-2 justify-center items-center">
+        <div className="text-xs flex md:gap-2 justify-center items-center">
           {" "}
           <Link className="hover:text-primary" href={"/"}>
             Sign In
@@ -113,7 +116,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
 
       <div
         onMouseOver={(e) => handleClickOut(e)}
-        className=" px-4 md:px-8 bg-white"
+        className=" px-2 md:px-8 bg-white"
       >
         <div className="text-center m-auto flex justify-between items-center">
           <div className="hidden md:flex gap-8 items-center basis-full">
@@ -153,7 +156,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
               alt="sneaker base logo"
             />{" "}
           </Link>
-          <div className="flex items-center justify-end basis-full text-right gap-4">
+          <div className="flex items-center justify-end basis-full text-right md:gap-4">
             <Link
               href="/login"
               className="hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"

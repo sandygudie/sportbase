@@ -11,10 +11,12 @@ import { client } from "@/utilis";
 import Card from "@/components/Card";
 import Spinner from "@/components/Spinner";
 
+import { useRouter } from "next/router";
+
 export default function Home() {
   const [latestProduct, setlatestProducts] = useState<Product[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
-
+  const router = useRouter();
   useEffect(() => {
     getLatestProduct();
   }, []);
@@ -131,7 +133,11 @@ export default function Home() {
                   )}
                 </div>
                 <div className="text-center mt-12 md:mt-24">
-                  <Button variant="contained" className="p-3 font-bold w-64">
+                  <Button
+                    onClick={() => router.push("/collection/newest")}
+                    variant="contained"
+                    className="p-3 font-bold w-64"
+                  >
                     All Latest Products
                   </Button>
                 </div>
@@ -151,6 +157,7 @@ export default function Home() {
                 <div className="text-center">
                   <Button
                     variant="contained"
+                    onClick={() => router.push("/collection/sales")}
                     className=" w-60 md:w-64 p-3 font-bold w-64"
                   >
                     SHOP NOW
@@ -168,9 +175,7 @@ export default function Home() {
 // swim suit add to product
 
 // fix all things before going to the login and payout
-// check spelling case(letter)
-// review your structure
-// work on responsiveness
+
 // loading and performances
 
 // pagination(material ui)
@@ -181,11 +186,7 @@ export default function Home() {
 // price comparism for restaurant
 // rent your outfit, wedding dress
 
-// rewrite functions that are repetitive
-
 // install husky
-
-// separation of concern , put things where they belong example APIs
 
 // uninstall not needed packages
 

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
@@ -16,16 +16,19 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Product } from "@/types";
 import TuneIcon from "@mui/icons-material/Tune";
+import useMediaquery from "@/hooks/useMediaquery";
+import CloseIcon from "@mui/icons-material/Close";
 
 type Props = {
   collection: Product[];
   collectionSlug: string;
+  setOpen?: Dispatch<React.SetStateAction<boolean>>;
 };
 
-function FilterComponent({ collection, collectionSlug }: Props) {
+function FilterComponent({ collection, setOpen, collectionSlug }: Props) {
   const [expanded, setExpanded] = useState<number | false>();
   const [filterElement, setFilterElement] = useState<any[]>([]);
-
+  const matches = useMediaquery();
   useEffect(() => {
     if (collectionSlug === "apparels") {
       setFilterElement(filterElement_apparels);
@@ -45,11 +48,15 @@ function FilterComponent({ collection, collectionSlug }: Props) {
       setExpanded(newExpanded ? panel : false);
 
   return (
-    <div className="hidden md:block sticky -top-8 w-1/6 font-bold text-xl">
+    <div className={`${matches && `px-4`}`}>
       {" "}
       <p className="mb-6 flex items-center justify-between">
         <span className="text-base font-normal">Filter </span>
-        <TuneIcon />
+        {setOpen && matches ? (
+          <CloseIcon onClick={() => setOpen(false)} />
+        ) : (
+          <TuneIcon />
+        )}
       </p>
       {filterElement.map((ele) => {
         return (
@@ -61,7 +68,7 @@ function FilterComponent({ collection, collectionSlug }: Props) {
             <MuiAccordionSummary
               aria-controls="panel1d-content"
               id="panel1d-header"
-              className="bg-gray-100"
+              className={`${!matches && `bg-gray-100`}`}
             >
               <div className="w-full flex items-center justify-between">
                 <Typography>{ele.name}</Typography>

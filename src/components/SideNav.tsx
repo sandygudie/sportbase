@@ -26,7 +26,7 @@ function SideNav() {
       setExpanded(newExpanded ? panel : false);
 
   const list = () => (
-    <div className="w-64" role="presentation">
+    <div className="w-64" >
       <div className="flex items-center justify-between py-2 px-4 border-b-[1px] border-x-0 border-t-0 border-b-gray-200/50 border-solid">
         <Link className="" href="/">
           {" "}
