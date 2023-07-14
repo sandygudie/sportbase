@@ -199,10 +199,10 @@ function Index({}: Props) {
             </div>
             <div className="w-full p-0 md:p-8 md:w-3/12 md:shadow-lg shadow-dark/40 md:sticky top-20">
               <h2 className="text-lg font-medium">Your Order Info</h2>
-              <div className="border-t-1 mt-2 md:mt-8 border-b-0 border-x-0 border-solid border-primary/20">
+              <div className="border-t-1 mt-2 md:mt-4 border-b-0 border-x-0 border-solid border-primary/20">
                 <div className="md:text-sm lg:text-xl pt-8  mb-6 font-bold flex flex-wrap justify-between items-center">
                   <p>TOTAL :</p>{" "}
-                  <p>
+                  <p className="text-xl">
                     $
                     {products?.reduce(
                       (accum: any, item: { totalPrice: any }) =>
