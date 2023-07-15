@@ -276,12 +276,12 @@ export const getStaticPaths = async () => {
       _id
       }`);
   const pathsWithParams = posts.map((item: any) => ({
-    params: { id: item.name },
+    params: { id: item._id },
   }));
 
   return {
     paths: pathsWithParams,
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
