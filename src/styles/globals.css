@@ -12,7 +12,7 @@
 @font-face {
   font-family: "Futura";
   font-weight: 400;
-  src: url("./fonts/Futura-Regular.ttf") format("truetype");
+  src: url("./fonts/futura-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -40,7 +40,7 @@
 @font-face {
   font-family: "Futura";
   font-weight: 800;
-  src: url("./fonts/Futura-ExtraBold.ttf") format("truetype");
+  src: url("./fonts/futura-ExtraBold.ttf") format("truetype");
   font-display: swap;
 }
 
