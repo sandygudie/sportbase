@@ -4,40 +4,31 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import {
-  filterElement_accesories,
-  filterElement_apparels,
-  filterElement_footwear,
-} from "../data";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Product } from "@/types";
-import TuneIcon from "@mui/icons-material/Tune";
+
 import useMediaquery from "@/hooks/useMediaquery";
-import CloseIcon from "@mui/icons-material/Close";
+
+import { filterList } from "@/utilis";
 
 type Props = {
   collection: Product[];
   collectionSlug: string;
-  setOpen?: Dispatch<React.SetStateAction<boolean>>;
+  category: string;
 };
 
-function FilterComponent({ collection, setOpen, collectionSlug }: Props) {
+function FilterComponent({ collection, category, collectionSlug }: Props) {
   const [expanded, setExpanded] = useState<number | false>();
-  const [filterElement, setFilterElement] = useState<any[]>([]);
   const matches = useMediaquery();
-  useEffect(() => {
-    if (collectionSlug === "apparels") {
-      setFilterElement(filterElement_apparels);
-    } else if (collectionSlug === "accessories") {
-      setFilterElement(filterElement_accesories);
-    } else {
-      setFilterElement(filterElement_footwear);
-    }
-  }, []);
+
+  useEffect(() => {}, []);
+  let temp_collection = [...collection];
+  let filterElement = filterList(temp_collection, collectionSlug, category);
+
   let itemQuantity = (key: string, value: any) =>
     collection.filter(
       (x: Product | any) => x[key] == value || x[key]?.includes(value)
@@ -48,22 +39,14 @@ function FilterComponent({ collection, setOpen, collectionSlug }: Props) {
       setExpanded(newExpanded ? panel : false);
 
   return (
-    <div className={`${matches && `px-4`}`}>
+    <div className="relative">
       {" "}
-      <p className="mb-6 flex items-center justify-between">
-        <span className="text-base font-normal">Filter </span>
-        {setOpen && matches ? (
-          <CloseIcon onClick={() => setOpen(false)} />
-        ) : (
-          <TuneIcon />
-        )}
-      </p>
-      {filterElement.map((ele) => {
+      {filterElement.map((ele: any) => {
         return (
           <MuiAccordion
-            key={ele.id}
-            expanded={expanded === ele.id}
-            onChange={handleChange(ele.id)}
+            key={ele.name}
+            expanded={expanded === ele.name}
+            onChange={handleChange(ele.name)}
           >
             <MuiAccordionSummary
               aria-controls="panel1d-content"
@@ -72,7 +55,7 @@ function FilterComponent({ collection, setOpen, collectionSlug }: Props) {
             >
               <div className="w-full flex items-center justify-between">
                 <Typography>{ele.name}</Typography>
-                {expanded === ele.id ? (
+                {expanded === ele.name ? (
                   <RemoveIcon sx={{ fontSize: "0.9rem" }} />
                 ) : (
                   <AddIcon sx={{ fontSize: "0.9rem" }} />

@@ -39,9 +39,12 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
             return (
               list.name !== "Gender" && (
                 <div key={list.id} className="w-10 sm:w-full">
-                  <p className="text-sm md:text-[16px] font-medium">
+                  <Link
+                    href={`/collection/${list.name.toLowerCase()}`}
+                    className="text-sm md:text-[16px] font-medium"
+                  >
                     {list.name}
-                  </p>
+                  </Link>
                   {list.category.map((ele: any) => {
                     return (
                       <Link
@@ -116,7 +119,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
 
       <div
         onMouseOver={(e) => handleClickOut(e)}
-        className=" px-2 md:px-8 bg-white"
+        className="px-2 md:px-8 bg-white"
       >
         <div className="text-center m-auto flex justify-between items-center">
           <div className="hidden md:flex gap-8 items-center basis-full">

@@ -1,4 +1,5 @@
 export interface Product {
+  value: string[];
   name: string;
   brand: string;
   category: string;

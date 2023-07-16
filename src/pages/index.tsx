@@ -194,3 +194,6 @@ export default function Home() {
 // install toast
 
 // 404 page
+
+
+// Apparels and accesories do not have gender category or footwear

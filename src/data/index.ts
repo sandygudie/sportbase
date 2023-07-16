@@ -159,23 +159,41 @@ export const filterElement_apparels = [
     name: "category",
     selection: ["casual", "running", "basketball", "hoodies", "sweatshirts"],
   },
+
   {
-    id: 3,
-    name: "gender",
-    selection: ["women", "men", "kids"],
-  },
-  {
-    id: 4,
+    id: 2,
     name: "color",
     selection: ["Black", "White", "Blue"],
   },
   {
-    id: 5,
+    id: 4,
+    name: "brand",
+    selection: ["Nike", "Adidas", "Puma"],
+  },
+  {
+    id: 3,
     name: "size",
     selection: ["5.5", "6", "6.5"],
   },
 ];
+export const filterElement_brand = [
+  {
+    id: 1,
+    name: "category",
+    selection: ["footwear", "apparels", "accesories"],
+  },
 
+  {
+    id: 2,
+    name: "color",
+    selection: ["Black", "White", "Blue"],
+  },
+  {
+    id: 3,
+    name: "size",
+    selection: ["5.5", "6", "6.5"],
+  },
+];
 export const filterElement_accesories = [
   {
     id: 1,
@@ -184,11 +202,61 @@ export const filterElement_accesories = [
   },
   {
     id: 4,
+    name: "brand",
+    selection: ["Nike", "Adidas", "Puma"],
+  },
+  {
+    id: 2,
     name: "color",
     selection: ["Black", "White", "Blue"],
   },
   {
-    id: 5,
+    id: 3,
+    name: "size",
+    selection: ["5.5", "6", "6.5"],
+  },
+];
+export const filterElement_category = [
+  {
+    id: 1,
+    name: "brand",
+    selection: ["Nike", "Adidas", "Puma"],
+  },
+  {
+    id: 2,
+    name: "color",
+    selection: ["Black", "White", "Blue"],
+  },
+  {
+    id: 3,
+    name: "gender",
+    selection: ["women", "men", "kids"],
+  },
+  {
+    id: 4,
+    name: "size",
+    selection: ["5.5", "6", "6.5"],
+  },
+];
+
+export const filterElement_general= [
+  {
+    id: 1,
+    name: "brand",
+    selection: ["Nike", "Adidas", "Puma"],
+  },
+  {
+    id: 2,
+    name: "color",
+    selection: ["Black", "White", "Blue"],
+  },
+  {
+    id: 3,
+    name: "gender",
+    selection: ["women", "men", "kids"],
+  },
+  {
+    id: 4,
     name: "size",
     selection: ["5.5", "6", "6.5"],
   },

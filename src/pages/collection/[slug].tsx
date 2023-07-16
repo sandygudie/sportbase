@@ -2,10 +2,11 @@
 import FilterComponent from "@/components/FilterComponent";
 import Products from "@/components/Collection";
 import { Product } from "@/types";
-import { client, titleCase } from "@/utilis";
+import { client, filterList, titleCase } from "@/utilis";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Spinner from "@/components/Spinner";
+import TuneIcon from "@mui/icons-material/Tune";
 
 import FilterDrawer from "@/components/FilterDrawer";
 
@@ -17,15 +18,15 @@ type Props = {
 
 function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
   const router = useRouter();
-  
+
   const [collection, setCollection] = useState(collectionData);
-  let category = router.query["category"];
+  let category: string | any = router.query["category"];
   useEffect(() => {
     setShowSubNav(false);
-    filterCollection();
-  }, []);
+    filteredCollection();
+  }, [router.query.category]);
 
-  const filterCollection = () => {
+  const filteredCollection = () => {
     if (category?.length) {
       let categoryItems = collectionData.filter((ele: Product) =>
         ele.category === category ? ele : ele.type === category
@@ -33,6 +34,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
       setCollection(categoryItems);
     }
   };
+
   return (
     <main>
       {collection?.length ? (
@@ -41,23 +43,39 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
           <div className="px-2 py-4 md:p-6 bg-dark sticky top-20 md:top-24 z-40  flex items-center justify-between">
             <div className="flex items-center gap-2">
               <h1 className="text-white font-medium text-sm md:text-xl">
-                {collectionSlug && `${titleCase(collectionSlug)} Collections`}
+                {category
+                  ? `${titleCase(category)}`
+                  : `${titleCase(collectionSlug)}`}{" "}
+                Collections
               </h1>
               <p className="flex items-center justify-center rounded-full w-5 font-bold h-5  bg-gray-100">
                 {collection?.length}
               </p>
             </div>
-            <FilterDrawer
-              collection={collection}
-              collectionSlug={collectionSlug}
-            />
-          </div>
-          <div className="md:mx-8 flex items-start relative">
-            <div className="hidden md:block sticky top-56 w-1/6 font-bold text-xl">
+            <FilterDrawer>
               <FilterComponent
-                collection={collection}
                 collectionSlug={collectionSlug}
+                category={category}
+                collection={collection}
               />
+            </FilterDrawer>
+          </div>
+         
+          <div className="md:mx-8 h-[60em] flex relative items-start">
+            <div className="sticky h-[50em] top-48">
+              {" "}
+              <div>
+              <p className="mb-6 flex items-center justify-between">
+                <span className="text-base font-normal">Filter </span>
+
+                <TuneIcon />
+              </p>
+             <FilterComponent
+                collectionSlug={collectionSlug}
+                category={category}
+                collection={collection}
+              />
+              </div>
             </div>
             <Products collection={collection} />
           </div>
