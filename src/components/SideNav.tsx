@@ -30,7 +30,7 @@ function SideNav() {
         <Link className="" href="/">
           {" "}
           <img
-            className=" w-6 md:w-10 h-10 2xl:w-20 2xl:h-20"
+            className=" w-10 md:w-16 h-10 2xl:w-20 2xl:h-20"
             src={"/images/sneakerbase-logo.svg"}
             alt="sneaker base logo"
           />{" "}

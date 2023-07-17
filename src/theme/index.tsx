@@ -89,8 +89,6 @@ const theme = createTheme({
     MuiAccordionSummary: {
       styleOverrides: {
         root: {
-          // backgroundColor: "#f6f6f6",
-          // padding: "10px 16px",
           textTransform:"uppercase",
           ...tw`px-0 py-2`,
           margin: "0px",
@@ -142,16 +140,13 @@ const theme = createTheme({
         },
       },
     },
-    // MuiIconButton: {
-    //   styleOverrides: {
-    //     root: {
-    //       ...tw`text-base`,
-    //       "&.Mui-disabled:disabled": {
-    //         ...tw`dark:text-white/[.26]`,
-    //       },
-    //     },
-    //   },
-    // },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          ...tw`p-0`,
+        },
+      },
+    },
     MuiCheckbox: {
       styleOverrides: {
         root: {

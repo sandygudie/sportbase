@@ -105,7 +105,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
 
   return (
     <header
-      className={` z-40  w-full bg-white sticky top-0 text-lg 2xl:text-3xl shadow-md`}
+      className={` z-40 w-full bg-white sticky top-0 text-lg 2xl:text-3xl shadow-md`}
     >
       <div
         className={`${
@@ -143,11 +143,11 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
                 onMouseOver={(e) => handleClickOver(e)}
                 className={`${
                   showSubNav ? "border-solid " : "border-none"
-                } py-4 relative inline-block border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
+                } py-6 relative inline-block border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
               >
                 Shop
               </div>
-              <div className="hidden md:block py-4 ">
+              <div className="hidden md:block py-6">
                 {gender.map((ele: any) => {
                   return (
                     <Link
@@ -169,7 +169,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
             >
               {" "}
               <img
-                className=" w-10 md:w-16 h-10 2xl:w-20 2xl:h-20"
+                className="w-10 md:w-16 h-10 2xl:w-20 2xl:h-20"
                 src={"/images/sneakerbase-logo.svg"}
                 alt="sneaker base logo"
               />{" "}
