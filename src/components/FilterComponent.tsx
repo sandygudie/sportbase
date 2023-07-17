@@ -51,10 +51,13 @@ function FilterComponent({ collection, category, collectionSlug }: Props) {
             <MuiAccordionSummary
               aria-controls="panel1d-content"
               id="panel1d-header"
-              className={`${!matches && `bg-gray-100`}`}
             >
-              <div className="w-full flex items-center justify-between">
-                <Typography>{ele.name}</Typography>
+              <div
+                className={`${
+                  expanded === ele.name && `text-primary`
+                } w-full flex items-center justify-between`}
+              >
+                <p className="text-sm font-normal">{ele.name}</p>
                 {expanded === ele.name ? (
                   <RemoveIcon sx={{ fontSize: "0.9rem" }} />
                 ) : (

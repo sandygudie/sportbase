@@ -97,3 +97,14 @@
 .css-1h51icj-MuiAutocomplete-root .MuiOutlinedInput-root{
   @apply py-[2px] md:py-1
 }
+
+/* hide scrollbar but allow scrolling */
+.filterlist {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll; 
+}
+
+.filterlist::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}

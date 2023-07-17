@@ -9,6 +9,7 @@ import Spinner from "@/components/Spinner";
 import TuneIcon from "@mui/icons-material/Tune";
 
 import FilterDrawer from "@/components/FilterDrawer";
+import useScroll from "@/hooks/useScroll";
 
 type Props = {
   collectionData: Product[];
@@ -18,7 +19,7 @@ type Props = {
 
 function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
   const router = useRouter();
-
+  const scrollTop = useScroll();
   const [collection, setCollection] = useState(collectionData);
   let category: string | any = router.query["category"];
   useEffect(() => {
@@ -40,7 +41,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
       {collection?.length ? (
         <>
           {" "}
-          <div className="px-2 py-4 md:p-6 bg-dark sticky top-20 md:top-24 z-40  flex items-center justify-between">
+          <div className="px-2 py-4 md:p-6 sticky top-10 md:top-14 z-40  bg-dark flex items-center justify-between">
             <div className="flex items-center gap-2">
               <h1 className="text-white font-medium text-sm md:text-xl">
                 {category
@@ -60,22 +61,20 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
               />
             </FilterDrawer>
           </div>
-         
-          <div className="md:mx-8 h-[60em] flex relative items-start">
-            <div className="sticky h-[50em] top-48">
-              {" "}
-              <div>
+          <div className="md:mx-8 h-[60em] my-8 md:my-12 flex relative items-start">
+            <div
+              className={`filterlist hidden md:block sticky h-screen overflow-auto w-72 top-36`}
+            >
               <p className="mb-6 flex items-center justify-between">
-                <span className="text-base font-normal">Filter </span>
+                <span className="text-base font-bold">FILTER </span>
 
                 <TuneIcon />
               </p>
-             <FilterComponent
+              <FilterComponent
                 collectionSlug={collectionSlug}
                 category={category}
                 collection={collection}
               />
-              </div>
             </div>
             <Products collection={collection} />
           </div>

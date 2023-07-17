@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
-
+import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
-
 import MenuIcon from "@mui/icons-material/Menu";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
@@ -26,8 +25,8 @@ function SideNav() {
       setExpanded(newExpanded ? panel : false);
 
   const list = () => (
-    <div className="w-64" >
-      <div className="flex items-center justify-between py-2 px-4 border-b-[1px] border-x-0 border-t-0 border-b-gray-200/50 border-solid">
+    <div className="w-72">
+      <div className="flex items-center justify-between py-2 px-4">
         <Link className="" href="/">
           {" "}
           <img
@@ -36,10 +35,12 @@ function SideNav() {
             alt="sneaker base logo"
           />{" "}
         </Link>
-        <CloseIcon
-          className="hover:text-primary"
-          onClick={toggleDrawer(false)}
-        />
+        <IconButton onClick={toggleDrawer(false)} aria-label="Close">
+          <CloseIcon
+            className="hover:text-primary"
+            onClick={toggleDrawer(false)}
+          />
+        </IconButton>
       </div>
       {dropdownNav.map((ele) => {
         return (
@@ -51,9 +52,12 @@ function SideNav() {
             <MuiAccordionSummary
               aria-controls="panel1d-content"
               id="panel1d-header"
+              className="px-4"
             >
-              <div className="w-full flex items-center justify-between">
-                <p>{ele.name}</p>
+              <div
+                className={`${expanded === ele.id && `text-primary`} w-full flex items-center justify-between`}
+              >
+                <p className="text-sm font-normal">{ele.name}</p>
                 {expanded === ele.id ? (
                   <RemoveIcon sx={{ fontSize: "0.9rem" }} />
                 ) : (
@@ -74,7 +78,7 @@ function SideNav() {
                       key={list.id}
                       onClick={toggleDrawer(false)}
                       onKeyDown={toggleDrawer(false)}
-                      className="my-4 text-sm px-3 flex justify-start items-start hover:text-primary"
+                      className="my-4 text-sm px-6 flex justify-start items-start hover:text-primary"
                     >
                       {list.name}
                     </Link>
@@ -85,16 +89,22 @@ function SideNav() {
           </MuiAccordion>
         );
       })}
-      {collections.map((ele) => {
+      {collections.map((ele, i) => {
         return (
-          <div key={ele.id} className="mx-4 my-8">
+          <div
+            key={ele.id}
+            className={`${
+              i == 0 &&
+              `border-x-0 border-y-[0.5px] border-[#cbcbcb] border-solid`
+            } p-4 `}
+          >
             <Link
               href={`/collection${ele.link.toLowerCase()}`}
-              className="hover:no-underline"
+              className="hover:no-underline text-sm font-normal"
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
             >
-              {ele.name}
+              {ele.name.toUpperCase()}
             </Link>
           </div>
         );

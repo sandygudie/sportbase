@@ -20,10 +20,10 @@ export default function FilterDrawer({ children }: Props) {
       <div
         onClick={toggleDrawer(true)}
         role="button"
-        className="flex text-sm items-center  gap-2 text-white"
+        className="flex text-sm items-center gap-2 text-white"
       >
-        <span className="font-normal">Filter </span>
-        <TuneIcon className=" text-sm" />
+        <span className="font-bold">FILTER </span>
+        <TuneIcon className="text-sm" />
       </div>
       <Drawer anchor={"right"} open={isOpen} onClose={toggleDrawer(false)}>
         <div className="flex px-4 py-2 items-center justify-between">
@@ -33,7 +33,7 @@ export default function FilterDrawer({ children }: Props) {
             <CloseIcon />
           </IconButton>
         </div>
-        <div className="px-4 w-48">{children}</div>
+        <div className="px-4 w-72">{children}</div>
       </Drawer>
     </div>
   );

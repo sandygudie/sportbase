@@ -3,7 +3,7 @@ import Card from "./Card";
 
 export default function Collection({ collection }:any) {
   return (
-    <div className="pt-12 w-11/12 mx-auto md:w-5/6 md:pl-12 md:ml-auto">
+    <div className="pt-0 md:pt-12 w-11/12 mx-auto md:w-5/6 md:pl-12 md:ml-auto">
       <div className="grid grid-cols-3 gap-x-4 gap-y-8">
         {collection.map((product: Product) => {
           return (

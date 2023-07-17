@@ -1,5 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import { Dispatch, SetStateAction, useContext, useRef } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import { dropdownNav, collections, gender } from "../data";
 import { AppContext } from "@/context";
@@ -9,6 +16,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SideNav from "./SideNav";
 import Button from "@mui/material/Button";
+import useScroll from "@/hooks/useScroll";
 type Props = {
   showSubNav: boolean;
   setShowSubNav: Dispatch<SetStateAction<boolean>>;
@@ -16,8 +24,9 @@ type Props = {
 
 export default function Navbar({ showSubNav, setShowSubNav }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-
   const { cartQty } = useContext(AppContext) as AppContextState;
+
+  const scrollTop = useScroll();
 
   const handleClickOver = (e: any) => {
     if (ref.current && ref.current.contains(e.target)) {
@@ -33,7 +42,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
 
   const Dropdown = () => {
     return (
-      <div className="mx-8 bg-white py-6 block md:flex justify-between items-start">
+      <div className="mx-8 py-6 block md:flex justify-between items-start">
         <div className="flex justify-between items-start w-4/5">
           {dropdownNav.map((list: any) => {
             return (
@@ -95,8 +104,14 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
   };
 
   return (
-    <header className="z-40 fixed w-full bg-white text-lg 2xl:text-3xl">
-      <div className="bg-gray-100 px-2 md:px-8 py-3 flex items-center justify-between">
+    <header
+      className={` z-40  w-full bg-white sticky top-0 text-lg 2xl:text-3xl shadow-md`}
+    >
+      <div
+        className={`${
+          scrollTop > 0 ? "hidden" : "flex"
+        } bg-gray-100 px-2 md:px-8 py-3  items-center justify-between`}
+      >
         <div className="flex justify-center gap-2 items-center">
           {" "}
           <HeadsetMicOutlinedIcon
@@ -116,78 +131,79 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
           </Link>
         </div>
       </div>
-
-      <div
-        onMouseOver={(e) => handleClickOut(e)}
-        className="px-2 md:px-8 bg-white"
-      >
-        <div className="text-center m-auto flex justify-between items-center">
-          <div className="hidden md:flex gap-8 items-center basis-full">
-            <div
-              ref={ref}
-              onMouseOver={(e) => handleClickOver(e)}
-              className={`${
-                showSubNav ? "border-solid " : "border-none"
-              } py-4 relative inline-block border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
-            >
-              Shop
+      <div className="relative">
+        <div
+          onMouseOver={(e) => handleClickOut(e)}
+          className={`px-2 md:px-8 bg-white`}
+        >
+          <div className="text-center m-auto flex justify-between items-center">
+            <div className="hidden md:flex gap-8 items-center basis-full">
+              <div
+                ref={ref}
+                onMouseOver={(e) => handleClickOver(e)}
+                className={`${
+                  showSubNav ? "border-solid " : "border-none"
+                } py-4 relative inline-block border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
+              >
+                Shop
+              </div>
+              <div className="hidden md:block py-4 ">
+                {gender.map((ele: any) => {
+                  return (
+                    <Link
+                      href={`/collection${ele.link.toLowerCase()}`}
+                      key={ele.id}
+                      className="py-4 md:mr-8 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
+                    >
+                      {ele.name}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-            <div className="hidden md:block py-4 ">
-              {gender.map((ele: any) => {
-                return (
-                  <Link
-                    href={`/collection${ele.link.toLowerCase()}`}
-                    key={ele.id}
-                    className="py-4 md:mr-8 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
-                  >
-                    {ele.name}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-          <SideNav />
-
-          <Link
-            className="flex items-center justify-center hover:no-underline basis-full"
-            href="/"
-          >
-            {" "}
-            <img
-              className=" w-6 md:w-10 h-10 2xl:w-20 2xl:h-20"
-              src={"/images/sneakerbase-logo.svg"}
-              alt="sneaker base logo"
-            />{" "}
-          </Link>
-          <div className="flex items-center justify-end basis-full text-right md:gap-4">
-            <Link
-              href="/login"
-              className="hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
-            >
-              <FavoriteBorderIcon sx={{ fontSize: "20px" }} />
-            </Link>
+            <SideNav />
 
             <Link
-              href="/cart"
-              className="relative hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
+              className="flex items-center justify-center hover:no-underline basis-full"
+              href="/"
             >
-              <span className="relative flex items-center justify-center text-center">
-                {" "}
-                <ShoppingCartOutlinedIcon sx={{ fontSize: "20px" }} />
-              </span>
-              <span className="absolute top-0 left-4 ml-2 rounded-full w-3 font-bold text-sm h-3 ">
-                {cartQty}
-              </span>
+              {" "}
+              <img
+                className=" w-10 md:w-16 h-10 2xl:w-20 2xl:h-20"
+                src={"/images/sneakerbase-logo.svg"}
+                alt="sneaker base logo"
+              />{" "}
             </Link>
+            <div className="flex items-center justify-end basis-full text-right md:gap-4">
+              <Link
+                href="/login"
+                className="hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
+              >
+                <FavoriteBorderIcon sx={{ fontSize: "20px" }} />
+              </Link>
+
+              <Link
+                href="/cart"
+                className="relative hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
+              >
+                <span className="relative flex items-center justify-center text-center">
+                  {" "}
+                  <ShoppingCartOutlinedIcon sx={{ fontSize: "20px" }} />
+                </span>
+                <span className="absolute top-0 left-4 ml-2 rounded-full w-3 font-bold text-sm h-3 ">
+                  {cartQty}
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        className="top-0"
-        onMouseOut={() => setShowSubNav(false)}
-        onMouseOver={() => setShowSubNav(true)}
-      >
-        {showSubNav && <Dropdown />}
+        <div
+          className="absolute  bg-white  w-full z-40 top-14 shadow-md"
+          onMouseOut={() => setShowSubNav(false)}
+          onMouseOver={() => setShowSubNav(true)}
+        >
+          {showSubNav && <Dropdown />}
+        </div>
       </div>
     </header>
   );
