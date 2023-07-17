@@ -38,7 +38,7 @@ function SideNav() {
         <IconButton onClick={toggleDrawer(false)} aria-label="Close">
           <CloseIcon
             className="hover:text-primary"
-            onClick={toggleDrawer(false)}
+  
           />
         </IconButton>
       </div>

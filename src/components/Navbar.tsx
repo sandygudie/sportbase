@@ -3,9 +3,9 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
-  useEffect,
+
   useRef,
-  useState,
+
 } from "react";
 import Link from "next/link";
 import { dropdownNav, collections, gender } from "../data";
