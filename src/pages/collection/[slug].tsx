@@ -19,7 +19,6 @@ type Props = {
 
 function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
   const router = useRouter();
-  const scrollTop = useScroll();
   const [collection, setCollection] = useState(collectionData);
   let category: string | any = router.query["category"];
   useEffect(() => {
@@ -61,7 +60,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
               />
             </FilterDrawer>
           </div>
-          <div className="md:mx-8 h-[60em] my-8 md:my-12 flex relative items-start">
+          <div className="md:mx-8 h-[100em] my-8 md:my-12 flex relative items-start">
             <div
               className={`filterlist hidden md:block sticky h-screen overflow-auto w-72 top-36`}
             >

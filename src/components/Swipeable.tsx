@@ -12,7 +12,7 @@ import { Autoplay, Pagination } from "swiper";
 export default function Swipeable() {
   return (
     <Swiper
-      spaceBetween={30}
+      spaceBetween={0}
       centeredSlides={true}
       autoplay={{
         delay: 2500,
@@ -25,8 +25,8 @@ export default function Swipeable() {
       className="mySwiper"
     >
       {banner.map((step, index) => (
-        <SwiperSlide key={step.label} className="w-full">
-          <Link href={""}>
+        <SwiperSlide key={step.label} className="w-full ">
+          <Link href={`collection${step.link}`}>
             <div
               style={{
                 backgroundImage: `url(${step.imgPath})`,
@@ -35,7 +35,7 @@ export default function Swipeable() {
                 backgroundColor: "#f6f6f6",
                 backgroundRepeat: "no-repeat",
               }}
-              className="h-[500px] w-full"
+              className="h-[600px]"
             ></div>
             <div className="p-6 absolute bottom-10 ">
               <p className=" w-64 text-4xl font-bold  text-white  pb-6">

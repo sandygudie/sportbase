@@ -29,7 +29,7 @@ export default function Home() {
       "imageUrl": image.asset->url
     }`);
       let filtered = productResponse.filter(
-        (ele: Product) => ele.timeline === "latest"
+        (ele: Product) => ele.timeline === "latest" || ele.timeline === "newest"
       );
       setLoading(false);
       setlatestProducts(filtered);
@@ -113,18 +113,20 @@ export default function Home() {
                 <h2 className="text-center font-thin mb-12 md:mb-20 text-2xl">
                   New Arrivals
                 </h2>
-                <div className="overflow-hidden my-5">
+                <div className="my-5">
                   {isLoading ? (
                     <div className="flex flex-col items-center justify-center">
                       <Spinner />
                     </div>
                   ) : (
-                    <div className="w-[22em] md:w-full m-auto flex overflow-x-auto items-center md:justify-center gap-12">
+                    <div className="p-2 md:p-0 grid grid-cols-2 md:grid-cols-4 gap-x-2 md:gap-x-4 gap-y-8">
                       {latestProduct.map((product: Product, i: number) => {
                         return (
-                          <div className=" bg-gray-100 p-8 " key={product._id}>
-                            <div className="w-72 2xl:w-[30em]">
-                              {i < 5 && <Card product={product} />}
+                          <div className="" key={product._id}>
+                            <div className="">
+                              {i < 4 && (
+                                <Card product={product} latestProduct={true} />
+                              )}
                             </div>
                           </div>
                         );
@@ -194,6 +196,5 @@ export default function Home() {
 // install toast
 
 // 404 page
-
 
 // Apparels and accesories do not have gender category or footwear

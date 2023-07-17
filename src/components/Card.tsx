@@ -3,8 +3,13 @@ import Link from "next/link";
 interface IProps {
   product: any;
   similarProducts?: boolean;
+  latestProduct?: boolean;
 }
-export default function Card({ product, similarProducts }: IProps) {
+export default function Card({
+  product,
+  similarProducts,
+  latestProduct,
+}: IProps) {
   return (
     <Link className="hover:no-underline" href={`/product/${product._id}`}>
       <div className="relative overflow-hidden">
@@ -22,8 +27,12 @@ export default function Card({ product, similarProducts }: IProps) {
             backgroundRepeat: "no-repeat",
           }}
           className={`${
-            similarProducts ? `h-[11rem] md:h-[300px]` : `h-[5rem]`
-          } sm:h-[15rem] md:w-full  2xl:h-[650px]
+            similarProducts
+              ? `h-[11rem] md:h-[300px]`
+              : latestProduct
+              ? "w-full h-36 sm:h-96 md:h-[18rem]"
+              : "h-[5em] sm:h-[16rem] md:w-full lg:h-[30rem]"
+          } 
            transition-transform ease-in delay-100 hover:scale-110 duration-400`}
         ></div>
       </div>

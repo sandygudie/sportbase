@@ -2,32 +2,32 @@ export const banner = [
   {
     label: "Best footwear collections",
     imgPath: "/images/nike1.jpg",
-    link: "",
+    link: "/footwear",
   },
   {
     label: " Your Favorite brand Collections",
     imgPath: "/images/newbalance1.webp",
-    link: "",
+    link: "/",
   },
   {
     label: "Kids Collections",
     imgPath: "/images/kids.webp",
-    link: "",
+    link: "/kids",
   },
   {
     label: "Get the best apparels for all season",
     imgPath: "/images/apparel.jpg",
-    link: "",
+    link: "/appareal",
   },
   {
     label: "Nike Collections",
     imgPath: "/images/nike.webp",
-    link: "",
+    link: "/nike",
   },
   {
     label: "Sport accessories",
     imgPath: "/images/accessories.webp",
-    link: "",
+    link: "/accesories",
   },
 ];
 

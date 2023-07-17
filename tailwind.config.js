@@ -56,7 +56,7 @@ module.exports = {
 
       'md': '1200px',
       // => @media (min-width: 960px) { ... }
-
+      'lg': '2000px',
     }
   },
 };
