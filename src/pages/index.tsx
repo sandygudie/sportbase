@@ -182,7 +182,6 @@ export default function Home() {
 
 // pagination(material ui)
 // you will add carousel for your images
-// The gender collection has to be handled diffeently for the filter component
 
 // idea box
 // price comparism for restaurant
@@ -190,11 +189,9 @@ export default function Home() {
 
 // install husky
 
-// uninstall not needed packages
 
 // error handling
 // install toast
 
 // 404 page
 
-// Apparels and accesories do not have gender category or footwear
