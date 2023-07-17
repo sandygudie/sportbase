@@ -15,7 +15,7 @@ export const banner = [
     link: "/kids",
   },
   {
-    label: "Get the best apparels for all season",
+    label: "Best apparels for the season",
     imgPath: "/images/apparel.jpg",
     link: "/appareal",
   },
@@ -25,59 +25,46 @@ export const banner = [
     link: "/nike",
   },
   {
-    label: "Sport accessories",
+    label: "Sport Accessories",
     imgPath: "/images/accessories.webp",
     link: "/accesories",
   },
 ];
 
-export const footwear = [
-  {
-    label: "Best footwear collections",
-    imgPath: "images/footwear/nike1.png",
-    link: "",
-  },
-  {
-    label: " Your Favorite brand Collections",
-    imgPath: "images/footwear/nike2.webp",
-    link: "",
-  },
-];
+// export const brands = [
+//   {
+//     id: 0,
+//     name: "Nike",
+//     image: "/images/brand-logo/nike.svg",
+//     link: "/nike",
+//   },
+//   {
+//     id: 1,
+//     name: "Adidas",
+//     image: "/images/brand-logo/adidas.png",
+//     link: "/adidas",
+//   },
+//   {
+//     id: 2,
+//     name: "New Balance",
+//     image: "/images/brand-logo/newbalance.svg",
+//     link: "/newbalance",
+//   },
+//   {
+//     id: 3,
+//     name: "Puma",
+//     image: "/images/brand-logo/puma.jpeg",
+//     link: "/puma",
+//   },
+//   {
+//     id: 4,
+//     name: "Reebok",
+//     image: "/images/brand-logo/reebok.svg",
+//     link: "/reebok",
+//   },
+// ];
 
-export const brands = [
-  {
-    id: 0,
-    name: "Nike",
-    image: "/images/brand-logo/nike.svg",
-    link: "/nike",
-  },
-  {
-    id: 1,
-    name: "Adidas",
-    image: "/images/brand-logo/adidas.png",
-    link: "/adidas",
-  },
-  {
-    id: 2,
-    name: "New Balance",
-    image: "/images/brand-logo/newbalance.svg",
-    link: "/newbalance",
-  },
-  {
-    id: 3,
-    name: "Puma",
-    image: "/images/brand-logo/puma.jpeg",
-    link: "/puma",
-  },
-  {
-    id: 4,
-    name: "Reebok",
-    image: "/images/brand-logo/reebok.svg",
-    link: "/reebok",
-  },
-];
-
-export const products = [
+export const collection_category = [
   {
     id: 0,
     name: "Footwears",
@@ -95,170 +82,6 @@ export const products = [
     name: "Accessories",
     image: "/images/accessories2.webp",
     link: "/accessories",
-  },
-];
-
-export const category = [
-  {
-    id: 0,
-    name: "Men",
-    image: "/images/mensneaker.webp",
-    link: "/men",
-  },
-  {
-    id: 1,
-    name: "Women",
-    image: "/images/women.webp",
-    link: "/women",
-  },
-  {
-    id: 2,
-    name: "Kids",
-    image: "/images/kids.webp",
-    link: "/kids",
-  },
-  {
-    id: 3,
-    name: "Accessories",
-    image: "/images/accessories.webp",
-    link: "/accessories",
-  },
-];
-
-export const filterElement_footwear = [
-  {
-    id: 1,
-    name: "category",
-    selection: ["sneaker", "casual"],
-  },
-  {
-    id: 2,
-    name: "type",
-    selection: ["casual", "running", "basketball"],
-  },
-  {
-    id: 3,
-    name: "gender",
-    selection: ["women", "men", "kids"],
-  },
-  {
-    id: 4,
-    name: "color",
-    selection: ["Black", "White", "Blue"],
-  },
-  {
-    id: 5,
-    name: "size",
-    selection: ["5.5", "6", "6.5"],
-  },
-];
-
-export const filterElement_apparels = [
-  {
-    id: 1,
-    name: "category",
-    selection: ["casual", "running", "basketball", "hoodies", "sweatshirts"],
-  },
-
-  {
-    id: 2,
-    name: "color",
-    selection: ["Black", "White", "Blue"],
-  },
-  {
-    id: 4,
-    name: "brand",
-    selection: ["Nike", "Adidas", "Puma"],
-  },
-  {
-    id: 3,
-    name: "size",
-    selection: ["5.5", "6", "6.5"],
-  },
-];
-export const filterElement_brand = [
-  {
-    id: 1,
-    name: "category",
-    selection: ["footwear", "apparels", "accesories"],
-  },
-
-  {
-    id: 2,
-    name: "color",
-    selection: ["Black", "White", "Blue"],
-  },
-  {
-    id: 3,
-    name: "size",
-    selection: ["5.5", "6", "6.5"],
-  },
-];
-export const filterElement_accesories = [
-  {
-    id: 1,
-    name: "category",
-    selection: ["cap", "socks", "bags", "guides", "gadget"],
-  },
-  {
-    id: 4,
-    name: "brand",
-    selection: ["Nike", "Adidas", "Puma"],
-  },
-  {
-    id: 2,
-    name: "color",
-    selection: ["Black", "White", "Blue"],
-  },
-  {
-    id: 3,
-    name: "size",
-    selection: ["5.5", "6", "6.5"],
-  },
-];
-export const filterElement_category = [
-  {
-    id: 1,
-    name: "brand",
-    selection: ["Nike", "Adidas", "Puma"],
-  },
-  {
-    id: 2,
-    name: "color",
-    selection: ["Black", "White", "Blue"],
-  },
-  {
-    id: 3,
-    name: "gender",
-    selection: ["women", "men", "kids"],
-  },
-  {
-    id: 4,
-    name: "size",
-    selection: ["5.5", "6", "6.5"],
-  },
-];
-
-export const filterElement_general= [
-  {
-    id: 1,
-    name: "brand",
-    selection: ["Nike", "Adidas", "Puma"],
-  },
-  {
-    id: 2,
-    name: "color",
-    selection: ["Black", "White", "Blue"],
-  },
-  {
-    id: 3,
-    name: "gender",
-    selection: ["women", "men", "kids"],
-  },
-  {
-    id: 4,
-    name: "size",
-    selection: ["5.5", "6", "6.5"],
   },
 ];
 
@@ -376,26 +199,31 @@ export const dropdownNav = [
         id: 0,
         name: "Nike",
         image: "/images/brand-logo/nike.svg",
+        link: "/nike",
       },
       {
         id: 1,
         name: "Adidas",
         image: "/images/brand-logo/adidas.png",
+        link: "/adidas",
       },
       {
         id: 2,
         name: "New Balance",
         image: "/images/brand-logo/newbalance.svg",
+        link: "/newbalance",
       },
       {
         id: 3,
         name: "Puma",
         image: "/images/brand-logo/puma.jpeg",
+        link: "/puma",
       },
       {
         id: 4,
         name: "Reebok",
         image: "/images/brand-logo/reebok.svg",
+        link: "/reebok",
       },
     ],
   },

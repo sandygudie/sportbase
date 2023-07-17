@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { brands, products } from "@/data";
+import { dropdownNav, collection_category } from "@/data";
 // const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 // import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -50,7 +50,7 @@ export default function Home() {
                 Collections
               </h1>
               <div className="flex items-center flex-wrap justify-between gap-8">
-                {products.map((item) => {
+                {collection_category.map((item) => {
                   return (
                     <Link
                       href={`/collection${item.link}`}
@@ -90,7 +90,7 @@ export default function Home() {
                 Our Brands
               </h2>
               <div className="flex items-center justify-center flex-wrap gap-8 md:gap-10">
-                {brands.map((item) => {
+                {dropdownNav[3].category.map((item: any) => {
                   return (
                     <Link
                       href={`/collection${item.link}`}

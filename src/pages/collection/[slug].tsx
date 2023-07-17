@@ -1,15 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import FilterComponent from "@/components/FilterComponent";
-import Products from "@/components/Collection";
+import Collection from "@/components/Collection";
 import { Product } from "@/types";
-import { client, filterList, titleCase } from "@/utilis";
+import { client, titleCase } from "@/utilis";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Spinner from "@/components/Spinner";
 import TuneIcon from "@mui/icons-material/Tune";
-
 import FilterDrawer from "@/components/FilterDrawer";
-import useScroll from "@/hooks/useScroll";
 
 type Props = {
   collectionData: Product[];
@@ -40,7 +38,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
       {collection?.length ? (
         <>
           {" "}
-          <div className="px-2 py-4 md:p-6 sticky top-10 md:top-14 z-40  bg-dark flex items-center justify-between">
+          <div className="px-2 py-4 md:p-6 sticky top-16 z-40 bg-dark flex items-center justify-between">
             <div className="flex items-center gap-2">
               <h1 className="text-white font-medium text-sm md:text-xl">
                 {category
@@ -62,7 +60,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
           </div>
           <div className="md:mx-8 h-[100em] my-8 md:my-12 flex relative items-start">
             <div
-              className={`filterlist hidden md:block sticky h-screen overflow-auto w-72 top-36`}
+              className={`filterlist hidden md:block sticky h-screen overflow-auto w-72 top-44`}
             >
               <p className="mb-6 flex items-center justify-between">
                 <span className="text-base font-bold">FILTER </span>
@@ -75,7 +73,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
                 collection={collection}
               />
             </div>
-            <Products collection={collection} />
+            <Collection collection={collection} />
           </div>
         </>
       ) : (

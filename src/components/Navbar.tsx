@@ -134,26 +134,24 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
       <div className="relative">
         <div
           onMouseOver={(e) => handleClickOut(e)}
-          className={`px-2 md:px-8 bg-white`}
+          className={`px-2  py-4 md:px-8 bg-white`}
         >
           <div className="text-center m-auto flex justify-between items-center">
             <div className="hidden md:flex gap-8 items-center basis-full">
               <div
                 ref={ref}
                 onMouseOver={(e) => handleClickOver(e)}
-                className={`${
-                  showSubNav ? "border-solid " : "border-none"
-                } py-6 relative inline-block border-x-0 hover:no-underline border-t-0 border-b-2 border-primary cursor-pointer `}
+                className={` relative inline-block cursor-pointer `}
               >
                 Shop
               </div>
-              <div className="hidden md:block py-6">
+              <div className="hidden md:block">
                 {gender.map((ele: any) => {
                   return (
                     <Link
                       href={`/collection${ele.link.toLowerCase()}`}
                       key={ele.id}
-                      className="py-4 md:mr-8 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
+                      className="pb-6 md:mr-8 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
                     >
                       {ele.name}
                     </Link>
