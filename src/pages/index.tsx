@@ -189,9 +189,7 @@ export default function Home() {
 
 // install husky
 
-
 // error handling
 // install toast
 
 // 404 page
-

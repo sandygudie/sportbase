@@ -35,11 +35,8 @@ function SideNav() {
             alt="sneaker base logo"
           />{" "}
         </Link>
-        <IconButton onClick={toggleDrawer(false)} aria-label="Close">
-          <CloseIcon
-            className="hover:text-primary"
-  
-          />
+        <IconButton className="text-lg" onClick={toggleDrawer(false)} aria-label="Close">
+          <CloseIcon className="text-dark hover:text-primary" />
         </IconButton>
       </div>
       {dropdownNav.map((ele) => {
@@ -55,7 +52,9 @@ function SideNav() {
               className="px-4"
             >
               <div
-                className={`${expanded === ele.id && `text-primary`} w-full flex items-center justify-between`}
+                className={`${
+                  expanded === ele.id && `text-primary`
+                } w-full flex items-center justify-between`}
               >
                 <p className="text-sm font-normal">{ele.name}</p>
                 {expanded === ele.id ? (

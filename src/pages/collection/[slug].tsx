@@ -32,7 +32,11 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
       setCollection(categoryItems);
     }
   };
-
+ 
+  const handleCollectionChange = (collection:any) => {
+     console.log(collection);
+    // setCollection(collection);
+  };
   return (
     <main>
       {collection?.length ? (
@@ -55,6 +59,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
                 collectionSlug={collectionSlug}
                 category={category}
                 collection={collection}
+                handleCollectionChange={handleCollectionChange}
               />
             </FilterDrawer>
           </div>
@@ -71,6 +76,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
                 collectionSlug={collectionSlug}
                 category={category}
                 collection={collection}
+                handleCollectionChange={handleCollectionChange}
               />
             </div>
             <Collection collection={collection} />

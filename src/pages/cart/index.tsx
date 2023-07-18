@@ -124,7 +124,7 @@ function Index({}: Props) {
                         </div>
                       </div>
                       <div className="sm:w-[45%] mt-4 :my-6 md:my-0 block sm:flex items-center justify-between gap-3">
-                      <div className="mt-3 w-3/6">
+                      <div className="mt-3 sm:w-3/6">
                         <Autocomplete
                           value={ele.qty}
                           onChange={(event, newValue) => {

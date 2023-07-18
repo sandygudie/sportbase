@@ -1,31 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Product } from "@/types";
-
-import useMediaquery from "@/hooks/useMediaquery";
-
 import { filterList } from "@/utilis";
+import { addFilterItem, removedFilterItem } from "@/utilis/filtered";
+import DoneIcon from "@mui/icons-material/Done";
 
 type Props = {
   collection: Product[];
   collectionSlug: string;
   category: string;
+  handleCollectionChange: (collection: Product[]) => void;
 };
 
-function FilterComponent({ collection, category, collectionSlug }: Props) {
-  const [expanded, setExpanded] = useState<number | false>();
-  const matches = useMediaquery();
+function FilterComponent({
+  collection,
+  handleCollectionChange,
+  category,
+  collectionSlug,
+}: Props) {
+  const [expanded, setExpanded] = useState<string | false>("");
+  const [selectedList, setSelectedList] = useState<string[]>([]);
+  const [filteredCollection, setFilteredCollection] = useState<Product[]>([]);
 
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   handleCollectionChange(filteredCollection);
+  // }, [filteredCollection]);
+
   let temp_collection = [...collection];
   let filterElement = filterList(temp_collection, collectionSlug, category);
 
@@ -35,9 +43,27 @@ function FilterComponent({ collection, category, collectionSlug }: Props) {
     ).length;
 
   const handleChange =
-    (panel: number) => (event: React.SyntheticEvent, newExpanded: boolean) =>
+    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) =>
       setExpanded(newExpanded ? panel : false);
 
+  const ToggleFilterItems = (selected: string) => {
+    let filtered: Product[] | any;
+    if (selectedList.includes(selected)) {
+      filtered = removedFilterItem(expanded, selected, filteredCollection);
+      setSelectedList((selectedList) =>
+        selectedList.filter((ele) => ele !== selected)
+      );
+      setFilteredCollection(filtered);
+    } else {
+      setSelectedList((selectedList) => [...selectedList, selected]);
+      filtered = addFilterItem(expanded, selected, temp_collection);
+      setFilteredCollection((filteredCollection) => [
+        ...filteredCollection,
+        ...filtered,
+      ]);
+    }
+  };
+console.log(filteredCollection)
   return (
     <div className="relative">
       {" "}
@@ -67,20 +93,101 @@ function FilterComponent({ collection, category, collectionSlug }: Props) {
             </MuiAccordionSummary>
             <MuiAccordionDetails>
               <FormGroup>
-                {ele.selection.map((item: string, index: number) => (
-                  <FormControlLabel
-                    key={index}
-                    control={<Checkbox />}
-                    label={
-                      <div className="flex items-center gap-6">
-                        <p>{item}</p>
-                        <p className="p-3 text-xs bg-gray-100 flex items-center justify-center rounded-full w-3 text-sm h-3 p-2 ">
-                          {itemQuantity(ele.name, item)}
-                        </p>
-                      </div>
-                    }
-                  />
-                ))}
+                {ele.name === "size" ? (
+                  <div className="flex items-center flex-wrap ">
+                    {ele.selection.map((item: string, index: number) => (
+                      <FormControlLabel
+                        className="m-0"
+                        key={index}
+                        control={
+                          <Checkbox
+                            icon={
+                              <p className="w-[30px] text-center  border-solid font-medium border-[0.5px] text-[9px] text-dark px-2">
+                                {item}
+                              </p>
+                            }
+                            checkedIcon={
+                              <p className="w-[30px] text-center  border-solid font-medium border-[0.5px] text-[9px] bg-dark text-white px-2">
+                                {item}
+                              </p>
+                            }
+                            className="p-1"
+                            checked={selectedList.includes(item)}
+                            onChange={() => {
+                              ToggleFilterItems(item);
+                            }}
+                          />
+                        }
+                        label={""}
+                      />
+                    ))}
+                  </div>
+                ) : ele.name === "color" ? (
+                  <div className="flex items-center flex-wrap ">
+                    {ele.selection.map((item: string, index: number) => (
+                      <FormControlLabel
+                        className="m-0"
+                        key={index}
+                        control={
+                          <Checkbox
+                            icon={
+                              <div
+                                style={{ backgroundColor: item }}
+                                className="border-solid rounded-full p-1 h-4 w-4"
+                              ></div>
+                            }
+                            checkedIcon={
+                              <div
+                                style={{ backgroundColor: item }}
+                                className="border-solid rounded-full p-1 h-4 w-4"
+                              >
+                                {selectedList.includes(item) && (
+                                  <DoneIcon
+                                    className={`${
+                                      item === "White"
+                                        ? "text-dark"
+                                        : "text-white"
+                                    } text-[16px]  mr-0 inline p-0`}
+                                  />
+                                )}
+                              </div>
+                            }
+                            className="p-2"
+                            checked={selectedList.includes(item)}
+                            onChange={() => {
+                              ToggleFilterItems(item);
+                            }}
+                          />
+                        }
+                        label={""}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  ele.selection.map((item: string, index: number) => (
+                    <FormControlLabel
+                      key={index}
+                      control={
+                        <Checkbox
+                          className=""
+                          checked={selectedList.includes(item)}
+                          onChange={() => {
+                            ToggleFilterItems(item),
+                              console.log(filteredCollection);
+                          }}
+                        />
+                      }
+                      label={
+                        <div className="flex items-center gap-6">
+                          <p>{item}</p>
+                          <p className="p-3 text-xs bg-gray-100 flex items-center justify-center rounded-full w-3 text-sm h-3 p-2 ">
+                            {itemQuantity(ele.name, item)}
+                          </p>
+                        </div>
+                      }
+                    />
+                  ))
+                )}
               </FormGroup>
             </MuiAccordionDetails>
           </MuiAccordion>

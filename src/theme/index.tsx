@@ -89,7 +89,7 @@ const theme = createTheme({
     MuiAccordionSummary: {
       styleOverrides: {
         root: {
-          textTransform:"uppercase",
+          textTransform: "uppercase",
           ...tw`px-0 py-2`,
           margin: "0px",
           "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
@@ -152,9 +152,9 @@ const theme = createTheme({
         root: {
           ...tw`text-gray-200/40`,
           "&.Mui-checked": {
-            ...tw`text-primary`,
+            // ...tw`text-primary`,
+            // color: tailwindTheme`colors.gray.100`,
           },
-          // color: tailwindTheme`colors.primary` + "!important",
         },
       },
     },

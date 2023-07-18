@@ -28,9 +28,9 @@ export default function FilterDrawer({ children }: Props) {
       <Drawer anchor={"right"} open={isOpen} onClose={toggleDrawer(false)}>
         <div className="flex px-4 pt-8 pb-6 items-center justify-between">
           <span className="flex items-center gap-2 text-base font-bold"><TuneIcon />FILTER </span>
-          <IconButton  onClick={() => setOpen(false)} aria-label="Close">
+          <IconButton className="text-lg" onClick={() => setOpen(false)} aria-label="Close">
             {" "}
-            <CloseIcon />
+            <CloseIcon className="text-dark"/>
           </IconButton>
         </div>
         <div className="px-4 w-72">{children}</div>
