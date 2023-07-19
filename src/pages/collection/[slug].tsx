@@ -17,29 +17,42 @@ type Props = {
 
 function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
   const router = useRouter();
-  const [collection, setCollection] = useState(collectionData);
-  let category: string | any = router.query["category"];
-  useEffect(() => {
-    setShowSubNav(false);
-    filteredCollection();
-  }, [router.query.category]);
+  const [collection, setCollection] = useState<Product[]>();
+  const [filteredCollection, setFilteredCollection] = useState<Product[]>([]);
+  const [category, setCategory] = useState<string>("");
+  const [isLoading, setLoading] = useState(false);
 
-  const filteredCollection = () => {
+  useEffect(() => {
+    let category: string | any = router.query["category"];
+    setShowSubNav(false);
+    getCollection(category);
+  }, [router.query, filteredCollection]);
+
+  const getCollection = (category: string) => {
+    setLoading(true);
     if (category?.length) {
       let categoryItems = collectionData.filter((ele: Product) =>
         ele.category === category ? ele : ele.type === category
       );
       setCollection(categoryItems);
+      setCategory(category);
+    } else {
+      setCollection(collectionData);
     }
+    setLoading(false);
   };
- 
-  const handleCollectionChange = (collection:any) => {
-     console.log(collection);
-    // setCollection(collection);
+
+  const updateFilterCollection = (updatedFilter: Product[]) => {
+    setFilteredCollection(updatedFilter);
   };
+
   return (
     <main>
-      {collection?.length ? (
+      {isLoading ? (
+        <div className="flex items-center justify-center flex-col h-80">
+          <Spinner />
+        </div>
+      ) : collection?.length ? (
         <>
           {" "}
           <div className="px-2 py-4 md:p-6 sticky top-16 z-40 bg-dark flex items-center justify-between">
@@ -57,9 +70,8 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
             <FilterDrawer>
               <FilterComponent
                 collectionSlug={collectionSlug}
-                category={category}
                 collection={collection}
-                handleCollectionChange={handleCollectionChange}
+                updateFilterCollection={updateFilterCollection}
               />
             </FilterDrawer>
           </div>
@@ -74,17 +86,20 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
               </p>
               <FilterComponent
                 collectionSlug={collectionSlug}
-                category={category}
                 collection={collection}
-                handleCollectionChange={handleCollectionChange}
+                updateFilterCollection={updateFilterCollection}
               />
             </div>
-            <Collection collection={collection} />
+            <Collection
+              collection={
+                filteredCollection.length ? filteredCollection : collection
+              }
+            />
           </div>
         </>
       ) : (
         <div className="flex items-center justify-center flex-col h-80">
-          <Spinner />
+          No Product Found
         </div>
       )}
     </main>

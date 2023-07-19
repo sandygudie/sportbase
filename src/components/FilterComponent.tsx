@@ -9,36 +9,39 @@ import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Product } from "@/types";
-import { filterList } from "@/utilis";
+import { filterListHandler } from "@/utilis/filterList";
 import { addFilterItem, removedFilterItem } from "@/utilis/filtered";
 import DoneIcon from "@mui/icons-material/Done";
 
 type Props = {
   collection: Product[];
   collectionSlug: string;
-  category: string;
-  handleCollectionChange: (collection: Product[]) => void;
+  updateFilterCollection: (filteredCollection: Product[]) => void;
 };
 
 function FilterComponent({
   collection,
-  handleCollectionChange,
-  category,
+  updateFilterCollection,
   collectionSlug,
 }: Props) {
   const [expanded, setExpanded] = useState<string | false>("");
   const [selectedList, setSelectedList] = useState<string[]>([]);
-  const [filteredCollection, setFilteredCollection] = useState<Product[]>([]);
+  const [currentFilteredItems, setCurrentFilteredItems] = useState<Product[]>(
+    []
+  );
 
-  // useEffect(() => {
-  //   handleCollectionChange(filteredCollection);
-  // }, [filteredCollection]);
+  useEffect(() => {
+    updateFilterCollection(currentFilteredItems);
+  }, [currentFilteredItems]);
 
   let temp_collection = [...collection];
-  let filterElement = filterList(temp_collection, collectionSlug, category);
+  const filterList = filterListHandler(
+    temp_collection,
+    collectionSlug,
+  );
 
-  let itemQuantity = (key: string, value: any) =>
-    collection.filter(
+  const filterItemsQuantity = (key: string, value: any) =>
+    temp_collection.filter(
       (x: Product | any) => x[key] == value || x[key]?.includes(value)
     ).length;
 
@@ -46,28 +49,39 @@ function FilterComponent({
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) =>
       setExpanded(newExpanded ? panel : false);
 
-  const ToggleFilterItems = (selected: string) => {
+  const ToggleFilterItems = (selectedItem: string) => {
     let filtered: Product[] | any;
-    if (selectedList.includes(selected)) {
-      filtered = removedFilterItem(expanded, selected, filteredCollection);
-      setSelectedList((selectedList) =>
-        selectedList.filter((ele) => ele !== selected)
+    if (selectedList.includes(selectedItem)) {
+      filtered = removedFilterItem(
+        expanded,
+        selectedItem,
+        currentFilteredItems
       );
-      setFilteredCollection(filtered);
+      setSelectedList((selectedList) =>
+        selectedList.filter((ele) => ele !== selectedItem)
+      );
+
+      setCurrentFilteredItems(filtered);
     } else {
-      setSelectedList((selectedList) => [...selectedList, selected]);
-      filtered = addFilterItem(expanded, selected, temp_collection);
-      setFilteredCollection((filteredCollection) => [
-        ...filteredCollection,
-        ...filtered,
+      setSelectedList((selectedList) => [...selectedList, selectedItem]);
+      filtered = addFilterItem(expanded, selectedItem, temp_collection);
+      const new_filtered = filtered.filter((obj1: { _id: string }) =>
+        currentFilteredItems.every(
+          (obj2: { _id: string }) => obj1._id !== obj2._id
+        )
+      );
+      setCurrentFilteredItems((currentFilteredItems) => [
+        ...new_filtered,
+        ...currentFilteredItems,
       ]);
     }
+    updateFilterCollection(currentFilteredItems);
   };
-console.log(filteredCollection)
+
   return (
     <div className="relative">
       {" "}
-      {filterElement.map((ele: any) => {
+      {filterList.map((ele: any) => {
         return (
           <MuiAccordion
             key={ele.name}
@@ -171,17 +185,14 @@ console.log(filteredCollection)
                         <Checkbox
                           className=""
                           checked={selectedList.includes(item)}
-                          onChange={() => {
-                            ToggleFilterItems(item),
-                              console.log(filteredCollection);
-                          }}
+                          onChange={() => ToggleFilterItems(item)}
                         />
                       }
                       label={
                         <div className="flex items-center gap-6">
                           <p>{item}</p>
                           <p className="p-3 text-xs bg-gray-100 flex items-center justify-center rounded-full w-3 text-sm h-3 p-2 ">
-                            {itemQuantity(ele.name, item)}
+                            {filterItemsQuantity(ele.name, item)}
                           </p>
                         </div>
                       }

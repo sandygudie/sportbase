@@ -2,48 +2,48 @@ import { Product } from "@/types";
 
 export const addFilterItem = (
   expanded: string | false,
-  selected: string,
+  selectedItem: string,
   temp_collection: Product[]
 ) => {
   let filtered: Product[] = [];
-  if (expanded === "brand" && selected) {
+  if (expanded === "brand" && selectedItem) {
     return (filtered = temp_collection.filter(
-      ({ brand }: any) => brand === selected
+      ({ brand }: any) => brand === selectedItem
     ));
   }
-  if (expanded === "gender" && selected) {
+  if (expanded === "gender" && selectedItem) {
     return (filtered = temp_collection.filter(({ gender }: any) =>
-      gender.includes(selected)
+      gender.includes(selectedItem)
     ));
   }
-  if (expanded === "category" && selected) {
+  if (expanded === "category" && selectedItem) {
     return (filtered = temp_collection.filter(
-      ({ category }: any) => category === selected
+      ({ category }: any) => category === selectedItem 
     ));
   }
-  if (expanded === "type" && selected) {
+  if (expanded === "type" && selectedItem) {
     return (filtered = temp_collection.filter(
-      ({ type }: any) => type === selected
+      ({ type }: any) => type === selectedItem
     ));
   }
-  if (expanded === "color" && selected) {
+  if (expanded === "color" && selectedItem) {
     return (filtered = temp_collection.filter(
-      ({ color }: any) => color === selected
+      ({ color }: any) => color === selectedItem
     ));
   }
-  if (expanded === "timeline" && selected) {
+  if (expanded === "timeline" && selectedItem) {
     return (filtered = temp_collection.filter(
-      ({ timeline }: any) => timeline === selected
+      ({ timeline }: any) => timeline === selectedItem
     ));
   }
-  if (expanded === "size" && selected) {
+  if (expanded === "size" && selectedItem) {
     return (filtered = temp_collection.filter(
-      ({size }: any) => size.includes(selected)
+      ({size }: any) => size.includes(selectedItem)
     ));
   }
-  if (expanded === "price" && selected) {
+  if (expanded === "price" && selectedItem) {
     return (filtered = temp_collection.filter(
-      ({ price }: any) => price === selected
+      ({ price }: any) => price === selectedItem
     ));
   } else {
     return filtered;
@@ -52,49 +52,49 @@ export const addFilterItem = (
 
 export const removedFilterItem = (
   expanded: string | false,
-  selected: string,
+  selectedItem: string,
   filteredCollection: Product[]
 ) => {
   let filtered;
-  if (expanded === "brand" && selected) {
+  if (expanded === "brand" && selectedItem) {
     return (filtered = filteredCollection.filter(
-      ({ brand }: any) => brand !== selected
+      ({ brand }: any) => brand !== selectedItem
     ));
   }
-  if (expanded === "gender" && selected) {
+  if (expanded === "gender" && selectedItem) {
     return (filtered = filteredCollection.filter(
-      ({ gender }: any) => !gender.includes(selected)
+      ({ gender }: any) => !gender.includes(selectedItem)
     ));
   }
-  if (expanded === "category" && selected) {
+  if (expanded === "category" && selectedItem) {
     return (filtered = filteredCollection.filter(
-      ({ category }: any) => category !== selected
+      ({ category }: any) => category !== selectedItem
     ));
   }
-  if (expanded === "type" && selected) {
+  if (expanded === "type" && selectedItem) {
     return (filtered = filteredCollection.filter(
-      ({ type }: any) => type !== selected
+      ({ type }: any) => type !== selectedItem
     ));
   }
-  if (expanded === "color" && selected) {
+  if (expanded === "color" && selectedItem) {
     return (filtered = filteredCollection.filter(
-      ({ color }: any) => !color.includes(selected)
+      ({ color }: any) => !color.includes(selectedItem)
     ));
   }
-  if (expanded === "size" && selected) {
+  if (expanded === "size" && selectedItem) {
     return (filtered = filteredCollection.filter(
-      ({size }: any) => !size.includes(selected)
+      ({size }: any) => !size.includes(selectedItem)
     ));
   }
-  if (expanded === "timeline" && selected) {
+  if (expanded === "timeline" && selectedItem) {
     return (filtered = filteredCollection.filter(
-      ({ timeline }: any) => timeline !== selected
+      ({ timeline }: any) => timeline !== selectedItem
     ));
   }
-  if (expanded === "price" && selected) {
+  if (expanded === "price" && selectedItem) {
     return (filtered = filteredCollection.filter(
-      ({ price }: any) => price !== selected
+      ({ price }: any) => price !== selectedItem
     ));
   }
-  return filteredCollection;
+  // return filteredCollection;
 };
