@@ -47,5 +47,7 @@ export interface CartResponse {
 
 export interface AppContextState {
   cartQty: number;
-  setCartQty: Dispatch<SetStateAction<number>>;
+  setCartQtyhandler: (cartQty) => void;
+  showSubNavHandler: (showSubNav) => void;
+  showSubNav: boolean;
 }

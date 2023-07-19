@@ -1,7 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { dropdownNav, collection_category } from "@/data";
-// const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
-// import dynamic from "next/dynamic";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
@@ -43,9 +41,9 @@ export default function Home() {
       <main>
         <div className="">
           <Swipeable />
-          <div className="py-28">
+          <div className="pt-16 pb-28 md:py-28">
             <div className="px-4 md:px-8 ">
-              <h1 className="text-2xl text-center font-thin mb-4 md:mb-20">
+              <h1 className="text-2xl text-center font-thin mb-8 md:mb-20">
                 {" "}
                 Collections
               </h1>
@@ -73,7 +71,7 @@ export default function Home() {
                           {item.name}
                         </p>
                         <Button
-                          className="w-48 text-sm bg-white font-medium tracking-wider px-2 rounded-sm"
+                          className="w-48 text-xs bg-white font-medium tracking-wider px-2 rounded-sm"
                           variant="contained"
                         >
                           {`SHOP ${item.name.toUpperCase()}`}{" "}
@@ -192,4 +190,4 @@ export default function Home() {
 // error handling
 // install toast
 
-// 404 page
+

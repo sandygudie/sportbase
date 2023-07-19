@@ -268,7 +268,7 @@ export const gender = [
   },
 ];
 
-export const collections = [
+export const sales_latest_collections = [
   {
     id: 4,
     name: "Sales",

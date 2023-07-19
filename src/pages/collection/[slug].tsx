@@ -1,21 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import FilterComponent from "@/components/FilterComponent";
 import Collection from "@/components/Collection";
-import { Product } from "@/types";
+import { AppContextState, Product } from "@/types";
 import { client, titleCase } from "@/utilis";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useRouter } from "next/router";
 import Spinner from "@/components/Spinner";
 import TuneIcon from "@mui/icons-material/Tune";
 import FilterDrawer from "@/components/FilterDrawer";
+import { AppContext } from "@/context";
 
 type Props = {
   collectionData: Product[];
   collectionSlug: string;
-  setShowSubNav: Dispatch<SetStateAction<boolean>>;
 };
 
-function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
+function Index({ collectionData, collectionSlug }: Props) {
+  const { showSubNavHandler } = useContext(AppContext) as AppContextState;
   const router = useRouter();
   const [collection, setCollection] = useState<Product[]>();
   const [filteredCollection, setFilteredCollection] = useState<Product[]>([]);
@@ -24,7 +29,7 @@ function Index({ collectionData, collectionSlug, setShowSubNav }: Props) {
 
   useEffect(() => {
     let category: string | any = router.query["category"];
-    setShowSubNav(false);
+    showSubNavHandler(false);
     getCollection(category);
   }, [router.query, filteredCollection]);
 

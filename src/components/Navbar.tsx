@@ -1,14 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-  Dispatch,
-  SetStateAction,
-  useContext,
-
-  useRef,
-
-} from "react";
+import { useContext } from "react";
 import Link from "next/link";
-import { dropdownNav, collections, gender } from "../data";
+import { dropdownNav, sales_latest_collections, gender } from "../data";
 import { AppContext } from "@/context";
 import { AppContextState } from "@/types";
 import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
@@ -17,38 +10,24 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SideNav from "./SideNav";
 import Button from "@mui/material/Button";
 import useScroll from "@/hooks/useScroll";
-type Props = {
-  showSubNav: boolean;
-  setShowSubNav: Dispatch<SetStateAction<boolean>>;
-};
 
-export default function Navbar({ showSubNav, setShowSubNav }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { cartQty } = useContext(AppContext) as AppContextState;
+export default function Navbar() {
+  const { cartQty, showSubNavHandler, showSubNav } = useContext(
+    AppContext
+  ) as AppContextState;
 
   const scrollTop = useScroll();
-
-  const handleClickOver = (e: any) => {
-    if (ref.current && ref.current.contains(e.target)) {
-      setShowSubNav(true);
-    }
-  };
-
-  const handleClickOut = (e: any) => {
-    if (showSubNav && !(ref.current && ref.current.contains(e.target))) {
-      setShowSubNav(false);
-    }
-  };
 
   const Dropdown = () => {
     return (
       <div className="mx-8 py-6 block md:flex justify-between items-start">
-        <div className="flex justify-between items-start w-4/5">
+        <div className="flex justify-between items-start w-11/12">
           {dropdownNav.map((list: any) => {
             return (
               list.name !== "Gender" && (
                 <div key={list.id} className="w-10 sm:w-full">
                   <Link
+                    type="button"
                     href={`/collection/${list.name.toLowerCase()}`}
                     className="text-sm md:text-[16px] font-medium"
                   >
@@ -57,6 +36,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
                   {list.category.map((ele: any) => {
                     return (
                       <Link
+                        type="button"
                         href={
                           list.name === "Brand"
                             ? `/collection/${ele.name.toLowerCase()}`
@@ -74,21 +54,18 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
             );
           })}
         </div>
-        <div className="block sm:flex gap-8">
-          {collections.map((ele) => {
+        <div className="flex">
+          {sales_latest_collections.map((ele) => {
             return (
-              <div key={ele.id} className="my-4">
+              <div key={ele.id} className="my-4 text-right">
                 <Link
+                  type="button"
                   href={`/collection${ele.link.toLowerCase()}`}
                   className="hover:no-underline"
                 >
-                  <img
-                    className="w-48 h-48 md:w-48 md:h-60"
-                    src={ele.image}
-                    alt={ele.name}
-                  />
+                  <img className="w-60 h-60" src={ele.image} alt={ele.name} />
                   <Button
-                    className="w-48 text-sm bg-white font-medium tracking-wider px-2 rounded-sm"
+                    className="w-60 text-sm bg-white font-medium tracking-wider px-2 rounded-sm"
                     variant="contained"
                   >
                     {" "}
@@ -108,6 +85,7 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
       className={` z-40 w-full bg-white sticky top-0 text-lg 2xl:text-3xl shadow-md`}
     >
       <div
+        onMouseOver={() => showSubNavHandler(false)}
         className={`${
           scrollTop > 0 ? "hidden" : "flex"
         } bg-gray-100 px-2 md:px-8 py-3  items-center justify-between`}
@@ -132,20 +110,19 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
         </div>
       </div>
       <div className="relative">
-        <div
-          onMouseOver={(e) => handleClickOut(e)}
-          className={`px-2  py-4 md:px-8 bg-white`}
-        >
+        <div className={`px-2  py-4 md:px-8 bg-white`}>
           <div className="text-center m-auto flex justify-between items-center">
             <div className="hidden md:flex gap-8 items-center basis-full">
               <div
-                ref={ref}
-                onMouseOver={(e) => handleClickOver(e)}
-                className={` relative inline-block cursor-pointer `}
+                onMouseOver={() => showSubNavHandler(true)}
+                className={`relative inline-block cursor-pointer`}
               >
-                Shop
+                <p> Shop</p>
               </div>
-              <div className="hidden md:block">
+              <div
+                onMouseOver={() => showSubNavHandler(false)}
+                className="hidden md:block"
+              >
                 {gender.map((ele: any) => {
                   return (
                     <Link
@@ -197,8 +174,8 @@ export default function Navbar({ showSubNav, setShowSubNav }: Props) {
         </div>
         <div
           className="absolute  bg-white  w-full z-40 top-14 shadow-md"
-          onMouseOut={() => setShowSubNav(false)}
-          onMouseOver={() => setShowSubNav(true)}
+          onMouseOut={() => showSubNavHandler(false)}
+          onMouseOver={() => showSubNavHandler(true)}
         >
           {showSubNav && <Dropdown />}
         </div>

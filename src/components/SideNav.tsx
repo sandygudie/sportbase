@@ -8,7 +8,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { collections, dropdownNav } from "@/data";
+import { sales_latest_collections, dropdownNav } from "@/data";
 import Link from "next/link";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -88,7 +88,7 @@ function SideNav() {
           </MuiAccordion>
         );
       })}
-      {collections.map((ele, i) => {
+      {sales_latest_collections.map((ele, i) => {
         return (
           <div
             key={ele.id}

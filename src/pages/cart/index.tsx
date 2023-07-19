@@ -22,7 +22,7 @@ function Index({}: Props) {
   const [products, setProducts] = useState<CartResponse[]>([]);
   const [isDelete, setDelete] = useState<Boolean>(false);
   const [selectedID, setSelectedID] = useState<string>("");
-  const { setCartQty } = useContext(AppContext) as AppContextState;
+  const { setCartQtyhandler } = useContext(AppContext) as AppContextState;
 
   useEffect(() => {
     let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -71,7 +71,7 @@ function Index({}: Props) {
       const tempProducts = products.filter((ele) => ele._id !== id);
       localStorage.setItem("cart", JSON.stringify(tempProducts));
       setProducts(tempProducts);
-      setCartQty(tempProducts.length);
+      setCartQtyhandler(tempProducts.length);
     } catch (error) {
       console.log(error);
     }
