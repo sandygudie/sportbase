@@ -166,7 +166,7 @@ export default function Navbar() {
                   <ShoppingCartOutlinedIcon sx={{ fontSize: "20px" }} />
                 </span>
                 <span className="absolute top-0 left-4 ml-2 rounded-full w-3 font-bold text-sm h-3 ">
-                  {cartQty}
+                  {cartQty>0 ?cartQty:""}
                 </span>
               </Link>
             </div>

@@ -19,7 +19,6 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
  * @param {import('next').NextApiResponse} res
  */
 
-
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case "GET": {
@@ -71,24 +70,16 @@ const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
     const {
       query: { id },
     } = req;
-
-    // mongoose.Types.ObjectId.isValid("zzzzzzzzzzzz")) validate id, use mongoose validstor
     const newProduct = await Product.create(req.body);
     const existingCart = await Cart.findById(id);
     let cartId;
     if (existingCart) {
       existingCart.product.unshift(newProduct);
-      // this id should be sent to cookies and not passed to the response object
+
       cartId = existingCart.id;
       existingCart.save();
     } else {
       const newCart = await Cart.create({});
-      // setCookie("cartId", id, {
-      //   req,
-      //   res,
-      //   maxAge: 60 * 60 * 24 * 7, // 1 week
-      //   path: "/",
-      // });
 
       newCart.product.unshift(newProduct);
       cartId = newCart.id;

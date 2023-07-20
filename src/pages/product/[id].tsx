@@ -22,7 +22,7 @@ interface Props {
 
 function Index({ product, similarProducts }: Props) {
   const router = useRouter();
-  const { setCartQtyhandler} = useContext(AppContext) as AppContextState;
+  const { setCartQtyhandler } = useContext(AppContext) as AppContextState;
   const [selectedColor, setSelectedColor] = useState<string>(" ");
   const [selectedSize, setSelectedSize] = useState<string>(" ");
   const [error, setError] = useState<boolean>(false);
@@ -77,10 +77,9 @@ function Index({ product, similarProducts }: Props) {
             return a.updated_at < b.updated_at ? 1 : -1;
           });
           localStorage.setItem("cart", JSON.stringify(updatedProduct));
-          setCartQtyhandler(updatedProduct.length); // to update the navbar from context, think of another option
-          if (cartID === null) {
-            localStorage.setItem("cartID", cartId);
-          }
+          setCartQtyhandler(updatedProduct.length);
+          localStorage.setItem("cartID", cartId);
+
           return router.push("/cart");
         });
     }
@@ -284,4 +283,3 @@ export const getStaticPaths = async () => {
     fallback: "blocking",
   };
 };
-

@@ -5,7 +5,7 @@ const cartSchema = new Schema(
   {
     product: {
       type: [productSchema],
-    },
+    }
   },
 
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
