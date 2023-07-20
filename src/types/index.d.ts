@@ -45,6 +45,14 @@ export interface CartResponse {
   totalPrice: number;
 }
 
+export interface CheckOutRequest {
+  price_data: {
+    currency: string;
+    unit_amount: number;
+    product_data: { name: string};
+  };
+  quantity: number;
+}
 export interface AppContextState {
   cartQty: number;
   setCartQtyhandler: (cartQty) => void;

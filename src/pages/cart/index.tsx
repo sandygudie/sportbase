@@ -5,7 +5,7 @@ import {
   getCartProducts,
   updateCartProduct,
 } from "@/utilis/cart";
-import { AppContextState, CartResponse, Product } from "@/types";
+import { AppContextState, CartResponse, CheckOutRequest } from "@/types";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -13,13 +13,12 @@ import Link from "next/link";
 import Spinner from "@/components/Spinner";
 import CircularProgress from "@mui/material/CircularProgress";
 import { AppContext } from "@/context";
+import { getStripe } from "@/utilis/getStripe";
 
 type Props = {};
 
 function Index({}: Props) {
-  const numbers = [0, 1, 2, 3, 4, 5];
-
-  const [products, setProducts] = useState<CartResponse[]>([]);
+  const [cartItems, setCartItems] = useState<CartResponse[]>([]);
   const [isDelete, setDelete] = useState<Boolean>(false);
   const [selectedID, setSelectedID] = useState<string>("");
   const { setCartQtyhandler } = useContext(AppContext) as AppContextState;
@@ -28,7 +27,7 @@ function Index({}: Props) {
     let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
     let cartID = localStorage.getItem("cartID");
     getCartData(cartItem, cartID);
-  }, [setProducts]);
+  }, [setCartItems]);
 
   // get product from localstorage , if it's not there get from api
   const getCartData = async (cartItem: any, cartID: any) => {
@@ -44,10 +43,10 @@ function Index({}: Props) {
               });
               localStorage.setItem("cart", JSON.stringify(cartResponse));
             });
-          setProducts(cartItem);
+          setCartItems(cartItem);
         }
       }
-      setProducts(cartItem);
+      setCartItems(cartItem);
     } catch (error) {
       console.log(error);
     }
@@ -68,20 +67,49 @@ function Index({}: Props) {
       setDelete(true);
       let cartID = localStorage.getItem("cartID");
       await deleteCartProduct(cartID, id);
-      const tempProducts = products.filter((ele) => ele._id !== id);
+      const tempProducts = cartItems.filter((ele) => ele._id !== id);
       localStorage.setItem("cart", JSON.stringify(tempProducts));
-      setProducts(tempProducts);
+      setCartItems(tempProducts);
       setCartQtyhandler(tempProducts.length);
     } catch (error) {
       console.log(error);
     }
   };
+  const checkoutCart = async () => {
+   
+    try {
+      // Create a Checkout Session.
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartItems),
+      });
 
+      if ((response as any).statusCode === 500) {
+        console.error(response);
+        return;
+      }
+      const session = await response.json();
+      const stripe = await getStripe();
+
+      await stripe?.redirectToCheckout({
+        sessionId: session.id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(cartItems)
   return (
     <div className=" px-5 md:px-8 ">
-      {products.length ? (
+      {cartItems.length ? (
         <div className="py-4">
-          <h1 className=" text-center text-lg my-4"> Your Cart</h1>
+          <h1 className=" text-center tracking-[0.3em] font-light text-xl my-6">
+            {" "}
+            CART
+          </h1>
           <div className="block md:flex gap-4 mt-6 items-start">
             <div className="w-full md:w-9/12 md:shadow-lg shadow-dark/10 md:p-8 ">
               <div className="flex mb-5 text-lg justify-between items-center ">
@@ -90,7 +118,7 @@ function Index({}: Props) {
                 <p className="hidden sm:block">Total</p>
               </div>
               <div className="">
-                {products.map((ele, index) => {
+                {cartItems.map((ele, index) => {
                   return (
                     <div
                       className="sm:flex justify-between items-center border-t-1 border-b-0 border-x-0 border-primary/20 border-solid py-8 "
@@ -124,52 +152,52 @@ function Index({}: Props) {
                         </div>
                       </div>
                       <div className="sm:w-[45%] mt-4 :my-6 md:my-0 block sm:flex items-center justify-between gap-3">
-                      <div className="mt-3 sm:w-3/6">
-                        <Autocomplete
-                          value={ele.qty}
-                          onChange={(event, newValue) => {
-                            const currentProductIndex = products.findIndex(
-                              (product) => product._id === ele._id
-                            );
-                            const updatedProduct = Object.assign(
-                              {},
-                              products[currentProductIndex]
-                            );
-                            updatedProduct.qty = Number(newValue);
-                            updatedProduct.totalPrice =
-                              updatedProduct.qty * ele.price;
-                            const newProducts = products.slice();
-                            newProducts[currentProductIndex] = updatedProduct;
-                            const itemUpdated = {
-                              qty: updatedProduct.qty,
-                              price: updatedProduct.price,
-                              totalPrice:
-                                updatedProduct.qty * updatedProduct.price,
-                            };
-                            updateItem(ele._id, itemUpdated);
-                            localStorage.setItem(
-                              "cart",
-                              JSON.stringify(newProducts)
-                            );
-                            setProducts(newProducts);
-                          }}
-                          selectOnFocus
-                          clearOnBlur
-                          handleHomeEndKeys
-                          id="free-solo-with-text-demo"
-                          options={numbers}
-                          getOptionLabel={(option) => option.toString()}
-                          renderOption={(props, option) => (
-                            <li {...props}>{option}</li>
-                          )}
-                          className="md:w-6/6 lg:w-full"
-                          freeSolo
-                          renderInput={(params) => (
-                            <TextField {...params} label="qty" />
-                          )}
-                        />
-                        {/* )} */}
-                        
+                        <div className="mt-3 sm:w-3/6">
+                          <Autocomplete
+                            value={ele.qty}
+                            onChange={(event, newValue) => {
+                              const currentProductIndex = cartItems.findIndex(
+                                (product) => product._id === ele._id
+                              );
+                              const updatedProduct = Object.assign(
+                                {},
+                                cartItems[currentProductIndex]
+                              );
+                              updatedProduct.qty = Number(newValue);
+                              updatedProduct.totalPrice =
+                                updatedProduct.qty * ele.price;
+                              const newProducts = cartItems.slice();
+                              newProducts[currentProductIndex] = updatedProduct;
+                              const itemUpdated = {
+                                qty: updatedProduct.qty,
+                                price: updatedProduct.price,
+                                totalPrice:
+                                  updatedProduct.qty * updatedProduct.price,
+                              };
+                              updateItem(ele._id, itemUpdated);
+                              localStorage.setItem(
+                                "cart",
+                                JSON.stringify(newProducts)
+                              );
+                              setCartItems(newProducts);
+                            }}
+                            selectOnFocus
+                            clearOnBlur
+                            handleHomeEndKeys
+                            id="free-solo-with-text-demo"
+                            options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                            getOptionLabel={(option) => option.toString()}
+                            renderOption={(props, option) => (
+                              <li {...props}>{option}</li>
+                            )}
+                            className="md:w-6/6 lg:w-full"
+                            freeSolo
+                            renderInput={(params) => (
+                              <TextField {...params} label="qty" />
+                            )}
+                          />
+                          {/* )} */}
+
                           <div
                             className="text-sm md:text-base cursor-pointer text-center hover:underline"
                             onClick={() => deleteItem(ele._id)}
@@ -186,12 +214,11 @@ function Index({}: Props) {
                           </div>
                         </div>
                         <p className="font-medium my-4 md:my-0">
-                        {" "}
-                        <span className="mr-5 sm:hidden ">Total price:</span>$
-                        {Number(ele.totalPrice)}
-                      </p>
+                          {" "}
+                          <span className="mr-5 sm:hidden ">Total price:</span>$
+                          {Number(ele.totalPrice)}
+                        </p>
                       </div>
-                      
                     </div>
                   );
                 })}
@@ -204,7 +231,7 @@ function Index({}: Props) {
                   <p>TOTAL :</p>{" "}
                   <p className="text-xl">
                     $
-                    {products?.reduce(
+                    {cartItems?.reduce(
                       (accum: any, item: { totalPrice: any }) =>
                         accum + Number(item.totalPrice),
                       0
@@ -212,18 +239,22 @@ function Index({}: Props) {
                     .00
                   </p>
                 </div>
-                <Button variant="contained" className="w-full">
+                <Button
+                  onClick={() => checkoutCart()}
+                  variant="contained"
+                  className="w-full"
+                >
                   Go to checkout
                 </Button>
               </div>
             </div>
           </div>
         </div>
-      ) : products.length <= 0 ? (
+      ) : cartItems.length <= 0 ? (
         <div className="flex flex-col h-[28em] items-center justify-center">
           <p className="pb-4">Your cart is empty</p>
           <Button variant="contained" className="px-3 w-64">
-            Shop our products
+            Go to Shop
           </Button>
         </div>
       ) : (
@@ -236,4 +267,3 @@ function Index({}: Props) {
 }
 
 export default Index;
-

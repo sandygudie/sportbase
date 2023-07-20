@@ -14,12 +14,11 @@ import { connectToDB } from "@/config/db/db";
 import Cart from "@/models/cart";
 import Product from "@/models/product";
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
-import { UsbOff } from "@mui/icons-material";
-
 /**
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res
  */
+
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {

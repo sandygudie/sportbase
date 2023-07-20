@@ -176,7 +176,7 @@ export default function Home() {
 
 // fix all things before going to the login and payout
 
-// loading and performances
+// loading and performances(using nextjs images for quick loading)
 
 // pagination(material ui)
 // you will add carousel for your images
@@ -190,4 +190,5 @@ export default function Home() {
 // error handling
 // install toast
 
+// include payment histroy
 

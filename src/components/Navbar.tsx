@@ -96,7 +96,7 @@ export default function Navbar() {
             className="flex justify-center items-center"
             sx={{ fontSize: "15px" }}
           />
-          <span className="text-xs"> Call us: +31 416 652 803</span>
+          <span className="text-xs"> Call us: +1 987 692 5823</span>
         </div>
         <div className="text-xs flex md:gap-2 justify-center items-center">
           {" "}
