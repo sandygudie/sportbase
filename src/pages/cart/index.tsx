@@ -24,16 +24,15 @@ function Index({}: Props) {
   const [cartItems, setCartItems] = useState<CartResponse[]>([]);
   const [isDelete, setDelete] = useState<Boolean>(false);
   const [selectedID, setSelectedID] = useState<string>("");
-  const { setCartQtyhandler } = useContext(AppContext) as AppContextState;
+  const { setCartQtyhandler, cartQty } = useContext(
+    AppContext
+  ) as AppContextState;
   const [isLoading, setLoading] = useState<boolean>(false);
 
-
   useEffect(() => {
-    let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
     setLoading(true);
     getCartData();
   }, []);
-console.log
   const getCartData = async () => {
     let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
     let cartID = localStorage.getItem("cartID");
@@ -108,22 +107,7 @@ console.log
 
   return (
     <div className=" px-5 md:px-8 ">
-      {isLoading ? (
-        <div className="flex flex-col items-center justify-center">
-          <Spinner />
-        </div>
-      ) : !cartItems.length ? (
-        <div className="flex flex-col h-[28em] items-center justify-center">
-          <p className="pb-4">Your cart is empty</p>
-          <Button
-            onClick={() => router.push("/")}
-            variant="contained"
-            className="px-3 w-64"
-          >
-            Go to Shop
-          </Button>
-        </div>
-      ) : (
+      {cartItems.length ? (
         <div className="py-4">
           <h1 className=" text-center tracking-[0.3em] font-light text-xl my-6">
             {" "}
@@ -271,6 +255,21 @@ console.log
               </div>
             </div>
           </div>
+        </div>
+      ) : cartQty <= 0 ? (
+        <div className="flex flex-col h-[28em] items-center justify-center">
+          <p className="pb-4">Your cart is empty</p>
+          <Button
+            onClick={() => router.push("/")}
+            variant="contained"
+            className="px-3 w-64"
+          >
+            Go to Shop
+          </Button>
+        </div>
+      ) : isLoading &&(
+        <div className="flex flex-col items-center justify-center">
+          <Spinner />
         </div>
       )}
     </div>
