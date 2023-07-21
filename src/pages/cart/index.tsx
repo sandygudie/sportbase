@@ -5,7 +5,7 @@ import {
   getCartProducts,
   updateCartProduct,
 } from "@/utilis/cart";
-import { AppContextState, CartResponse} from "@/types";
+import { AppContextState, CartResponse } from "@/types";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -24,34 +24,35 @@ function Index({}: Props) {
   const [isDelete, setDelete] = useState<Boolean>(false);
   const [selectedID, setSelectedID] = useState<string>("");
   const { setCartQtyhandler } = useContext(AppContext) as AppContextState;
+  const [isLoading, setLoading] = useState<boolean>(false);
 
+  // let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
   useEffect(() => {
+    setLoading(true);
+    getCartData();
+  }, []);
+
+  const getCartData = async () => {
     let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
     let cartID = localStorage.getItem("cartID");
-    getCartData(cartItem, cartID);
-  }, [setCartItems]);
-
-  // get product from localstorage , if it's not there get from api
-  const getCartData = async (cartItem: any, cartID: any) => {
     try {
-      // if (cartItem.length <= 0) {
+      if (!cartItem.length) {
         if (cartID) {
-          await getCartProducts(cartID)
-            .then((response) => response.json())
-            .then((data) => {
-              let cartResponse = data.data.product;
-            
-              cartResponse.sort(function (a: any, b: any) {
-                return a.updated_at < b.updated_at ? 1 : -1;
-              });
-              localStorage.setItem("cart", JSON.stringify(cartResponse));
-            });
-          setCartItems(cartItem);
+          let response = await getCartProducts(cartID);
+          let data = await response.json();
+          let cartResponse = data.data.product;
+          cartResponse.sort(function (a: any, b: any) {
+            return a.updated_at < b.updated_at ? 1 : -1;
+          });
+          localStorage.setItem("cart", JSON.stringify(cartResponse));
+          setCartItems(cartResponse);
         }
-      // }
+      }
       setCartItems(cartItem);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,10 +103,25 @@ function Index({}: Props) {
       console.log(error);
     }
   };
- 
+
   return (
     <div className=" px-5 md:px-8 ">
-      {cartItems.length ? (
+      {isLoading ? (
+        <div className="flex flex-col items-center justify-center">
+          <Spinner />
+        </div>
+      ) : !cartItems.length ? (
+        <div className="flex flex-col h-[28em] items-center justify-center">
+          <p className="pb-4">Your cart is empty</p>
+          <Button
+            onClick={() => router.push("/")}
+            variant="contained"
+            className="px-3 w-64"
+          >
+            Go to Shop
+          </Button>
+        </div>
+      ) : (
         <div className="py-4">
           <h1 className=" text-center tracking-[0.3em] font-light text-xl my-6">
             {" "}
@@ -249,17 +265,6 @@ function Index({}: Props) {
               </div>
             </div>
           </div>
-        </div>
-      ) : cartItems.length <= 0 ? (
-        <div className="flex flex-col h-[28em] items-center justify-center">
-          <p className="pb-4">Your cart is empty</p>
-          <Button onClick={()=> router.push("/")} variant="contained" className="px-3 w-64">
-            Go to Shop
-          </Button>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center">
-          <Spinner />
         </div>
       )}
     </div>
