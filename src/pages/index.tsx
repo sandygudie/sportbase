@@ -57,7 +57,6 @@ export default function Home() {
                       className="grow w-96"
                     >
                       <div className="relative overflow-hidden">
-                        
                         <Image
                           src={item.image}
                           alt={item.name}
@@ -185,4 +184,3 @@ export default function Home() {
 // print out receipt,share receive or sent receipt to email
 // payment with flutter or Stripe
 // include social links
-

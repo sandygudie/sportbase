@@ -3,11 +3,7 @@ import FilterComponent from "@/components/FilterComponent";
 import Collection from "@/components/Collection";
 import { AppContextState, Product } from "@/types";
 import { client, titleCase } from "@/utilis";
-import React, {
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Spinner from "@/components/Spinner";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -30,10 +26,10 @@ function Index({ collectionData, collectionSlug }: Props) {
   useEffect(() => {
     let category: string | any = router.query["category"];
     showSubNavHandler(false);
-    getCollection(category);
+    getCollectionData(category);
   }, [router.query, filteredCollection]);
 
-  const getCollection = (category: string) => {
+  const getCollectionData = (category: string) => {
     setLoading(true);
     if (category?.length) {
       let categoryItems = collectionData.filter((ele: Product) =>
@@ -53,7 +49,7 @@ function Index({ collectionData, collectionSlug }: Props) {
 
   return (
     <main>
-      {isLoading ? (
+      {isLoading || collection === undefined ? (
         <div className="flex items-center justify-center flex-col h-80">
           <Spinner />
         </div>

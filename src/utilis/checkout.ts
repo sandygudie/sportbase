@@ -1,4 +1,4 @@
-import { CartRequest } from "@/types";
+
 
 export const createCartReceipt = async (
   cartId: string | null

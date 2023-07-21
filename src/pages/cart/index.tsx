@@ -27,12 +27,13 @@ function Index({}: Props) {
   const { setCartQtyhandler } = useContext(AppContext) as AppContextState;
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  // let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
+
   useEffect(() => {
+    let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
     setLoading(true);
     getCartData();
   }, []);
-
+console.log
   const getCartData = async () => {
     let cartItem = JSON.parse(localStorage.getItem("cart") || "[]");
     let cartID = localStorage.getItem("cartID");
