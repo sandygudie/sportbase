@@ -1,13 +1,8 @@
 export const banner = [
   {
-    label: "Best footwear collections",
-    imgPath: "/images/nike1.jpg",
-    link: "/footwear",
-  },
-  {
     label: " Your Favorite brand Collections",
     imgPath: "/images/newbalance1.webp",
-    link: "/",
+    link: "/footwear",
   },
   {
     label: "Kids Collections",
@@ -17,52 +12,25 @@ export const banner = [
   {
     label: "Best apparels for the season",
     imgPath: "/images/apparel.jpg",
-    link: "/appareal",
+    link: "/apparel",
   },
   {
     label: "Nike Collections",
     imgPath: "/images/nike.webp",
     link: "/nike",
   },
+  // {
+  //   label: "Casuals Clothings",
+  //   imgPath: "/images/apparels-hanger.svg",
+  //   link: "/apparel",
+  // },
   {
     label: "Sport Accessories",
     imgPath: "/images/accessories.webp",
     link: "/accesories",
   },
+ 
 ];
-
-// export const brands = [
-//   {
-//     id: 0,
-//     name: "Nike",
-//     image: "/images/brand-logo/nike.svg",
-//     link: "/nike",
-//   },
-//   {
-//     id: 1,
-//     name: "Adidas",
-//     image: "/images/brand-logo/adidas.png",
-//     link: "/adidas",
-//   },
-//   {
-//     id: 2,
-//     name: "New Balance",
-//     image: "/images/brand-logo/newbalance.svg",
-//     link: "/newbalance",
-//   },
-//   {
-//     id: 3,
-//     name: "Puma",
-//     image: "/images/brand-logo/puma.jpeg",
-//     link: "/puma",
-//   },
-//   {
-//     id: 4,
-//     name: "Reebok",
-//     image: "/images/brand-logo/reebok.svg",
-//     link: "/reebok",
-//   },
-// ];
 
 export const collection_category = [
   {

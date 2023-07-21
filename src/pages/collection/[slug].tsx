@@ -82,7 +82,7 @@ function Index({ collectionData, collectionSlug }: Props) {
           </div>
           <div className="md:mx-8 h-[100em] my-8 md:my-12 flex relative items-start">
             <div
-              className={`filterlist hidden md:block sticky h-screen overflow-auto w-72 top-44`}
+              className={`filterlist hidden md:block sticky h-screen overflow-auto w-[250px] top-44`}
             >
               <p className="mb-6 flex items-center justify-between">
                 <span className="text-base font-bold">FILTER </span>

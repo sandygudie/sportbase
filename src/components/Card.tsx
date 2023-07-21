@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface IProps {
   product: any;
@@ -18,15 +19,14 @@ export default function Card({
             Latest{" "}
           </p>
         )}
-        <div
-          style={{
-            backgroundImage: `url(${product.imageUrl})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            backgroundColor: "#f6f6f6",
-            backgroundRepeat: "no-repeat",
-          }}
-          className={`${
+        <Image
+          src={product.imageUrl}
+          alt={product.name}
+          width={0}
+          height={0}
+          sizes="100vw"
+          loading="lazy"
+          className={`object-cover w-full ${
             similarProducts
               ? `h-[11rem] md:h-[300px]`
               : latestProduct
@@ -34,7 +34,7 @@ export default function Card({
               : "h-[5em] sm:h-[16rem] md:w-full lg:h-[30rem]"
           } 
            transition-transform ease-in delay-100 hover:scale-110 duration-400`}
-        ></div>
+        />
       </div>
       <div>
         <p className="md:tracking-widest font-normal text-[0.5em] md:text-sm md:mt-2 overflow-hidden truncate md:w-[30ch]">

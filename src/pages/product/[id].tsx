@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Image from "next/image";
 
 import { Pagination } from "swiper";
 
@@ -87,16 +88,15 @@ function Index({ product, similarProducts }: Props) {
   return (
     <div className="py-8 md:py-16 px-4 md:px-8">
       <div className="block md:flex gap-8 justify-between items-start">
-        <div
-          style={{
-            backgroundImage: `url(${product?.imageUrl})`,
-            backgroundPosition: "center",
-            backgroundSize: "contain",
-            backgroundColor: "#f6f6f6",
-            backgroundRepeat: "no-repeat",
-          }}
-          className="grow basis-1/3 h-[450px]"
-        ></div>
+        <Image
+          src={product?.imageUrl}
+          alt={product.name}
+          width={0}
+          height={0}
+          sizes="100vw"
+          loading="lazy"
+          className="object-cover w-full grow basis-1/3 h-[450px]"
+        />
         <div className="pt-8 md:pt-0 grow md:px-8 basis-1/3">
           <p className="text-xs font-medium py-2">
             {product?.brand.toUpperCase()} COLLECTION{" "}

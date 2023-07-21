@@ -10,6 +10,7 @@ import Card from "@/components/Card";
 import Spinner from "@/components/Spinner";
 
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function Home() {
   const [latestProduct, setlatestProducts] = useState<Product[]>([]);
@@ -43,7 +44,7 @@ export default function Home() {
           <Swipeable />
           <div className="pt-16 pb-28 md:py-28">
             <div className="px-4 md:px-8 ">
-              <h1 className="text-2xl text-center font-thin mb-8 md:mb-20">
+              <h1 className="text-2xl text-center font-normal mb-8 md:mb-20">
                 {" "}
                 Collections
               </h1>
@@ -56,22 +57,24 @@ export default function Home() {
                       className="grow w-96"
                     >
                       <div className="relative overflow-hidden">
-                        <div
-                          style={{
-                            backgroundImage: `url(${item.image})`,
-                            backgroundPosition: "center",
-                            backgroundSize: "cover",
-                            backgroundRepeat: "no-repeat",
-                          }}
-                          className="w-full 2xl:h-[650px] h-[550px] transition-transform ease-in delay-150 hover:scale-110 duration-1000"
-                        ></div>
+                        
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          loading="lazy"
+                          // priority={true}
+                          className="object-cover w-full 2xl:h-[650px] h-[550px] transition-transform ease-in delay-150 hover:scale-110 duration-1000"
+                        />
                       </div>
                       <div className="p-6 absolute bottom-5">
                         <p className="font-medium text-white text-3xl pb-8">
                           {item.name}
                         </p>
                         <Button
-                          className="w-48 text-xs bg-white font-medium tracking-wider px-2 rounded-sm"
+                          className="w-48 text-xs bg-white font-bold tracking-wider px-2 rounded-sm"
                           variant="contained"
                         >
                           {`SHOP ${item.name.toUpperCase()}`}{" "}
@@ -84,7 +87,7 @@ export default function Home() {
             </div>
 
             <div className="my-20 md:my-28 px-4 md:px-12">
-              <h2 className="font-thin text-center mb-8 md:mb-20  text-2xl">
+              <h2 className="font-normal text-center mb-8 md:mb-20  text-2xl">
                 Our Brands
               </h2>
               <div className="flex items-center justify-center flex-wrap gap-8 md:gap-10">
@@ -108,7 +111,7 @@ export default function Home() {
 
             <div className="px-0 md:px-12 bg-gray-100/30">
               <div className="py-16 md:py-20">
-                <h2 className="text-center font-thin mb-12 md:mb-20 text-2xl">
+                <h2 className="text-center font-normal mb-12 md:mb-20 text-2xl">
                   New Arrivals
                 </h2>
                 <div className="my-5">
@@ -172,23 +175,15 @@ export default function Home() {
   );
 }
 
-// swim suit add to product
+// todo
+//Add Item to shop
+// loading and performances()
+// pagination(material ui) you will add carousel for your images
+// set up install husky
+// error handling(Api, datastorage(local storage, cookie))
 
-// fix all things before going to the login and payout
+// print out receipt,share receive or sent receipt to email
+// payment with flutter or Stripe
+// include social links
 
-// loading and performances(using nextjs images for quick loading)
-
-// pagination(material ui)
-// you will add carousel for your images
-
-// idea box
-// price comparism for restaurant
-// rent your outfit, wedding dress
-
-// install husky
-
-// error handling
-// install toast
-
-// include payment histroy
-
+// the slider(responsiveness, add more images)

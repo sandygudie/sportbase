@@ -9,7 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Product } from "@/types";
-import { filterListHandler } from "@/utilis/filterList";
+import { filterListHandler } from "@/utilis/filterlist";
 import { addFilterItem, removedFilterItem } from "@/utilis/filtered";
 import DoneIcon from "@mui/icons-material/Done";
 

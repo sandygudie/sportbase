@@ -13,21 +13,33 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      let requestArray = req.body;
-      var result: CheckOutRequest[] = requestArray.map((ele: any) => ({
+      let result: CheckOutRequest[] = req.body.map((ele: any) => ({
         price_data: {
           currency: "usd",
           unit_amount: Number(ele.price) * 100,
           product_data: {
             name: ele.name,
+            images: [ele.imageUrl],
           },
         },
         quantity: ele.qty,
       }));
-      console.log(result)
+      let lineItems = [
+        ...result,
+        {
+          price_data: {
+            currency: "usd",
+            unit_amount: 100,
+            product_data: {
+              name: "Shipping Cost",
+            },
+          },
+          quantity: 1,
+        },
+      ];
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
-        line_items: result,
+        line_items: lineItems,
         mode: "payment",
         success_url: `${req.headers.origin}/checkout?success=true`,
         cancel_url: `${req.headers.origin}/checkout?canceled=true`,

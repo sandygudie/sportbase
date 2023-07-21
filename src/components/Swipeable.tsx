@@ -6,12 +6,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Image from "next/image";
 
 import { Autoplay, Pagination } from "swiper";
 
 export default function Swipeable() {
   return (
     <Swiper
+  loop={true}
       spaceBetween={0}
       centeredSlides={true}
       autoplay={{
@@ -25,20 +27,19 @@ export default function Swipeable() {
       className="mySwiper"
     >
       {banner.map((step, index) => (
-        <SwiperSlide key={step.label} className="w-full ">
-          <Link href={`collection${step.link}`}>
-            <div
-              style={{
-                backgroundImage: `url(${step.imgPath})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                backgroundColor: "#f6f6f6",
-                backgroundRepeat: "no-repeat",
-              }}
-              className="h-[600px]"
-            ></div>
+        <SwiperSlide key={step.label} className="w-full">
+          <div className="relative">
+          <Link href={`collection${step.link}`}  className="relative">
+              <Image
+              src={step.imgPath}
+              alt={step.label}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="object-cover w-full h-[650px]"
+            />
             <div className="p-6 absolute bottom-10 ">
-              <p className=" w-64 text-4xl font-bold  text-white  pb-6">
+              <p className={`w-64 text-4xl font-bold ${index % 2 ? 'text-white' : "text-primary"}  pb-6`}>
                 {step.label?.toUpperCase()}
               </p>
               <Button
@@ -49,6 +50,7 @@ export default function Swipeable() {
               </Button>{" "}
             </div>
           </Link>
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>

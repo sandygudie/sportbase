@@ -15,6 +15,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { AppContext } from "@/context";
 import { getStripe } from "@/utilis/getStripe";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 type Props = {};
 
@@ -141,12 +142,16 @@ function Index({}: Props) {
                       className="sm:flex justify-between items-center border-t-1 border-b-0 border-x-0 border-primary/20 border-solid py-8 "
                       key={ele._id}
                     >
-                      <div className="w-full gap-x-2 flex items-center sm:w-[40%]">
+                      <div className="relative w-full gap-x-2 flex items-center sm:w-[40%]">
                         <Link href={`product/${ele.productID}`}>
-                          <img
-                            className=" w-28 h-28 md:w-36 md:h-36"
+                          <Image
                             src={ele?.imageUrl}
                             alt={ele.name}
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            loading="lazy"
+                            className="object-cover w-full w-28 h-28 md:w-36 md:h-36"
                           />
                         </Link>
 
