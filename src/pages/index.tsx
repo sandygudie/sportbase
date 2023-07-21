@@ -70,7 +70,7 @@ export default function Home() {
                         />
                       </div>
                       <div className="p-6 absolute bottom-5">
-                        <p className="font-medium text-white text-3xl pb-8">
+                        <p className="font-medium text-white text-4xl pb-8">
                           {item.name}
                         </p>
                         <Button
@@ -186,4 +186,3 @@ export default function Home() {
 // payment with flutter or Stripe
 // include social links
 
-// the slider(responsiveness, add more images)

@@ -1,6 +1,6 @@
 export const banner = [
   {
-    label: " Your Favorite brand Collections",
+    label: "Your Favorite brand Collections",
     imgPath: "/images/newbalance1.webp",
     link: "/footwear",
   },
@@ -19,17 +19,11 @@ export const banner = [
     imgPath: "/images/nike.webp",
     link: "/nike",
   },
-  // {
-  //   label: "Casuals Clothings",
-  //   imgPath: "/images/apparels-hanger.svg",
-  //   link: "/apparel",
-  // },
   {
     label: "Sport Accessories",
     imgPath: "/images/accessories.webp",
     link: "/accesories",
   },
- 
 ];
 
 export const collection_category = [
@@ -48,7 +42,7 @@ export const collection_category = [
   {
     id: 2,
     name: "Accessories",
-    image: "/images/accessories2.webp",
+    image: "/images/accesory.jpg",
     link: "/accessories",
   },
 ];
