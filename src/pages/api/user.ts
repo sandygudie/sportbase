@@ -41,25 +41,14 @@ async function getUsers(res: NextApiResponse) {
 const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     await connectToDB();
-    const { name } = req.body;
-    const existingUser = await User.findOne({ name });
-    const userCount = await User.count({});
+    const { email } = req.body;
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return res.status(400).json({
-        error: "name already exist",
+        error: "email already exist",
       });
     } else {
-      //   const addedUser = await User.create(req.body);
-      //   const quizuser = {
-      //     _id: addedUser._id,
-      //     username: addedUser.username,
-      //     createdDate: addedUser.createdDate,
-      //     category: addedUser.category,
-      //     image: addedUser.image,
-      //     userNo: userCount + 1,
-      //   };
-      //   res.status(201).json({ message: "successful", quizuser });
     }
   } catch (error) {
     res.json(error);

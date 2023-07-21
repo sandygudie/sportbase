@@ -1,19 +1,9 @@
-// use switch for all cart items
-// not token based(you don't have to be login in to add things to cart , it's add checkout and payment we will tell you to sigin up )
-// but it has to be personified
-
-// /cart - returns unauthorized
-// /cart/id - works
-//  add items to the cart with this id
-
-// use switch for all cart items
-// add the cart as ref to user
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { connectToDB } from "@/config/db/db";
 import Cart from "@/models/cart";
 import Product from "@/models/product";
-import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
+// import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 /**
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res

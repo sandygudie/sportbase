@@ -44,7 +44,7 @@ export default async function handler(
         success_url: `${req.headers.origin}/checkout?success=true`,
         cancel_url: `${req.headers.origin}/checkout?canceled=true`,
       });
-      // console.log(session)
+
       res.json({ id: session.id });
     } catch (err: any) {
       res.status(err.statusCode || 500).json(err.message);
