@@ -35,10 +35,7 @@ function FilterComponent({
   }, [currentFilteredItems]);
 
   let temp_collection = [...collection];
-  const filterList = filterListHandler(
-    temp_collection,
-    collectionSlug,
-  );
+  const filterList = filterListHandler(temp_collection, collectionSlug);
 
   const filterItemsQuantity = (key: string, value: any) =>
     temp_collection.filter(
@@ -147,13 +144,21 @@ function FilterComponent({
                             icon={
                               <div
                                 style={{ backgroundColor: item }}
-                                className="border-solid rounded-full p-1 h-4 w-4"
+                                className={`${
+                                  item === "White"
+                                    ? "border-solid border-gray-200 border-[2px] p-1"
+                                    : " p-1.5 "
+                                } rounded-full h-4 w-4`}
                               ></div>
                             }
                             checkedIcon={
                               <div
                                 style={{ backgroundColor: item }}
-                                className="border-solid rounded-full p-1 h-4 w-4"
+                                className={`${
+                                  item === "White"
+                                    ? "border-solid border-gray-200  border-[2px] p-1"
+                                    : " p-1.5 "
+                                } rounded-full h-4 w-4`}
                               >
                                 {selectedList.includes(item) && (
                                   <DoneIcon

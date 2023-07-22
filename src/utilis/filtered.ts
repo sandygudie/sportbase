@@ -28,7 +28,7 @@ export const addFilterItem = (
   }
   if (expanded === "color" && selectedItem) {
     return (filtered = temp_collection.filter(
-      ({ color }: any) => color === selectedItem
+      ({ color }: any) => color.includes(selectedItem)
     ));
   }
   if (expanded === "timeline" && selectedItem) {
