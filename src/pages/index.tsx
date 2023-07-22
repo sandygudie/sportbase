@@ -176,11 +176,9 @@ export default function Home() {
 
 // todo
 //Add Item to shop
-// loading and performances()
+
 // pagination(material ui) you will add carousel for your images
 // set up install husky
-// error handling(Api, datastorage(local storage, cookie))
 
 // print out receipt,share receive or sent receipt to email
-// payment with flutter or Stripe
-// include social links
+
