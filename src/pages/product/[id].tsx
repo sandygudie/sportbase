@@ -176,7 +176,7 @@ function Index({ product, similarProducts }: Props) {
             )}{" "}
             <Button
               variant="contained"
-              className="w-full p-3"
+              className="w-full font-bold p-3"
               onClick={() => addToCart(product)}
             >
               {" "}

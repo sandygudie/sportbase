@@ -134,13 +134,13 @@ export default function Home() {
                     </div>
                   )}
                 </div>
-                <div className="text-center mt-12 md:mt-24">
+                <div className="text-center mt-8">
                   <Button
                     onClick={() => router.push("/collection/newest")}
                     variant="contained"
                     className="p-3 font-bold w-64"
                   >
-                    All Latest Products
+                   SHOP ALL NEW ARRIVALS
                   </Button>
                 </div>
               </div>
