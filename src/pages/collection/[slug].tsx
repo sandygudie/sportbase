@@ -64,7 +64,7 @@ function Index({ collectionData, collectionSlug }: Props) {
                   : `${titleCase(collectionSlug)}`}{" "}
                 Collections
               </h1>
-              <p className="flex items-center justify-center rounded-full w-5 font-bold h-5  bg-gray-100">
+              <p className="flex items-center text-xs justify-center p-1 rounded-full w-5 font-bold h-5  bg-gray-100">
                 {collection?.length}
               </p>
             </div>
@@ -76,7 +76,7 @@ function Index({ collectionData, collectionSlug }: Props) {
               />
             </FilterDrawer>
           </div>
-          <div className="md:mx-8 h-[100em] my-8 md:my-12 flex relative items-start">
+          <div className="md:mx-8 my-8 md:my-12 flex relative items-start">
             <div
               className={`filterlist hidden md:block sticky h-screen overflow-auto w-[250px] top-44`}
             >

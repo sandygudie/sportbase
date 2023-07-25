@@ -28,7 +28,7 @@ export default function Home() {
       "imageUrl": image.asset->url
     }`);
       let filtered = productResponse.filter(
-        (ele: Product) => ele.timeline === "latest" || ele.timeline === "newest"
+        (ele: Product) => ele.timeline === "latest"
       );
       setLoading(false);
       setlatestProducts(filtered);
@@ -136,7 +136,7 @@ export default function Home() {
                 </div>
                 <div className="text-center mt-8">
                   <Button
-                    onClick={() => router.push("/collection/newest")}
+                    onClick={() => router.push("/collection/latest")}
                     variant="contained"
                     className="p-3 font-bold w-64"
                   >

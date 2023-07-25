@@ -110,10 +110,10 @@ function Index({ product, similarProducts }: Props) {
             Product code : {product?._id.toUpperCase().slice(-9)}
           </p>
           <p>Rating :</p>
-          <div className="pt-6">
+          {/* <div className="pt-6">
             <h3 className="font-medium text-base">Description </h3>
             <p className="text-xl leading-10"> {product?.description}</p>
-          </div>
+          </div> */}
           <div className="py-6">
             <h3 className="text-base font-medium pb-2">
               Available color:

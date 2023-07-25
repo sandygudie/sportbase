@@ -20,8 +20,8 @@ export default function Card({
           </p>
         )}
         <Image
-          src={product.imageUrl}
-          alt={product.name}
+          src={product?.imageUrl}
+          alt={product?.name}
           width={0}
           height={0}
           sizes="100vw"
@@ -38,10 +38,10 @@ export default function Card({
       </div>
       <div>
         <p className="md:tracking-widest font-normal text-[0.5em] md:text-sm md:mt-2 overflow-hidden truncate md:w-[30ch]">
-          {product.name.toUpperCase()}
+          {product?.name.toUpperCase()}
         </p>
         <p className="md:mt-1 font-medium text-xs md:text-base">
-          ${product.price}
+          ${product?.price}
         </p>
       </div>
     </Link>

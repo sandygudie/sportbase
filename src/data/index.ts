@@ -240,7 +240,7 @@ export const sales_latest_collections = [
   {
     id: 5,
     name: "Latest Arrivals",
-    link: "/newest",
+    link: "/latest",
     image: "/images/mensneakers3.jpg",
   },
 ];
