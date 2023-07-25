@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Image from "next/image";
 
-import { Pagination } from "swiper";
+import { Autoplay, Pagination } from "swiper";
 
 interface Props {
   product: Product;
@@ -194,8 +194,14 @@ function Index({ product, similarProducts }: Props) {
           <div className="overflow-hidden my-5">
             <div className=" m-auto flex overflow-x-auto items-center md:justify-center gap-12">
               <Swiper
-                slidesPerView={1}
+                slidesPerView={3}
+                slidesPerGroup={2}
                 spaceBetween={10}
+                loop={true}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
                 pagination={{
                   clickable: true,
                 }}
@@ -218,12 +224,12 @@ function Index({ product, similarProducts }: Props) {
                     spaceBetween: 40,
                   },
                 }}
-                modules={[Pagination]}
+                modules={[Autoplay, Pagination]}
                 className="mySwiper p-4 m-auto w-full"
               >
                 {similarProducts?.map((product: Product, i: number) => {
                   return (
-                    <SwiperSlide className="md:w-72" key={product._id}>
+                    <SwiperSlide className="md:w-72 my-12" key={product._id}>
                       <div>
                         <Card similarProducts={true} product={product} />
                       </div>
