@@ -15,7 +15,7 @@ export default function Card({
     <Link className="hover:no-underline" href={`/product/${product._id}`}>
       <div className="relative overflow-hidden">
         {product.timeline === "latest" && (
-          <p className="absolute font-medium text-xs md:text-base right-0 p-1 top-0 z-30 bg-primary/60 md:py-1.5 md:px-4">
+          <p className="absolute font-medium text-xs md:text-base left-0 p-1 top-0 z-30 bg-primary/60 md:py-1.5 md:px-4">
             Latest{" "}
           </p>
         )}

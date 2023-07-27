@@ -39,7 +39,7 @@ export default function Navbar() {
                         type="button"
                         href={
                           list.name === "Brand"
-                            ? `/collection/${ele.name.toLowerCase()}`
+                            ? `/collection/${ele.link.toLowerCase()}`
                             : `/collection/${list.name.toLowerCase()}?category=${ele.name.toLowerCase()}`
                         }
                         key={ele.id}

@@ -23,11 +23,14 @@ function Index({ collectionData, collectionSlug }: Props) {
   const [category, setCategory] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
 
+
   useEffect(() => {
     let category: string | any = router.query["category"];
     showSubNavHandler(false);
     getCollectionData(category);
   }, [router.query, filteredCollection]);
+
+  
 
   const getCollectionData = (category: string) => {
     setLoading(true);
@@ -61,6 +64,8 @@ function Index({ collectionData, collectionSlug }: Props) {
               <h1 className="text-white font-medium text-sm md:text-xl">
                 {category
                   ? `${titleCase(category)}`
+                  : collectionSlug === "newbalance"
+                  ? `New Balance`
                   : `${titleCase(collectionSlug)}`}{" "}
                 Collections
               </h1>
