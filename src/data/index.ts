@@ -95,23 +95,15 @@ export const dropdownNav = [
     category: [
       {
         id: 1,
-        name: "T-shirts",
-      },
-      {
-        id: 2,
         name: "Shirts",
       },
       {
-        id: 8,
+        id: 2,
         name: "Casual",
       },
       {
-        id: 3,
-        name: "SweatShirts & Hoodies",
-      },
-      {
         id: 4,
-        name: "Pants",
+        name: "Shorts",
       },
       {
         id: 5,
@@ -146,11 +138,7 @@ export const dropdownNav = [
       {
         id: 4,
         name: "Socks",
-      },
-      {
-        id: 5,
-        name: "Head Warmer",
-      },
+      }
     ],
   },
   {

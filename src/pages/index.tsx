@@ -140,7 +140,7 @@ export default function Home() {
                     variant="contained"
                     className="p-3 font-bold w-64"
                   >
-                   SHOP ALL NEW ARRIVALS
+                    SHOP ALL NEW ARRIVALS
                   </Button>
                 </div>
               </div>
@@ -175,10 +175,8 @@ export default function Home() {
 }
 
 // todo
-//Add Item to shop
+//Add Item to shop(accesories and clothies)
 
-// pagination(material ui) you will add carousel for your images
-// set up install husky
-
-// print out receipt,share receive or sent receipt to email
-
+// load more pagination use(ssG and SWR )
+// you can add carousel for your images
+// set up nodemailer to get receipt

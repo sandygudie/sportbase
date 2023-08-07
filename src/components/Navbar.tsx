@@ -40,7 +40,7 @@ export default function Navbar() {
                         href={
                           list.name === "Brand"
                             ? `/collection/${ele.link.toLowerCase()}`
-                            : `/collection/${list.name.toLowerCase()}?category=${ele.name.toLowerCase()}`
+                            : `/collection/${list.name.toLowerCase()}?category=${ele.name.split(" ").join("").toLowerCase()}`
                         }
                         key={ele.id}
                         className="my-4 text-sm flex justify-start items-start hover:text-primary"
