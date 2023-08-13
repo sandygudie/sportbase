@@ -176,9 +176,7 @@ export default function Home() {
 
 // todo
 
-// load more pagination use(ssG or SWR )
 // you can add carousel for your images
 // Add pay with flutterwave and paypal
-// work on image optimization, and performances and acessibilityu
-// SEO and app loading speed
+// work on image optimization, and performances and acessibility
 // 
