@@ -104,12 +104,12 @@ function Index({ product, similarProducts }: Props) {
           <p className="pb-1 font-bold text-xl md:text-3xl">
             {product?.name.toUpperCase()}
           </p>
-          <p className="text-3xl font-medium">${product?.price}</p>
+          <p className="text-xl font-medium">${product?.price}</p>
           <p className="text-sm py-4">
             {" "}
             Product code : {product?._id.toUpperCase().slice(-9)}
           </p>
-          <p>Rating :</p>
+          {/* <p>Rating :</p> */}
           <div className="pt-6">
             <h3 className="font-medium text-base">Description </h3>
             <p className="text-xl leading-10"> {product?.description}</p>
@@ -123,14 +123,25 @@ function Index({ product, similarProducts }: Props) {
               {product?.color.map((ele: string, index: number) => (
                 <button
                   style={{ backgroundColor: ele }}
-                  className="hover:scale-110 border-none cursor-pointer border-dark w-8 h-8 contrast-75"
+                  className="hover:scale-110 border-none cursor-pointer rounded-full border-dark w-8 h-8 contrast-75"
                   key={index}
                   onClick={() => {
                     setSelectedColor(ele), setError(false);
                   }}
                 >
                   {selectedColor === ele ? (
-                    <CheckIcon sx={{ fill: "white" }} />
+                    <CheckIcon
+                      sx={{
+                        fill:
+                          ele == "White"
+                            ? "black"
+                            : ele == "black"
+                            ? "white"
+                            : "white",
+                        width: "15px",
+                        height: "30px",
+                      }}
+                    />
                   ) : (
                     ""
                   )}

@@ -175,8 +175,10 @@ export default function Home() {
 }
 
 // todo
-//Add Item to shop(accesories and clothies)
 
-// load more pagination use(ssG and SWR )
+// load more pagination use(ssG or SWR )
 // you can add carousel for your images
-// set up nodemailer to get receipt
+// Add pay with flutterwave and paypal
+// work on image optimization, and performances and acessibilityu
+// SEO and app loading speed
+// 

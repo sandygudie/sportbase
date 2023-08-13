@@ -12,7 +12,7 @@ export default function Card({
   latestProduct,
 }: IProps) {
   return (
-    <Link className="hover:no-underline" href={`/product/${product._id}`}>
+    <Link className="hover:no-underline " href={`/product/${product._id}`}>
       <div className="relative overflow-hidden">
         {product.timeline === "latest" && (
           <p className="absolute font-medium text-xs md:text-sm left-0 p-1 top-0 z-30 bg-primary/60 md:p-1">
