@@ -15,6 +15,7 @@ import "swiper/css/navigation";
 import Image from "next/image";
 
 import { Autoplay, Pagination } from "swiper";
+import Spinner from "@/components/Spinner";
 
 interface Props {
   product: Product;
@@ -27,6 +28,7 @@ function Index({ product, similarProducts }: Props) {
   const [selectedColor, setSelectedColor] = useState<string>(" ");
   const [selectedSize, setSelectedSize] = useState<string>(" ");
   const [error, setError] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     setSelectedColor(" ");
@@ -38,6 +40,7 @@ function Index({ product, similarProducts }: Props) {
       setError(true);
     } else {
       setError(false);
+      setLoading(true);
       const cartProduct: CartRequest = {
         name: doc.name,
         color: selectedColor,
@@ -110,7 +113,7 @@ function Index({ product, similarProducts }: Props) {
             Product code : {product?._id.toUpperCase().slice(-9)}
           </p>
           {/* <p>Rating :</p> */}
-          <div className="pt-6">
+          <div className="">
             <h3 className="font-medium text-base">Description </h3>
             <p className="text-xl leading-10"> {product?.description}</p>
           </div>
@@ -191,7 +194,7 @@ function Index({ product, similarProducts }: Props) {
               onClick={() => addToCart(product)}
             >
               {" "}
-              Add To Cart
+              {isLoading ? <Spinner /> : "Add To Cart"}
             </Button>
           </div>
         </div>

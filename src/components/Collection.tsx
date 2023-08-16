@@ -27,7 +27,7 @@ export default function Collection({ collection }: any) {
       {displayQty < collection.length ? (
         <div className="text-center mt-16">
           <Button
-            variant="outlined"
+            variant="contained"
             className="px-6 font-bold "
             onClick={() => loadMore()}
           >

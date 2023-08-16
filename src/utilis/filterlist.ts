@@ -79,12 +79,5 @@ export const filterListHandler = (
   } else {
     filterResult = [...test];
   }
-  // if (
-  //   category &&
-  //   (collectionSlug === "footwear" || "apparels" || "accesories")
-  // )
-  // {
-  //   test = test.filter((ele: any) => ele.name !== "type");
-  // }
   return filterResult;
 };

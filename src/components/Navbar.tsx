@@ -100,10 +100,10 @@ export default function Navbar() {
         </div>
         <div className="text-xs flex md:gap-2 justify-center items-center">
           {" "}
-          <Link className="hover:text-primary" href={"/"}>
+          {/* <Link className="hover:text-primary" href={"/"}>
           sportbase@gmail.com
           </Link>
-          <span>|</span>
+          <span>|</span> */}
           <Link className="hover:text-primary" href={"/"}>
             Help Center
           </Link>

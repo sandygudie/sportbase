@@ -13,7 +13,6 @@ import Link from "next/link";
 import Spinner from "@/components/Spinner";
 import CircularProgress from "@mui/material/CircularProgress";
 import { AppContext } from "@/context";
-import { getStripe } from "@/utilis/getStripe";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -80,30 +79,7 @@ function Index({}: Props) {
       console.log(error);
     }
   };
-  const checkoutCart = async () => {
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cartItems),
-      });
-
-      if ((response as any).statusCode === 500) {
-        console.error(response);
-        return;
-      }
-      const session = await response.json();
-      const stripe = await getStripe();
-
-      await stripe?.redirectToCheckout({
-        sessionId: session.id,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
   return (
     <div className=" px-5 md:px-8 ">
@@ -246,7 +222,7 @@ function Index({}: Props) {
                   </p>
                 </div>
                 <Button
-                  onClick={() => checkoutCart()}
+            onClick={() => router.push("/checkout")}
                   variant="contained"
                   className="w-full"
                 >
