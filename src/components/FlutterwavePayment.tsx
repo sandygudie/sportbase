@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useContext, useEffect, useState } from "react";
+import React, {useState } from "react";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { configFlutterwave } from "../utilis/flutterwaveConfig";
 import { Button } from "@mui/material";

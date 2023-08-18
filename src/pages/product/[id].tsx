@@ -91,6 +91,7 @@ function Index({ product, similarProducts }: Props) {
   return (
     <div className="py-8 md:py-16 px-4 md:px-8">
       <div className="block md:flex gap-8 justify-between items-start">
+        <div className="basis-7/12">
         <Image
           src={product?.imageUrl}
           alt={product.name}
@@ -98,9 +99,11 @@ function Index({ product, similarProducts }: Props) {
           height={0}
           sizes="100vw"
           loading="lazy"
-          className="object-cover w-full grow basis-1/3 h-[450px]"
+          className="object-cover w-full grow h-[450px]"
         />
-        <div className="pt-8 md:pt-0 grow md:px-8 basis-1/3">
+        </div>
+       
+        <div className="pt-8 md:pt-0 grow md:px-8 basis-5/12">
           <p className="text-xs font-medium py-2">
             {product?.brand.toUpperCase()} COLLECTION{" "}
           </p>
@@ -136,7 +139,7 @@ function Index({ product, similarProducts }: Props) {
                     <CheckIcon
                       sx={{
                         fill:
-                          ele == "White"
+                          ele == "white"
                             ? "black"
                             : ele == "black"
                             ? "white"
