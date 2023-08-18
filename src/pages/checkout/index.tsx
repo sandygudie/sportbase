@@ -74,7 +74,7 @@ const Checkout = () => {
       id: 2,
       name: "paypal",
       image: "/images/brand-logo/paypal.webp",
-      selected: "",
+      selected: ()=>"",
       color: " bg-[#ffc43a]",
     },
   ];
@@ -101,7 +101,7 @@ const Checkout = () => {
               {paymentOptions.map((option: any) => (
                 <button
                   key={option.id}
-                  onClick={option.selected}
+                  onClick={option?.selected}
                   className={`${option.color} border-0  rounded-lg  w-48 h-12 cursor-pointer flex flex-col justify-center items-center py-2`}
                 >
                   {isLoading && paymentMethod === option.name ? (

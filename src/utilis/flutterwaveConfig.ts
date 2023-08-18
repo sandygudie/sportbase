@@ -5,7 +5,7 @@ export const configFlutterwave =(amount: number,name: string, email: string,phon
         amount: amount,
         currency: "NGN",
         payment_options: "card,mobilemoney,ussd",
-        redirect_url: "http://localhost:3000/checkout/response?success=true",
+        // redirect_url: "http://localhost:3000/checkout/response?success=true",
         customer: {
           email: email,
           phone_number: phone,

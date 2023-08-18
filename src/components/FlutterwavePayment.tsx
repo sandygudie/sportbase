@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { configFlutterwave } from "../utilis/flutterwaveConfig";
 import { Button } from "@mui/material";
@@ -41,20 +41,24 @@ export default function FlutterwavePayment({ totalamount }: IProps) {
           setLoading(true);
           handleFlutterPayment({
             callback: (response) => {
+              console.log(response);
+              if (response.status === "successful") {
+                
+                router.push("/checkout/response?success=true");
+              } else {
+                router.push("/checkout/response?canceled=true");
+              }
               closePaymentModal();
             },
-            onClose: () => {
-              router.push("/checkout-response?success=true");
-            },
+            onClose: () => {},
           });
         }}
         className="sm:m-8 flex flex-col gap-4"
       >
-      
-      <div className="relative w-fit mx-auto">
+        <div className="relative w-fit mx-auto">
           <PersonOutlineIcon className="text-gray-200 text-[20px] absolute top-4 left-3 z-20" />
           <input
-              className="w-fit sm:w-64 pr-6 pl-12 py-4 outline-0 border-gray-400/20 focus:border-primary border-solid  rounded-md border-[1px] placeholder:text-xs "
+            className="w-fit sm:w-64 pr-6 pl-12 py-4 outline-0 border-gray-400/20 focus:border-primary border-solid  rounded-md border-[1px] placeholder:text-xs "
             type="text"
             placeholder="Name"
             required
@@ -62,11 +66,10 @@ export default function FlutterwavePayment({ totalamount }: IProps) {
           />
         </div>
 
-     
         <div className="relative w-fit mx-auto">
           <EmailIcon className=" text-gray-200 text-[20px] absolute top-4 left-3 z-20" />
           <input
-         className="w-fit sm:w-64 pr-6 pl-12 py-4 outline-0 border-gray-400/20 focus:border-primary border-solid  rounded-md border-[1px] placeholder:text-xs "
+            className="w-fit sm:w-64 pr-6 pl-12 py-4 outline-0 border-gray-400/20 focus:border-primary border-solid  rounded-md border-[1px] placeholder:text-xs "
             type="text"
             placeholder="Email"
             required
@@ -77,21 +80,23 @@ export default function FlutterwavePayment({ totalamount }: IProps) {
         <div className="relative w-fit mx-auto">
           <LocalPhoneIcon className=" text-gray-200 text-[20px] absolute top-4 left-3 z-20" />
           <input
-          className="w-fit sm:w-64 pr-6 pl-12 py-4 outline-0 border-gray-400/20 focus:border-primary border-solid  rounded-md border-[1px] placeholder:text-xs "
+            className="w-fit sm:w-64 pr-6 pl-12 py-4 outline-0 border-gray-400/20 focus:border-primary border-solid  rounded-md border-[1px] placeholder:text-xs "
             type="text"
             placeholder="Phone"
             required
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
-       
+
         <div className="relative w-fit mx-auto">
           <AttachMoneyIcon className=" text-gray-200 text-[20px] absolute top-4 left-3 z-20" />
           <input
             type="number"
             className="w-fit sm:w-64 pr-6 pl-12 py-4 outline-0 border-gray-400/20 focus:border-primary border-solid  rounded-md border-[1px]"
             placeholder="Amount"
+            // defaultValue={totalamount}
             required
+            readOnly
             value={totalamount}
           />
         </div>
@@ -101,7 +106,7 @@ export default function FlutterwavePayment({ totalamount }: IProps) {
               <Spinner />
             ) : (
               <span className="sm:flex items-center">
-                <p className="text-xs">Continue with{" "}</p>
+                <p className="text-xs">Continue with </p>
                 <img
                   className="w-20 sm:w-32"
                   src="/images/brand-logo/flutterwave.png"

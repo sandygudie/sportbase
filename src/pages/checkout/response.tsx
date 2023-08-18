@@ -29,7 +29,7 @@ export default function Response() {
       let data = await response.json();
       localStorage.setItem("cart", JSON.stringify([]));
       setCartQtyhandler(null);
-      console.log(data);
+ 
     } catch (error) {
       console.log(error);
     }
