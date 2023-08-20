@@ -17,14 +17,14 @@ export default function FilterDrawer({ children }: Props) {
 
   return (
     <div className="block md:hidden ">
-      <div
+      <IconButton
         onClick={toggleDrawer(true)}
-        role="button"
-        className="flex text-sm items-center gap-2 text-white"
+        className="flex items-center gap-2 text-white"
       >
-        <span className="font-bold">FILTER </span>
-        <TuneIcon className="text-sm" />
-      </div>
+         <TuneIcon className="" />
+        <span className="font-bold text-[15px] text-white">FILTER </span>
+       
+      </IconButton>
       <Drawer anchor={"right"} open={isOpen} onClose={toggleDrawer(false)}>
         <div className="flex px-4 pt-8 pb-6 items-center justify-between">
           <span className="flex items-center gap-2 text-base font-bold"><TuneIcon />FILTER </span>

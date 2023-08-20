@@ -9,6 +9,9 @@ import Spinner from "@/components/Spinner";
 import TuneIcon from "@mui/icons-material/Tune";
 import FilterDrawer from "@/components/FilterDrawer";
 import { AppContext } from "@/context";
+import GridViewIcon from "@mui/icons-material/GridView";
+import AppsIcon from "@mui/icons-material/Apps";
+import { IconButton } from "@mui/material";
 
 type Props = {
   collectionData: Product[];
@@ -22,6 +25,7 @@ function Index({ collectionData, collectionSlug }: Props) {
   const [filteredCollection, setFilteredCollection] = useState<Product[]>([]);
   const [category, setCategory] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
+  const [toggleColumn, setToggleColumn] = useState(false);
 
   useEffect(() => {
     let category: string | any = router.query["category"];
@@ -70,13 +74,26 @@ function Index({ collectionData, collectionSlug }: Props) {
                 {collection?.length}
               </p>
             </div>
-            <FilterDrawer>
-              <FilterComponent
-                collectionSlug={collectionSlug}
-                collection={collection}
-                updateFilterCollection={updateFilterCollection}
-              />
-            </FilterDrawer>
+            <div className="flex gap-6 items-center">
+              <div>
+                {toggleColumn ? (
+                  <IconButton onClick={() => setToggleColumn(false)}>
+                    <GridViewIcon className="text-white" />
+                  </IconButton>
+                ) : (
+                  <IconButton onClick={() => setToggleColumn(true)}>
+                    <AppsIcon className="text-white" />
+                  </IconButton>
+                )}
+              </div>
+              <FilterDrawer>
+                <FilterComponent
+                  collectionSlug={collectionSlug}
+                  collection={collection}
+                  updateFilterCollection={updateFilterCollection}
+                />
+              </FilterDrawer>
+            </div>
           </div>
           <div className="md:mx-8 my-8 md:my-12 flex relative items-start">
             <div
@@ -94,6 +111,7 @@ function Index({ collectionData, collectionSlug }: Props) {
               />
             </div>
             <Collection
+              toggleColumn={toggleColumn}
               collection={
                 filteredCollection.length ? filteredCollection : collection
               }

@@ -3,8 +3,13 @@ import Card from "./Card";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
-export default function Collection({ collection }: any) {
-  const quantity:number = 16;
+type Props = {
+  collection: Product[];
+  toggleColumn: boolean;
+};
+
+export default function Collection({ collection, toggleColumn }: Props) {
+  const quantity: number = 16;
   const [displayQty, setDisplayQty] = useState(quantity);
 
   const loadMore = () => {
@@ -13,7 +18,11 @@ export default function Collection({ collection }: any) {
 
   return (
     <div className="w-11/12 mx-auto md:w-5/6 md:pl-12 md:ml-auto">
-      <div className="grid grid-cols-3 gap-x-6 gap-y-8">
+      <div
+        className={`${
+          toggleColumn ? "grid-cols-2" : "grid-cols-3"
+        } grid  gap-x-6 gap-y-8`}
+      >
         {collection.map((product: Product, i: number) => {
           return (
             i < displayQty && (

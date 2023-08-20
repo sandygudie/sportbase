@@ -7,7 +7,6 @@ import Image from "next/image";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
 import { getStripe } from "@/utilis/getStripe";
-
 import FlutterwavePayment from "@/components/FlutterwavePayment";
 import Spinner from "@/components/Spinner";
 
