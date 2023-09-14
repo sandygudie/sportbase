@@ -151,6 +151,7 @@ export default function Navbar() {
             </Link>
             <div className="flex items-center justify-end basis-full text-right md:gap-4">
               <Link
+              aria-label="favorite collection"
                 href="/login"
                 className="hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
               >
@@ -158,6 +159,7 @@ export default function Navbar() {
               </Link>
 
               <Link
+              aria-label="cart"
                 href="/cart"
                 className="relative hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
               >
