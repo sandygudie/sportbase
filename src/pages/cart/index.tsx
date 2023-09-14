@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from "next/head";
 import React, { useContext, useEffect, useState } from "react";
 import {
   deleteCartProduct,
@@ -82,6 +83,10 @@ function Index({}: Props) {
  
 
   return (
+    <>
+    <Head>
+      <title>My page title</title>
+    </Head>
     <div className=" px-5 md:px-8 ">
       {cartItems.length ? (
         <div className="py-4">
@@ -249,6 +254,7 @@ function Index({}: Props) {
         </div>
       )}
     </div>
+    </>
   );
 }
 

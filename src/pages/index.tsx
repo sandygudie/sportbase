@@ -11,6 +11,7 @@ import Spinner from "@/components/Spinner";
 
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function Home() {
   const [latestProduct, setlatestProducts] = useState<Product[]>([]);
@@ -39,6 +40,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>My page title</title>
+      </Head>
+
       <main>
         <div className="">
           <Swipeable />
@@ -179,4 +184,3 @@ export default function Home() {
 // you can add carousel for your images
 // Add pay with flutterwave and paypal
 // work on image optimization, and performances and acessibility
-

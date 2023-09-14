@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import Head from "next/head";
 import FilterComponent from "@/components/FilterComponent";
 import Collection from "@/components/Collection";
 import { AppContextState, Product } from "@/types";
@@ -52,78 +53,83 @@ function Index({ collectionData, collectionSlug }: Props) {
   };
 
   return (
-    <main>
-      {isLoading || collection === undefined ? (
-        <div className="flex items-center justify-center flex-col h-80">
-          <Spinner />
-        </div>
-      ) : collection?.length ? (
-        <>
-          {" "}
-          <div className="px-2 py-4 md:p-6 sticky top-16 z-40 bg-dark flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <h1 className="text-white font-medium text-sm md:text-xl">
-                {category
-                  ? `${titleCase(category)}`
-                  : collectionSlug === "newbalance"
-                  ? `New Balance`
-                  : `${titleCase(collectionSlug)}`}{" "}
-                Collections
-              </h1>
-              <p className="flex items-center text-xs justify-center p-1 rounded-full w-5 font-bold h-5  bg-gray-100">
-                {collection?.length}
-              </p>
-            </div>
-            <div className="flex gap-6 items-center">
-              <div>
-                {toggleColumn ? (
-                  <IconButton onClick={() => setToggleColumn(false)}>
-                    <GridViewIcon className="text-white" />
-                  </IconButton>
-                ) : (
-                  <IconButton onClick={() => setToggleColumn(true)}>
-                    <AppsIcon className="text-white" />
-                  </IconButton>
-                )}
+    <>
+      <Head>
+        <title>My page title</title>
+      </Head>
+      <main>
+        {isLoading || collection === undefined ? (
+          <div className="flex items-center justify-center flex-col h-80">
+            <Spinner />
+          </div>
+        ) : collection?.length ? (
+          <>
+            {" "}
+            <div className="px-2 py-4 md:p-6 sticky top-16 z-40 bg-dark flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <h1 className="text-white font-medium text-sm md:text-xl">
+                  {category
+                    ? `${titleCase(category)}`
+                    : collectionSlug === "newbalance"
+                    ? `New Balance`
+                    : `${titleCase(collectionSlug)}`}{" "}
+                  Collections
+                </h1>
+                <p className="flex items-center text-xs justify-center p-1 rounded-full w-5 font-bold h-5  bg-gray-100">
+                  {collection?.length}
+                </p>
               </div>
-              <FilterDrawer>
+              <div className="flex gap-6 items-center">
+                <div>
+                  {toggleColumn ? (
+                    <IconButton onClick={() => setToggleColumn(false)}>
+                      <GridViewIcon className="text-white" />
+                    </IconButton>
+                  ) : (
+                    <IconButton onClick={() => setToggleColumn(true)}>
+                      <AppsIcon className="text-white" />
+                    </IconButton>
+                  )}
+                </div>
+                <FilterDrawer>
+                  <FilterComponent
+                    collectionSlug={collectionSlug}
+                    collection={collection}
+                    updateFilterCollection={updateFilterCollection}
+                  />
+                </FilterDrawer>
+              </div>
+            </div>
+            <div className="md:mx-8 my-8 md:my-12 flex relative items-start">
+              <div
+                className={`filterlist hidden md:block sticky h-screen overflow-auto w-[250px] top-44`}
+              >
+                <p className="mb-6 flex items-center justify-between">
+                  <span className="text-base font-bold">FILTER </span>
+
+                  <TuneIcon />
+                </p>
                 <FilterComponent
                   collectionSlug={collectionSlug}
                   collection={collection}
                   updateFilterCollection={updateFilterCollection}
                 />
-              </FilterDrawer>
-            </div>
-          </div>
-          <div className="md:mx-8 my-8 md:my-12 flex relative items-start">
-            <div
-              className={`filterlist hidden md:block sticky h-screen overflow-auto w-[250px] top-44`}
-            >
-              <p className="mb-6 flex items-center justify-between">
-                <span className="text-base font-bold">FILTER </span>
-
-                <TuneIcon />
-              </p>
-              <FilterComponent
-                collectionSlug={collectionSlug}
-                collection={collection}
-                updateFilterCollection={updateFilterCollection}
+              </div>
+              <Collection
+                toggleColumn={toggleColumn}
+                collection={
+                  filteredCollection.length ? filteredCollection : collection
+                }
               />
             </div>
-            <Collection
-              toggleColumn={toggleColumn}
-              collection={
-                filteredCollection.length ? filteredCollection : collection
-              }
-            />
+          </>
+        ) : (
+          <div className="flex items-center justify-center flex-col h-80">
+            No Product Found
           </div>
-        </>
-      ) : (
-        <div className="flex items-center justify-center flex-col h-80">
-          No Product Found
-        </div>
-      )}
-    </main>
+        )}
+      </main>
+    </>
   );
 }
 

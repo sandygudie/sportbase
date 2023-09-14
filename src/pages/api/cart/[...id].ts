@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { connectToDB } from "@/config/db/db";
 import Cart from "@/models/cart";
 import Product from "@/models/product";
-// import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
+
 /**
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res

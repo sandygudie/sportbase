@@ -29,23 +29,6 @@ function commonLayout(page: ReactElement) {
   );
 }
 
-// const App = ({ Component, pageProps }: AppProps) => {
-//   const router = useRouter();
-
-//   return (
-//     <>
-//       <AppProvider>
-//         <ThemeProvider theme={theme}>
-//           <Navbar />
-//           <div className="z-10 pb-36">
-//             <Component key={router.asPath} {...pageProps} />
-//           </div>
-//           <Footer />
-//         </ThemeProvider>
-//       </AppProvider>
-//     </>
-//   );
-// };
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const router = useRouter();
 
