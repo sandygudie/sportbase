@@ -11,7 +11,7 @@ export const banner = [
   },
   {
     label: "Best apparels for the season",
-    imgPath: "/images/apparel.jpg",
+    imgPath: "/images/apparel.svg",
     link: "/apparel",
   },
   {
@@ -42,7 +42,7 @@ export const collection_category = [
   {
     id: 2,
     name: "Accessories",
-    image: "/images/accesory.jpg",
+    image: "/images/accesory.svg",
     link: "/accessories",
   },
 ];
@@ -223,12 +223,12 @@ export const sales_latest_collections = [
     id: 4,
     name: "Sales",
     link: "/sales",
-    image: "/images/newbalance.jpg",
+    image: "/images/newbalance.svg",
   },
   {
     id: 5,
     name: "Latest Arrivals",
     link: "/latest",
-    image: "/images/mensneakers3.jpg",
+    image: "/images/mensneakers3.svg",
   },
 ];

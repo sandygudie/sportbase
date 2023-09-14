@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button } from "@mui/material";
 import Link from "next/link";
+import Image from 'next/image'
+ 
+
 export default function Footer() {
   return (
     <footer className="text-lg w-full bg-gray-100 ">
@@ -75,10 +78,29 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="text-center flex flex-wrap justify-center gap-2 py-8 items-center">
-        <img  className="w-16 " src="/images/brand-logo/stripe.svg" alt="stripe"/>
+
+      <div className="text-center flex flex-wrap justify-center gap-4 py-8 items-center">
+      <Image
+      src="/images/brand-logo/stripe.svg"
+      width={80}
+      height={80}
+      alt="stripe"
+    />
+     <Image
+      src="/images/brand-logo/flutterwave.svg"
+      width={150}
+      height={150}
+      alt="flutterwave"
+    />
+     <Image
+      src="/images/brand-logo/paypal.svg"
+      width={80}
+      height={80}
+      alt="paypal"
+    />
+        {/* <img  className="w-16 " src="/images/brand-logo/stripe.svg" alt="stripe"/>
         <img  className="w-32" src="/images/brand-logo/flutterwave.svg" alt="flutterwave"/>
-        <img  className="w-20" src="/images/brand-logo/paypal.svg" alt="paypal"/>
+        <img  className="w-20" src="/images/brand-logo/paypal.svg" alt="paypal"/> */}
       </div>
       <div className="bg-dark p-8 text-white gap-4 text-xs flex items-center justify-center">
         <Link href="/">Privacy</Link>|<Link href="/">Terms and Condition</Link>|

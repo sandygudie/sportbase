@@ -8,7 +8,6 @@ import Swipeable from "@/components/Swipeable";
 import { client } from "@/utilis";
 import Card from "@/components/Card";
 import Spinner from "@/components/Spinner";
-
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Head from "next/head";
@@ -69,7 +68,6 @@ export default function Home() {
                           height={0}
                           sizes="100vw"
                           loading="lazy"
-                          // priority={true}
                           className="object-cover w-full 2xl:h-[650px] h-[550px] transition-transform ease-in delay-150 hover:scale-110 duration-1000"
                         />
                       </div>
