@@ -154,7 +154,7 @@ export const dropdownNav = [
       {
         id: 1,
         name: "Adidas",
-        image: "/images/brand-logo/adidas.png",
+        image: "/images/brand-logo/adidas.svg",
         link: "/adidas",
       },
       {
@@ -166,7 +166,7 @@ export const dropdownNav = [
       {
         id: 3,
         name: "Puma",
-        image: "/images/brand-logo/puma.jpeg",
+        image: "/images/brand-logo/puma.svg",
         link: "/puma",
       },
       {

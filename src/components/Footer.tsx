@@ -76,9 +76,9 @@ export default function Footer() {
         </div>
       </div>
       <div className="text-center flex flex-wrap justify-center gap-2 py-8 items-center">
-        <img  className="w-16 " src="/images/brand-logo/stripe.png" alt="stripe"/>
-        <img  className="w-32" src="/images/brand-logo/flutterwave.png" alt="flutterwave"/>
-        <img  className="w-20" src="/images/brand-logo/paypal.webp" alt="paypal"/>
+        <img  className="w-16 " src="/images/brand-logo/stripe.svg" alt="stripe"/>
+        <img  className="w-32" src="/images/brand-logo/flutterwave.svg" alt="flutterwave"/>
+        <img  className="w-20" src="/images/brand-logo/paypal.svg" alt="paypal"/>
       </div>
       <div className="bg-dark p-8 text-white gap-4 text-xs flex items-center justify-center">
         <Link href="/">Privacy</Link>|<Link href="/">Terms and Condition</Link>|
