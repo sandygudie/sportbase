@@ -55,7 +55,7 @@ function Index({ collectionData, collectionSlug }: Props) {
   return (
     <>
       <Head>
-        <title>My page title</title>
+      <title>Sportbase</title>
       </Head>
       <main>
         {isLoading || collection === undefined ? (

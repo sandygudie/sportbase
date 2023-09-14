@@ -85,7 +85,7 @@ function Index({}: Props) {
   return (
     <>
     <Head>
-      <title>My page title</title>
+    <title>Sportbase</title>
     </Head>
     <div className=" px-5 md:px-8 ">
       {cartItems.length ? (

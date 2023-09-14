@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>My page title</title>
+      <title>Sportbase</title>
       </Head>
 
       <main>

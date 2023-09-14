@@ -6,7 +6,7 @@ export default function CustomError() {
   return (
     <>
       <Head>
-        <title>My page title</title>
+        <title>Sportbase</title>
       </Head>
 
       <div className="text-center px-6 lg:px-0 bg-gray-100 h-screen flex flex-col items-center justify-center">

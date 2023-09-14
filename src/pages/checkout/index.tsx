@@ -84,7 +84,7 @@ const Checkout = () => {
   return (
     <>
       <Head>
-        <title>My page title</title>
+      <title>Sportbase</title>
       </Head>
       <div className="h-screen flex flex-col-reverse sm:grid grid-cols-2">
         <div className="h-full">

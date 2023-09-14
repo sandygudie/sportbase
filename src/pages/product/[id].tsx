@@ -92,7 +92,7 @@ function Index({ product, similarProducts }: Props) {
   return (
     <>
       <Head>
-        <title>My page title</title>
+      <title>Sportbase</title>
       </Head>
       <div className="py-8 md:py-16 px-4 md:px-8">
         <div className="block md:flex gap-8 justify-between items-start">
