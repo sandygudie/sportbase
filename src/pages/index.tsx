@@ -67,7 +67,6 @@ export default function Home() {
                           width={0}
                           height={0}
                           sizes="100vw"
-                          loading="lazy"
                           className="object-cover w-full 2xl:h-[650px] h-[550px] transition-transform ease-in delay-150 hover:scale-110 duration-1000"
                         />
                       </div>

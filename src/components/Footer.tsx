@@ -84,6 +84,7 @@ export default function Footer() {
       src="/images/brand-logo/stripe.svg"
       width={80}
       height={80}
+      className="h-auto"
       alt="stripe"
     />
      <Image

@@ -35,7 +35,7 @@ export default function Swipeable() {
               alt={step.label}
               width={0}
               height={0}
-              loading="lazy"
+              loading="eager"
               sizes="100vw"
               className="object-cover w-full h-[650px]"
             />
