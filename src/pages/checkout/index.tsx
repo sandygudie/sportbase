@@ -59,7 +59,7 @@ const Checkout = () => {
       name: "stripe",
       image: "/images/brand-logo/stripe.png",
       selected: () => checkoutCart(),
-      color: " bg-[#d4cdcd80]",
+      color: "bg-[#d4cdcd80]",
     },
     {
       id: 1,
@@ -73,7 +73,7 @@ const Checkout = () => {
       name: "paypal",
       image: "/images/brand-logo/paypal.webp",
       selected: () => "",
-      color: " bg-[#ffc43a]",
+      color: "bg-[#ffc43a]",
     },
   ];
   const totalamount: number = cartItems?.reduce(

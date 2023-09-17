@@ -11,7 +11,7 @@ export const banner = [
   },
   {
     label: "Best apparels for the season",
-    imgPath: "/images/apparel.svg",
+    imgPath: "/images/apparel.webp",
     link: "/apparel",
   },
   {
