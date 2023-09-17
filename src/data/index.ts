@@ -42,7 +42,7 @@ export const collection_category = [
   {
     id: 2,
     name: "Accessories",
-    image: "/images/accesory.svg",
+    image: "/images/accesory.webp",
     link: "/accessories",
   },
 ];
