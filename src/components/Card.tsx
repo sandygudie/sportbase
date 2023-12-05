@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from 'next/legacy/image'
 
 interface IProps {
   product: any;
@@ -25,7 +25,7 @@ export default function Card({
           width={0}
           height={0}
           placeholder="blur"
-          blurDataURL="https://tenor.com/view/loading-gif-gif-24086041"
+          blurDataURL='https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24'
           sizes="100vw"
           loading="lazy"
           className={`object-cover w-full ${

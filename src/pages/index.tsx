@@ -9,7 +9,7 @@ import { client } from "@/utilis";
 import Card from "@/components/Card";
 import Spinner from "@/components/Spinner";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Head from "next/head";
 
 export default function Home() {
@@ -65,7 +65,7 @@ export default function Home() {
                           src={item.image}
                           alt={item.name}
                           placeholder="blur"
-                          blurDataURL="https://tenor.com/view/loading-gif-gif-24086041"
+                          blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
                           width={0}
                           height={0}
                           sizes="100vw"

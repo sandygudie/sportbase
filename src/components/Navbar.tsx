@@ -10,7 +10,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SideNav from "./SideNav";
 import Button from "@mui/material/Button";
 import useScroll from "@/hooks/useScroll";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 export default function Navbar() {
   const { cartQty, showSubNavHandler, showSubNav } = useContext(
@@ -61,32 +61,30 @@ export default function Navbar() {
         <div className="flex">
           {sales_latest_collections.map((ele) => {
             return (
-              <div key={ele.id} className="m-4 text-right">
-                <Link
-                  type="button"
-                  href={`/collection${ele.link.toLowerCase()}`}
-                  className="hover:no-underline"
+              <Link
+                href={`/collection${ele.link.toLowerCase()}`}
+                key={ele.id}
+                className="m-4 text-right"
+              >
+                <Image
+                  src={ele.image}
+                  alt={ele.name}
+                  placeholder="blur"
+                  blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
+                  width={0}
+                  loading="lazy"
+                  height={0}
+                  sizes="100vw"
+                  className="object-cover w-full h-64"
+                />
+                <Button
+                  className="w-60 text-sm mt-2 bg-white font-medium tracking-wider px-2 rounded-sm"
+                  variant="contained"
                 >
-                  <Image
-                    src={ele.image}
-                    alt={ele.name}
-                    placeholder="blur"
-                    blurDataURL="https://tenor.com/view/loading-gif-gif-24086041"
-                    width={0}
-                    loading="lazy"
-                    height={0}
-                    sizes="100vw"
-                    className="object-cover w-full h-64"
-                  />
-                  <Button
-                    className="w-60 text-sm bg-white font-medium tracking-wider px-2 rounded-sm"
-                    variant="contained"
-                  >
-                    {" "}
-                    {ele.name}
-                  </Button>
-                </Link>
-              </div>
+                  {" "}
+                  {ele.name}
+                </Button>
+              </Link>
             );
           })}
         </div>
@@ -127,11 +125,12 @@ export default function Navbar() {
         <div className={`px-2  py-4 md:px-8 bg-white`}>
           <div className="text-center m-auto flex justify-between items-center">
             <div className="hidden md:flex gap-8 items-center basis-full">
-              <Link href={"/"}
+              <Link
+                href={"/"}
                 onMouseOver={() => showSubNavHandler(true)}
                 className={`relative no-underline hover:text-primary inline-block cursor-pointer`}
               >
-                 Shop
+                Shop
               </Link>
               <div
                 onMouseOver={() => showSubNavHandler(false)}

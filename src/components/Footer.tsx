@@ -80,6 +80,7 @@ export default function Footer() {
       </div>
 
       <div className="text-center flex flex-wrap justify-center gap-4 py-8 items-center">
+      {/* <p className="text-sm font-medium">Pay With</p> */}
       <Image
       src="/images/brand-logo/stripe.svg"
       width={80}
@@ -99,9 +100,7 @@ export default function Footer() {
       height={80}
       alt="paypal"
     />
-        {/* <img  className="w-16 " src="/images/brand-logo/stripe.svg" alt="stripe"/>
-        <img  className="w-32" src="/images/brand-logo/flutterwave.svg" alt="flutterwave"/>
-        <img  className="w-20" src="/images/brand-logo/paypal.svg" alt="paypal"/> */}
+      
       </div>
       <div className="bg-dark p-8 text-white gap-4 text-xs flex items-center justify-center">
         <Link href="/">Privacy</Link>|<Link href="/">Terms and Condition</Link>|

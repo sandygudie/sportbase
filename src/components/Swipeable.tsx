@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Image from "next/image";
+import Image from 'next/legacy/image'
 
 import { Autoplay, Pagination } from "swiper";
 
@@ -37,6 +37,8 @@ export default function Swipeable() {
               height={0}
               loading="eager"
               sizes="100vw"
+              placeholder="blur"
+              blurDataURL='https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24'
               className="object-cover w-full h-[650px]"
             />
             <div className="p-6 absolute bottom-10 ">
