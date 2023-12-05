@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <>
       <Head>
-      <title>Sportbase</title>
+        <title>Sportbase</title>
       </Head>
 
       <main>
@@ -48,7 +48,7 @@ export default function Home() {
           <Swipeable />
           <div className="pt-16 pb-28 md:py-28">
             <div className="px-4 md:px-8 ">
-              <h1 className="text-2xl text-center font-normal mb-8 md:mb-20">
+              <h1 className="text-3xl text-center font-medium mb-8 md:mb-20">
                 {" "}
                 Collections
               </h1>
@@ -64,6 +64,8 @@ export default function Home() {
                         <Image
                           src={item.image}
                           alt={item.name}
+                          placeholder="blur"
+                          blurDataURL="https://tenor.com/view/loading-gif-gif-24086041"
                           width={0}
                           height={0}
                           sizes="100vw"
@@ -88,7 +90,7 @@ export default function Home() {
             </div>
 
             <div className="my-20 md:my-28 px-4 md:px-12">
-              <h2 className="font-normal text-center mb-8 md:mb-20  text-2xl">
+              <h2 className="font-medium text-center mb-8 md:mb-20 text-3xl">
                 Our Brands
               </h2>
               <div className="flex items-center justify-center flex-wrap gap-8 md:gap-10">
@@ -112,7 +114,7 @@ export default function Home() {
 
             <div className="px-0 md:px-12 bg-gray-100/30">
               <div className="py-16 md:py-20">
-                <h2 className="text-center font-normal mb-12 md:mb-20 text-2xl">
+                <h2 className="text-center font-medium mb-12 md:mb-20 text-3xl">
                   New Arrivals
                 </h2>
                 <div className="my-5">
@@ -153,7 +155,7 @@ export default function Home() {
                 Sales
               </h3>
               <div className="w-64 md:w-96 absolute -bottom-36 shadow-md bg-white text-center p-4 md:p-12">
-                <p className="font-bold text-xl">SALE</p>
+                <p className="font-bold text-3xl">SALE</p>
                 <p className="p-3">
                   Buy high-quality articles for the best prices. Discounts from
                   25% to 80%!

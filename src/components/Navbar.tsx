@@ -10,6 +10,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SideNav from "./SideNav";
 import Button from "@mui/material/Button";
 import useScroll from "@/hooks/useScroll";
+import Image from "next/image";
 
 export default function Navbar() {
   const { cartQty, showSubNavHandler, showSubNav } = useContext(
@@ -40,7 +41,10 @@ export default function Navbar() {
                         href={
                           list.name === "Brand"
                             ? `/collection/${ele.link.toLowerCase()}`
-                            : `/collection/${list.name.toLowerCase()}?category=${ele.name.split(" ").join("").toLowerCase()}`
+                            : `/collection/${list.name.toLowerCase()}?category=${ele.name
+                                .split(" ")
+                                .join("")
+                                .toLowerCase()}`
                         }
                         key={ele.id}
                         className="my-4 text-sm flex justify-start items-start hover:text-primary"
@@ -57,13 +61,23 @@ export default function Navbar() {
         <div className="flex">
           {sales_latest_collections.map((ele) => {
             return (
-              <div key={ele.id} className="my-4 text-right">
+              <div key={ele.id} className="m-4 text-right">
                 <Link
                   type="button"
                   href={`/collection${ele.link.toLowerCase()}`}
                   className="hover:no-underline"
                 >
-                  <img className="w-60 h-60" src={ele.image} alt={ele.name} />
+                  <Image
+                    src={ele.image}
+                    alt={ele.name}
+                    placeholder="blur"
+                    blurDataURL="https://tenor.com/view/loading-gif-gif-24086041"
+                    width={0}
+                    loading="lazy"
+                    height={0}
+                    sizes="100vw"
+                    className="object-cover w-full h-64"
+                  />
                   <Button
                     className="w-60 text-sm bg-white font-medium tracking-wider px-2 rounded-sm"
                     variant="contained"
@@ -113,12 +127,12 @@ export default function Navbar() {
         <div className={`px-2  py-4 md:px-8 bg-white`}>
           <div className="text-center m-auto flex justify-between items-center">
             <div className="hidden md:flex gap-8 items-center basis-full">
-              <div
+              <Link href={"/"}
                 onMouseOver={() => showSubNavHandler(true)}
-                className={`relative inline-block cursor-pointer`}
+                className={`relative no-underline hover:text-primary inline-block cursor-pointer`}
               >
-                <p> Shop</p>
-              </div>
+                 Shop
+              </Link>
               <div
                 onMouseOver={() => showSubNavHandler(false)}
                 className="hidden md:block"
@@ -128,7 +142,7 @@ export default function Navbar() {
                     <Link
                       href={`/collection${ele.link.toLowerCase()}`}
                       key={ele.id}
-                      className="pb-6 md:mr-8 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
+                      className="pb-6 md:mr-8 hover:text-primary hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
                     >
                       {ele.name}
                     </Link>
@@ -151,7 +165,7 @@ export default function Navbar() {
             </Link>
             <div className="flex items-center justify-end basis-full text-right md:gap-4">
               <Link
-              aria-label="favorite collection"
+                aria-label="favorite collection"
                 href="/login"
                 className="hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
               >
@@ -159,7 +173,7 @@ export default function Navbar() {
               </Link>
 
               <Link
-              aria-label="cart"
+                aria-label="cart"
                 href="/cart"
                 className="relative hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
               >
@@ -168,7 +182,7 @@ export default function Navbar() {
                   <ShoppingCartOutlinedIcon sx={{ fontSize: "20px" }} />
                 </span>
                 <span className="absolute top-0 left-4 ml-2 rounded-full w-3 font-bold text-sm h-3">
-                  {cartQty>0 ?cartQty:""}
+                  {cartQty > 0 ? cartQty : ""}
                 </span>
               </Link>
             </div>
