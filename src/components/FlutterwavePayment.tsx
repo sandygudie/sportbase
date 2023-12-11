@@ -109,7 +109,7 @@ export default function FlutterwavePayment({ totalamount }: IProps) {
                 <p className="text-xs">Continue with </p>
                 <img
                   className="w-20 sm:w-32"
-                  src="/images/brand-logo/flutterwave.png"
+                  src="/images/brand-logo/flutterwave.svg"
                   alt="flutterwave"
                 />
               </span>
