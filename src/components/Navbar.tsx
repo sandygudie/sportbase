@@ -72,7 +72,7 @@ export default function Navbar() {
                   placeholder="blur"
                   blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
                   width={0}
-                  loading="lazy"
+                  loading="eager"
                   height={0}
                   sizes="100vw"
                   className="object-cover w-full h-64"
@@ -165,7 +165,7 @@ export default function Navbar() {
             <div className="flex items-center justify-end basis-full text-right md:gap-4">
               <Link
                 aria-label="favorite collection"
-                href="/login"
+                href="#"
                 className="hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
               >
                 <FavoriteBorderIcon sx={{ fontSize: "20px" }} />

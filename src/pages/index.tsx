@@ -52,13 +52,13 @@ export default function Home() {
                 {" "}
                 Collections
               </h1>
-              <div className="flex items-center flex-wrap justify-between gap-8">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {collection_category.map((item) => {
                   return (
                     <Link
                       href={`/collection${item.link}`}
                       key={item.id}
-                      className="grow w-96"
+                      className=""
                     >
                       <div className="relative overflow-hidden">
                         <Image
@@ -66,14 +66,14 @@ export default function Home() {
                           alt={item.name}
                           placeholder="blur"
                           blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
-                          width={0}
-                          height={0}
+                          width={100}
+                          height={130}
                           sizes="100vw"
-                          className="object-cover w-full 2xl:h-[650px] h-[550px] transition-transform ease-in delay-150 hover:scale-110 duration-1000"
+                          className="object-cover w-full h-auto transition-transform ease-in delay-150 hover:scale-110 duration-1000"
                         />
                       </div>
-                      <div className="p-6 absolute bottom-5">
-                        <p className="font-medium text-white text-4xl pb-8">
+                      <div className="px-6 absolute bottom-5">
+                        <p className="font-medium text-white text-4xl pb-2">
                           {item.name}
                         </p>
                         <Button

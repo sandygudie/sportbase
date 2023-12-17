@@ -30,7 +30,7 @@ export const collection_category = [
   {
     id: 0,
     name: "Footwears",
-    image: "/images/nike.webp",
+    image: "/images/nike1.jpg",
     link: "/footwear",
   },
   {
@@ -138,7 +138,7 @@ export const dropdownNav = [
       {
         id: 4,
         name: "Socks",
-      }
+      },
     ],
   },
   {
@@ -223,12 +223,12 @@ export const sales_latest_collections = [
     id: 4,
     name: "Sales",
     link: "/sales",
-    image: "/images/newbalance.svg",
+    image: "/images/newbalance.webp",
   },
   {
     id: 5,
     name: "Latest Arrivals",
     link: "/latest",
-    image: "/images/mensneakers3.svg",
+    image: "/images/mensneakers3.webp",
   },
 ];
