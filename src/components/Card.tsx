@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from 'next/legacy/image'
 
 interface IProps {
   product: any;
@@ -12,20 +12,22 @@ export default function Card({
   latestProduct,
 }: IProps) {
   return (
-    <Link className="hover:no-underline" href={`/product/${product._id}`}>
-      <div className="relative overflow-hidden">
+    <Link className=" hover:no-underline" href={`/product/${product._id}`}>
+      <div className="shadow-sm relative bg-white overflow-hidden">
         {product.timeline === "latest" && (
-          <p className="absolute font-medium text-xs md:text-base right-0 p-1 top-0 z-30 bg-primary/60 md:py-1.5 md:px-4">
+          <p className="absolute font-medium text-xs md:text-sm left-0 p-1 top-0 z-30 bg-primary/60 md:p-1">
             Latest{" "}
           </p>
         )}
         <Image
-          src={product.imageUrl}
-          alt={product.name}
+          src={product?.imageUrl}
+          alt={product?.name}
           width={0}
           height={0}
+          // placeholder="blur"
+          blurDataURL='https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24'
           sizes="100vw"
-          loading="lazy"
+          loading="eager"
           className={`object-cover w-full ${
             similarProducts
               ? `h-[11rem] md:h-[300px]`
@@ -38,10 +40,10 @@ export default function Card({
       </div>
       <div>
         <p className="md:tracking-widest font-normal text-[0.5em] md:text-sm md:mt-2 overflow-hidden truncate md:w-[30ch]">
-          {product.name.toUpperCase()}
+          {product?.name.toUpperCase()}
         </p>
         <p className="md:mt-1 font-medium text-xs md:text-base">
-          ${product.price}
+          ${product?.price}
         </p>
       </div>
     </Link>

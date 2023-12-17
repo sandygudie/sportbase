@@ -35,16 +35,16 @@ export default function Swipeable() {
               alt={step.label}
               width={0}
               height={0}
-              loading="lazy"
+              loading="eager"
               sizes="100vw"
               className="object-cover w-full h-[650px]"
             />
-            <div className="p-6 absolute bottom-10 ">
-              <p className={`w-64 text-4xl font-bold ${index % 2 ? 'text-white' : "text-primary"}  pb-6`}>
+            <div className="p-6 absolute bottom-3">
+              <p className={`w-64 text-4xl font-bold ${index % 2 ? 'text-white' : "text-primary"}  pb-4`}>
                 {step.label?.toUpperCase()}
               </p>
               <Button
-                className="text-sm md:text-[16px] text-white  w-36 font-bold p-3"
+                className="text-sm md:text-[16px] text-white w-36 font-bold p-3"
                 variant="contained"
               >
                 SHOP NOW{" "}

@@ -1,5 +1,3 @@
-// use switch for all cart items
-// token based
 import type { NextApiRequest, NextApiResponse } from "next";
 import User from "@/models/user";
 import { connectToDB } from "@/config/db/db";

@@ -1,6 +1,6 @@
 
 
-export const createCartReceipt = async (
+export const createCartReceiptRequest= async (
   cartId: string | null
 ) => {
   let response = await fetch(`/api/receipt/${cartId}`, {
@@ -20,3 +20,4 @@ export const getAllReceipts = async (cartId: string) => {
   });
   return response;
 };
+

@@ -49,13 +49,15 @@ module.exports = {
       fontFamily: {
         futura: ["Futura", "ui-sans-serif", "system-ui"],
       },
+      gridTemplateColumns: {
+        // Simple 16 column grid
+        '16': 'repeat(auto-fill, 500px)',
+      }
     },
     screens: {
       'sm': '600px',
-      // => @media (min-width: 576px) { ... }
-
+      'ipad':'900px',
       'md': '1200px',
-      // => @media (min-width: 960px) { ... }
       'lg': '2000px',
     }
   },

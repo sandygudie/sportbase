@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import MuiAccordion from "@mui/material/Accordion";
@@ -142,34 +143,55 @@ function FilterComponent({
                         control={
                           <Checkbox
                             icon={
-                              <div
-                                style={{ backgroundColor: item }}
-                                className={`${
-                                  item === "White"
-                                    ? "border-solid border-gray-200 border-[2px] p-1"
-                                    : " p-1.5 "
-                                } rounded-full h-4 w-4`}
-                              ></div>
+                              item === "mixed" ? (
+                                <img
+                                  className="w-7 h-7 rounded-full"
+                                  src="/images/mixed-colored.png"
+                                  alt="mixed"
+                                />
+                              ) : (
+                                <div
+                                  style={{ backgroundColor: item }}
+                                  className={`${
+                                    item === "white"
+                                      ? "border-solid border-gray-200 border-[2px] p-1"
+                                      : "p-1.5"
+                                  } rounded-full h-4 w-4`}
+                                ></div>
+                              )
                             }
                             checkedIcon={
-                              <div
-                                style={{ backgroundColor: item }}
-                                className={`${
-                                  item === "White"
-                                    ? "border-solid border-gray-200  border-[2px] p-1"
-                                    : " p-1.5 "
-                                } rounded-full h-4 w-4`}
-                              >
-                                {selectedList.includes(item) && (
-                                  <DoneIcon
-                                    className={`${
-                                      item === "White"
-                                        ? "text-dark"
-                                        : "text-white"
-                                    } text-[16px]  mr-0 inline p-0`}
+                              item === "mixed" ? (
+                                <div className=" w-7 h-7 relative">
+                                  <img
+                                    className="w-7 h-7 rounded-full"
+                                    src="/images/mixed-colored.png"
+                                    alt="mixed"
                                   />
-                                )}
-                              </div>
+                                  {selectedList.includes(item) && (
+                                    <DoneIcon className="absolute top-2 left-2 text-[16px] text-white mr-0 inline p-0" />
+                                  )}
+                                </div>
+                              ) : (
+                                <div
+                                  style={{ backgroundColor: item }}
+                                  className={`${
+                                    item === "white"
+                                      ? "border-solid border-gray-200  border-[2px] p-1"
+                                      : " p-1.5 "
+                                  } rounded-full h-4 w-4`}
+                                >
+                                  {selectedList.includes(item) && (
+                                    <DoneIcon
+                                      className={`${
+                                        item === "white"
+                                          ? "text-dark"
+                                          : "text-white"
+                                      } text-[16px]  mr-0 inline p-0`}
+                                    />
+                                  )}
+                                </div>
+                              )
                             }
                             className="p-2"
                             checked={selectedList.includes(item)}

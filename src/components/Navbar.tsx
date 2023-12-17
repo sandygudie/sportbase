@@ -10,6 +10,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SideNav from "./SideNav";
 import Button from "@mui/material/Button";
 import useScroll from "@/hooks/useScroll";
+import Image from "next/legacy/image";
 
 export default function Navbar() {
   const { cartQty, showSubNavHandler, showSubNav } = useContext(
@@ -39,8 +40,11 @@ export default function Navbar() {
                         type="button"
                         href={
                           list.name === "Brand"
-                            ? `/collection/${ele.name.toLowerCase()}`
-                            : `/collection/${list.name.toLowerCase()}?category=${ele.name.toLowerCase()}`
+                            ? `/collection/${ele.link.toLowerCase()}`
+                            : `/collection/${list.name.toLowerCase()}?category=${ele.name
+                                .split(" ")
+                                .join("")
+                                .toLowerCase()}`
                         }
                         key={ele.id}
                         className="my-4 text-sm flex justify-start items-start hover:text-primary"
@@ -57,22 +61,30 @@ export default function Navbar() {
         <div className="flex">
           {sales_latest_collections.map((ele) => {
             return (
-              <div key={ele.id} className="my-4 text-right">
-                <Link
-                  type="button"
-                  href={`/collection${ele.link.toLowerCase()}`}
-                  className="hover:no-underline"
+              <Link
+                href={`/collection${ele.link.toLowerCase()}`}
+                key={ele.id}
+                className="m-4 text-right"
+              >
+                <Image
+                  src={ele.image}
+                  alt={ele.name}
+                  placeholder="blur"
+                  blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
+                  width={0}
+                  loading="eager"
+                  height={0}
+                  sizes="100vw"
+                  className="object-cover w-full h-64"
+                />
+                <Button
+                  className="w-60 text-sm mt-2 bg-white font-medium tracking-wider px-2 rounded-sm"
+                  variant="contained"
                 >
-                  <img className="w-60 h-60" src={ele.image} alt={ele.name} />
-                  <Button
-                    className="w-60 text-sm bg-white font-medium tracking-wider px-2 rounded-sm"
-                    variant="contained"
-                  >
-                    {" "}
-                    {ele.name}
-                  </Button>
-                </Link>
-              </div>
+                  {" "}
+                  {ele.name}
+                </Button>
+              </Link>
             );
           })}
         </div>
@@ -100,12 +112,12 @@ export default function Navbar() {
         </div>
         <div className="text-xs flex md:gap-2 justify-center items-center">
           {" "}
-          <Link className="hover:text-primary" href={"/"}>
-            Sign In
+          {/* <Link className="hover:text-primary" href={"/"}>
+          sportbase@gmail.com
           </Link>
-          <span>|</span>
+          <span>|</span> */}
           <Link className="hover:text-primary" href={"/"}>
-            Help
+            Help Center
           </Link>
         </div>
       </div>
@@ -113,12 +125,13 @@ export default function Navbar() {
         <div className={`px-2  py-4 md:px-8 bg-white`}>
           <div className="text-center m-auto flex justify-between items-center">
             <div className="hidden md:flex gap-8 items-center basis-full">
-              <div
+              <Link
+                href={"/"}
                 onMouseOver={() => showSubNavHandler(true)}
-                className={`relative inline-block cursor-pointer`}
+                className={`relative no-underline hover:text-primary inline-block cursor-pointer`}
               >
-                <p> Shop</p>
-              </div>
+                Shop
+              </Link>
               <div
                 onMouseOver={() => showSubNavHandler(false)}
                 className="hidden md:block"
@@ -128,7 +141,7 @@ export default function Navbar() {
                     <Link
                       href={`/collection${ele.link.toLowerCase()}`}
                       key={ele.id}
-                      className="pb-6 md:mr-8 hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
+                      className="pb-6 md:mr-8 hover:text-primary hover:no-underline border-x-0 border-t-0 hover:border-solid border-b-2 border-primary"
                     >
                       {ele.name}
                     </Link>
@@ -151,13 +164,15 @@ export default function Navbar() {
             </Link>
             <div className="flex items-center justify-end basis-full text-right md:gap-4">
               <Link
-                href="/login"
+                aria-label="favorite collection"
+                href="#"
                 className="hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
               >
                 <FavoriteBorderIcon sx={{ fontSize: "20px" }} />
               </Link>
 
               <Link
+                aria-label="cart"
                 href="/cart"
                 className="relative hover:bg-gray-500/20 rounded-full p-2 flex justify-center items-center hover:no-underline"
               >
@@ -165,8 +180,8 @@ export default function Navbar() {
                   {" "}
                   <ShoppingCartOutlinedIcon sx={{ fontSize: "20px" }} />
                 </span>
-                <span className="absolute top-0 left-4 ml-2 rounded-full w-3 font-bold text-sm h-3 ">
-                  {cartQty>0 ?cartQty:""}
+                <span className="absolute top-0 left-4 ml-2 rounded-full w-3 font-bold text-sm h-3">
+                  {cartQty > 0 ? cartQty : ""}
                 </span>
               </Link>
             </div>

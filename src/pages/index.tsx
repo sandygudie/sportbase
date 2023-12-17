@@ -8,9 +8,9 @@ import Swipeable from "@/components/Swipeable";
 import { client } from "@/utilis";
 import Card from "@/components/Card";
 import Spinner from "@/components/Spinner";
-
 import { useRouter } from "next/router";
-import Image from "next/image";
+import Image from "next/legacy/image";
+import Head from "next/head";
 
 export default function Home() {
   const [latestProduct, setlatestProducts] = useState<Product[]>([]);
@@ -28,7 +28,7 @@ export default function Home() {
       "imageUrl": image.asset->url
     }`);
       let filtered = productResponse.filter(
-        (ele: Product) => ele.timeline === "latest" || ele.timeline === "newest"
+        (ele: Product) => ele.timeline === "latest"
       );
       setLoading(false);
       setlatestProducts(filtered);
@@ -39,37 +39,42 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Sportbase</title>
+      </Head>
+
       <main>
         <div className="">
           <Swipeable />
           <div className="pt-16 pb-28 md:py-28">
             <div className="px-4 md:px-8 ">
-              <h1 className="text-2xl text-center font-normal mb-8 md:mb-20">
+              <h1 className="text-3xl text-center font-medium mb-8 md:mb-20">
                 {" "}
                 Collections
               </h1>
-              <div className="flex items-center flex-wrap justify-between gap-8">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {collection_category.map((item) => {
                   return (
                     <Link
                       href={`/collection${item.link}`}
                       key={item.id}
-                      className="grow w-96"
+                      className=""
                     >
                       <div className="relative overflow-hidden">
                         <Image
                           src={item.image}
                           alt={item.name}
-                          width={0}
-                          height={0}
+                          placeholder="blur"
+                          loading="eager"
+                          blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
+                          width={100}
+                          height={130}
                           sizes="100vw"
-                          loading="lazy"
-                          // priority={true}
-                          className="object-cover w-full 2xl:h-[650px] h-[550px] transition-transform ease-in delay-150 hover:scale-110 duration-1000"
+                          className="object-cover w-full h-auto transition-transform ease-in delay-150 hover:scale-110 duration-1000"
                         />
                       </div>
-                      <div className="p-6 absolute bottom-5">
-                        <p className="font-medium text-white text-4xl pb-8">
+                      <div className="px-6 absolute bottom-5">
+                        <p className="font-medium text-white text-4xl pb-2">
                           {item.name}
                         </p>
                         <Button
@@ -86,7 +91,7 @@ export default function Home() {
             </div>
 
             <div className="my-20 md:my-28 px-4 md:px-12">
-              <h2 className="font-normal text-center mb-8 md:mb-20  text-2xl">
+              <h2 className="font-medium text-center mb-8 md:mb-20 text-3xl">
                 Our Brands
               </h2>
               <div className="flex items-center justify-center flex-wrap gap-8 md:gap-10">
@@ -110,7 +115,7 @@ export default function Home() {
 
             <div className="px-0 md:px-12 bg-gray-100/30">
               <div className="py-16 md:py-20">
-                <h2 className="text-center font-normal mb-12 md:mb-20 text-2xl">
+                <h2 className="text-center font-medium mb-12 md:mb-20 text-3xl">
                   New Arrivals
                 </h2>
                 <div className="my-5">
@@ -136,11 +141,11 @@ export default function Home() {
                 </div>
                 <div className="text-center mt-8">
                   <Button
-                    onClick={() => router.push("/collection/newest")}
+                    onClick={() => router.push("/collection/latest")}
                     variant="contained"
                     className="p-3 font-bold w-64"
                   >
-                   SHOP ALL NEW ARRIVALS
+                    SHOP ALL NEW ARRIVALS
                   </Button>
                 </div>
               </div>
@@ -151,7 +156,7 @@ export default function Home() {
                 Sales
               </h3>
               <div className="w-64 md:w-96 absolute -bottom-36 shadow-md bg-white text-center p-4 md:p-12">
-                <p className="font-bold text-xl">SALE</p>
+                <p className="font-bold text-3xl">SALE</p>
                 <p className="p-3">
                   Buy high-quality articles for the best prices. Discounts from
                   25% to 80%!
@@ -175,10 +180,7 @@ export default function Home() {
 }
 
 // todo
-//Add Item to shop
 
-// pagination(material ui) you will add carousel for your images
-// set up install husky
-
-// print out receipt,share receive or sent receipt to email
-
+// you can add carousel for your images
+// Add pay with flutterwave and paypal
+// work on image optimization, and performances and acessibility

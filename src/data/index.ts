@@ -11,7 +11,7 @@ export const banner = [
   },
   {
     label: "Best apparels for the season",
-    imgPath: "/images/apparel.jpg",
+    imgPath: "/images/apparel.webp",
     link: "/apparel",
   },
   {
@@ -30,7 +30,7 @@ export const collection_category = [
   {
     id: 0,
     name: "Footwears",
-    image: "/images/nike.webp",
+    image: "/images/nike1.jpg",
     link: "/footwear",
   },
   {
@@ -42,7 +42,7 @@ export const collection_category = [
   {
     id: 2,
     name: "Accessories",
-    image: "/images/accesory.jpg",
+    image: "/images/accesory.webp",
     link: "/accessories",
   },
 ];
@@ -95,23 +95,15 @@ export const dropdownNav = [
     category: [
       {
         id: 1,
-        name: "T-shirts",
-      },
-      {
-        id: 2,
         name: "Shirts",
       },
       {
-        id: 8,
+        id: 2,
         name: "Casual",
       },
       {
-        id: 3,
-        name: "SweatShirts & Hoodies",
-      },
-      {
         id: 4,
-        name: "Pants",
+        name: "Shorts",
       },
       {
         id: 5,
@@ -147,10 +139,6 @@ export const dropdownNav = [
         id: 4,
         name: "Socks",
       },
-      {
-        id: 5,
-        name: "Head Warmer",
-      },
     ],
   },
   {
@@ -166,7 +154,7 @@ export const dropdownNav = [
       {
         id: 1,
         name: "Adidas",
-        image: "/images/brand-logo/adidas.png",
+        image: "/images/brand-logo/adidas.svg",
         link: "/adidas",
       },
       {
@@ -178,7 +166,7 @@ export const dropdownNav = [
       {
         id: 3,
         name: "Puma",
-        image: "/images/brand-logo/puma.jpeg",
+        image: "/images/brand-logo/puma.svg",
         link: "/puma",
       },
       {
@@ -235,12 +223,12 @@ export const sales_latest_collections = [
     id: 4,
     name: "Sales",
     link: "/sales",
-    image: "/images/newbalance.jpg",
+    image: "/images/newbalance.webp",
   },
   {
     id: 5,
     name: "Latest Arrivals",
-    link: "/newest",
-    image: "/images/mensneakers3.jpg",
+    link: "/latest",
+    image: "/images/mensneakers3.webp",
   },
 ];
