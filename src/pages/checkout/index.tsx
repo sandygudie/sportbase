@@ -57,14 +57,14 @@ const Checkout = () => {
     {
       id: 0,
       name: "stripe",
-      image: "/images/brand-logo/stripe.png",
+      image: "/images/brand-logo/stripe.svg",
       selected: () => checkoutCart(),
       color: "bg-[#d4cdcd80]",
     },
     {
       id: 1,
       name: "flutterwave",
-      image: "/images/brand-logo/flutterwave.png",
+      image: "/images/brand-logo/flutterwave.svg",
       selected: () => setpayMethod("flutterwave"),
       color: "bg-[#009688]",
     },
