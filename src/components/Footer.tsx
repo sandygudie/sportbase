@@ -85,7 +85,7 @@ export default function Footer() {
       src="/images/brand-logo/stripe.svg"
       width={80}
       height={80}
-      className="h-auto"
+      className="h-auto w-20"
       alt="stripe"
     />
      <Image
@@ -93,6 +93,7 @@ export default function Footer() {
       width={150}
       height={150}
       alt="flutterwave"
+      className="mr-2"
     />
      <Image
       src="/images/brand-logo/paypal.svg"

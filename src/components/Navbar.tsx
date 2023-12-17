@@ -40,7 +40,7 @@ export default function Navbar() {
                         type="button"
                         href={
                           list.name === "Brand"
-                            ? `/collection/${ele.link.toLowerCase()}`
+                            ? `/collection${ele.link.toLowerCase()}`
                             : `/collection/${list.name.toLowerCase()}?category=${ele.name
                                 .split(" ")
                                 .join("")
@@ -69,7 +69,7 @@ export default function Navbar() {
                 <Image
                   src={ele.image}
                   alt={ele.name}
-                  placeholder="blur"
+                
                   blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
                   width={0}
                   loading="eager"
