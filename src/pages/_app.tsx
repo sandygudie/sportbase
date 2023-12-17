@@ -35,11 +35,11 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || commonLayout;
 
   return getLayout(
-    // <AppProvider>
+
       <ThemeProvider theme={theme}>
         <Component key={router.asPath} {...pageProps} />{" "}
       </ThemeProvider>
-    // </AppProvider>
+
   );
 };
 
