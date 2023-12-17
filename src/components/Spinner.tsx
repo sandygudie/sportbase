@@ -1,7 +1,13 @@
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
-export default function Spinner() {
+interface Props{
+  color?:string
+}
+export default function Spinner({ color }:Props) {
   return (
-      <CircularProgress className="text-primary" color="success" />
-  )
+    <CircularProgress
+      className={`${color ? color : "text-primary"}`}
+      color="success"
+    />
+  );
 }

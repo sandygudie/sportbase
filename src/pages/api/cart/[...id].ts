@@ -65,7 +65,6 @@ const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
     let cartId;
     if (existingCart) {
       existingCart.product.unshift(newProduct);
-
       cartId = existingCart.id;
       existingCart.save();
     } else {

@@ -12,8 +12,8 @@ export default function Card({
   latestProduct,
 }: IProps) {
   return (
-    <Link className=" hover:no-underline " href={`/product/${product._id}`}>
-      <div className="shadow-sm relative overflow-hidden">
+    <Link className=" hover:no-underline" href={`/product/${product._id}`}>
+      <div className="shadow-sm relative bg-white overflow-hidden">
         {product.timeline === "latest" && (
           <p className="absolute font-medium text-xs md:text-sm left-0 p-1 top-0 z-30 bg-primary/60 md:p-1">
             Latest{" "}
@@ -24,10 +24,10 @@ export default function Card({
           alt={product?.name}
           width={0}
           height={0}
-          placeholder="blur"
+          // placeholder="blur"
           blurDataURL='https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24'
           sizes="100vw"
-          loading="lazy"
+          loading="eager"
           className={`object-cover w-full ${
             similarProducts
               ? `h-[11rem] md:h-[300px]`

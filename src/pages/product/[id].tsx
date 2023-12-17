@@ -37,7 +37,7 @@ function Index({ product, similarProducts }: Props) {
   }, [router.query.id]);
 
   async function addToCart(doc: Product) {
-    if ((selectedColor || selectedColor) === " ") {
+    if ((selectedColor  === " "|| selectedSize === " ")) {
       setError(true);
     } else {
       setError(false);
@@ -84,7 +84,6 @@ function Index({ product, similarProducts }: Props) {
           localStorage.setItem("cart", JSON.stringify(updatedProduct));
           setCartQtyhandler(updatedProduct.length);
           localStorage.setItem("cartID", cartId);
-
           return router.push("/cart");
         });
     }
@@ -92,7 +91,7 @@ function Index({ product, similarProducts }: Props) {
   return (
     <>
       <Head>
-      <title>Sportbase</title>
+        <title>Sportbase</title>
       </Head>
       <div className="py-8 md:py-16 px-4 md:px-8">
         <div className="block md:flex gap-8 justify-between items-start">
@@ -104,6 +103,7 @@ function Index({ product, similarProducts }: Props) {
               height={0}
               sizes="100vw"
               loading="lazy"
+              blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
               className="object-cover w-full grow h-[450px]"
             />
           </div>
@@ -203,7 +203,7 @@ function Index({ product, similarProducts }: Props) {
                 onClick={() => addToCart(product)}
               >
                 {" "}
-                {isLoading ? <Spinner /> : "Add To Cart"}
+                {isLoading ? <Spinner color="text-white" /> : "Add To Cart"}
               </Button>
             </div>
           </div>
@@ -213,7 +213,6 @@ function Index({ product, similarProducts }: Props) {
             <h2 className="text-center font-medium pb-8 text-xl ">
               You may also like
             </h2>
-
             <div className="overflow-hidden my-5">
               <div className=" m-auto flex overflow-x-auto items-center md:justify-center gap-12">
                 <Swiper

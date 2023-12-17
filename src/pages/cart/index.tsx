@@ -80,180 +80,185 @@ function Index({}: Props) {
       console.log(error);
     }
   };
- 
 
   return (
     <>
-    <Head>
-    <title>Sportbase</title>
-    </Head>
-    <div className=" px-5 md:px-8 ">
-      {cartItems.length ? (
-        <div className="py-4">
-          <h1 className=" text-center tracking-[0.3em] font-light text-xl my-6">
-            {" "}
-            CART
-          </h1>
-          <div className="block md:flex gap-4 mt-6 items-start">
-            <div className="w-full md:w-9/12 md:shadow-lg shadow-dark/10 md:p-8 ">
-              <div className="flex mb-5 text-lg justify-between items-center ">
-                <p className="w-[50%]">Product</p>
-                <p className="sm:w-1/3 hidden sm:block">Quantity</p>
-                <p className="hidden sm:block">Total</p>
-              </div>
-              <div className="">
-                {cartItems.map((ele, index) => {
-                  return (
-                    <div
-                      className="sm:flex justify-between items-center border-t-1 border-b-0 border-x-0 border-primary/20 border-solid py-8 "
-                      key={ele._id}
-                    >
-                      <div className="relative w-full gap-x-2 flex items-center sm:w-[40%]">
-                        <Link href={`product/${ele.productID}`}>
-                          <Image
-                            src={ele?.imageUrl}
-                            alt={ele.name}
-                            width={0}
-                            height={0}
-                            sizes="100vw"
-                            loading="lazy"
-                            className="object-cover w-full w-28 h-28 md:w-36 md:h-36"
-                          />
-                        </Link>
-
-                        <div>
-                          <p className="text-xs font-medium mb-4">
-                            {ele.category.toUpperCase()}
-                          </p>
-                          <p className="text-sm font-bold">{ele.name}</p>
-                          <p className="text-sm font-bold">${ele.price}</p>
-                          <div className="mt-4">
-                            <p className="text-sm md:text-base">
-                              Color :{" "}
-                              <span className="font-medium">{ele.color}</span>
-                            </p>
-                            <p className="text-sm md:text-base">
-                              Size :{" "}
-                              <span className="font-medium">{ele.size}</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="sm:w-[45%] mt-4 :my-6 md:my-0 block sm:flex items-center justify-between gap-3">
-                        <div className="mt-3 sm:w-3/6">
-                          <Autocomplete
-                            value={ele.qty}
-                            onChange={(event, newValue) => {
-                              const currentProductIndex = cartItems.findIndex(
-                                (product) => product._id === ele._id
-                              );
-                              const updatedProduct = Object.assign(
-                                {},
-                                cartItems[currentProductIndex]
-                              );
-                              updatedProduct.qty = Number(newValue);
-                              updatedProduct.totalPrice =
-                                updatedProduct.qty * ele.price;
-                              const newProducts = cartItems.slice();
-                              newProducts[currentProductIndex] = updatedProduct;
-                              const itemUpdated = {
-                                qty: updatedProduct.qty,
-                                price: updatedProduct.price,
-                                totalPrice:
-                                  updatedProduct.qty * updatedProduct.price,
-                              };
-                              updateItem(ele._id, itemUpdated);
-                              localStorage.setItem(
-                                "cart",
-                                JSON.stringify(newProducts)
-                              );
-                              setCartItems(newProducts);
-                            }}
-                            selectOnFocus
-                            clearOnBlur
-                            handleHomeEndKeys
-                            id="free-solo-with-text-demo"
-                            options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                            getOptionLabel={(option) => option.toString()}
-                            renderOption={(props, option) => (
-                              <li {...props}>{option}</li>
-                            )}
-                            className="md:w-6/6 lg:w-full"
-                            freeSolo
-                            renderInput={(params) => (
-                              <TextField {...params} label="qty" />
-                            )}
-                          />
-
-                          <div
-                            className="text-sm md:text-base cursor-pointer text-center hover:underline"
-                            onClick={() => deleteItem(ele._id)}
-                          >
-                            {isDelete && selectedID === ele._id ? (
-                              <CircularProgress
-                                className="text-gray-500"
-                                color="success"
-                                size={20}
-                              />
-                            ) : (
-                              "Remove"
-                            )}
-                          </div>
-                        </div>
-                        <p className="font-medium my-4 md:my-0">
-                          {" "}
-                          <span className="mr-5 sm:hidden ">Total price:</span>$
-                          {Number(ele.totalPrice)}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="w-full p-0 md:p-8 md:w-3/12 md:shadow-lg shadow-dark/40 md:sticky top-20">
-              <h2 className="text-lg font-medium">Your Order Info</h2>
-              <div className="border-t-1 mt-2 md:mt-4 border-b-0 border-x-0 border-solid border-primary/20">
-                <div className="md:text-sm lg:text-xl pt-8  mb-6 font-bold flex flex-wrap justify-between items-center">
-                  <p>TOTAL :</p>{" "}
-                  <p className="text-xl">
-                    $
-                    {cartItems?.reduce(
-                      (accum: any, item: { totalPrice: any }) =>
-                        accum + Number(item.totalPrice),
-                      0
-                    )}
-                    .00
-                  </p>
+      <Head>
+        <title>Sportbase</title>
+      </Head>
+      <div className=" px-5 md:px-8 ">
+        {cartItems.length ? (
+          <div className="py-4">
+            <h1 className=" text-center tracking-[0.3em] font-light text-xl my-6">
+              {" "}
+              CART
+            </h1>
+            <div className="block md:flex gap-4 mt-6 items-start">
+              <div className="w-full md:w-9/12 md:shadow-lg shadow-dark/10 md:p-8 ">
+                <div className="flex mb-5 text-lg justify-between items-center ">
+                  <p className="w-[50%]">Product</p>
+                  <p className="sm:w-1/3 hidden sm:block">Quantity</p>
+                  <p className="hidden sm:block">Total</p>
                 </div>
-                <Button
-            onClick={() => router.push("/checkout")}
-                  variant="contained"
-                  className="w-full"
-                >
-                  CHECKOUT
-                </Button>
+                <div className="">
+                  {cartItems.map((ele, index) => {
+                    return (
+                      <div
+                        className="sm:flex justify-between items-center border-t-1 border-b-0 border-x-0 border-primary/20 border-solid py-8 "
+                        key={ele._id}
+                      >
+                        <div className="relative w-full gap-x-2 flex items-center sm:w-[40%]">
+                          <Link href={`product/${ele.productID}`}>
+                            <Image
+                              src={ele?.imageUrl}
+                              alt={ele.name}
+                              width={0}
+                              // blurDataURL='https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24'
+                              height={0}
+                              sizes="100vw"
+                              loading="lazy"
+                              className="object-cover w-full w-28 h-28 md:w-36 md:h-36"
+                            />
+                          </Link>
+
+                          <div>
+                            <p className="text-xs font-medium mb-4">
+                              {ele.category.toUpperCase()}
+                            </p>
+                            <p className="text-sm font-bold">{ele.name}</p>
+                            <p className="text-sm font-bold">${ele.price}</p>
+                            <div className="mt-4">
+                              <p className="text-sm md:text-base">
+                                Color :{" "}
+                                <span className="font-medium">{ele.color}</span>
+                              </p>
+                              <p className="text-sm md:text-base">
+                                Size :{" "}
+                                <span className="font-medium">{ele.size}</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="sm:w-[45%] mt-4 :my-6 md:my-0 block sm:flex items-center justify-between gap-3">
+                          <div className="mt-3 sm:w-3/6">
+                            <Autocomplete
+                              value={ele.qty}
+                              onChange={(event, newValue) => {
+                                const currentProductIndex = cartItems.findIndex(
+                                  (product) => product._id === ele._id
+                                );
+                                const updatedProduct = Object.assign(
+                                  {},
+                                  cartItems[currentProductIndex]
+                                );
+                                updatedProduct.qty = Number(newValue);
+                                updatedProduct.totalPrice =
+                                  updatedProduct.qty * ele.price;
+                                const newProducts = cartItems.slice();
+                                newProducts[currentProductIndex] =
+                                  updatedProduct;
+                                const itemUpdated = {
+                                  qty: updatedProduct.qty,
+                                  price: updatedProduct.price,
+                                  totalPrice:
+                                    updatedProduct.qty * updatedProduct.price,
+                                };
+                                updateItem(ele._id, itemUpdated);
+                                localStorage.setItem(
+                                  "cart",
+                                  JSON.stringify(newProducts)
+                                );
+                                setCartItems(newProducts);
+                              }}
+                              selectOnFocus
+                              clearOnBlur
+                              handleHomeEndKeys
+                              id="free-solo-with-text-demo"
+                              options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                              getOptionLabel={(option) => option.toString()}
+                              renderOption={(props, option) => (
+                                <li {...props}>{option}</li>
+                              )}
+                              className="md:w-6/6 lg:w-full"
+                              freeSolo
+                              renderInput={(params) => (
+                                <TextField {...params} label="qty" />
+                              )}
+                            />
+
+                            <div
+                              className="text-sm md:text-base cursor-pointer text-center hover:underline"
+                              onClick={() => deleteItem(ele._id)}
+                            >
+                              {isDelete && selectedID === ele._id ? (
+                                <CircularProgress
+                                  className="text-gray-500"
+                                  color="success"
+                                  size={20}
+                                />
+                              ) : (
+                                "Remove"
+                              )}
+                            </div>
+                          </div>
+                          <p className="font-medium my-4 md:my-0">
+                            {" "}
+                            <span className="mr-5 sm:hidden ">
+                              Total price:
+                            </span>
+                            ${Number(ele.totalPrice)}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="w-full p-0 md:p-8 md:w-3/12 md:shadow-lg shadow-dark/40 md:sticky top-20">
+                <h2 className="text-lg font-medium">Your Order Info</h2>
+                <div className="border-t-1 mt-2 md:mt-4 border-b-0 border-x-0 border-solid border-primary/20">
+                  <div className="md:text-sm lg:text-xl pt-8  mb-6 font-bold flex flex-wrap justify-between items-center">
+                    <p>TOTAL :</p>{" "}
+                    <p className="text-xl">
+                      $
+                      {cartItems?.reduce(
+                        (accum: any, item: { totalPrice: any }) =>
+                          accum + Number(item.totalPrice),
+                        0
+                      )}
+                      .00
+                    </p>
+                  </div>
+                  <Button
+                    onClick={() => router.push("/checkout")}
+                    variant="contained"
+                    className="w-full"
+                  >
+                    CHECKOUT
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ) : cartQty <= 0 ? (
-        <div className="flex flex-col h-[28em] items-center justify-center">
-          <p className="pb-4">Your cart is empty</p>
-          <Button
-            onClick={() => router.push("/")}
-            variant="contained"
-            className="px-3 w-64"
-          >
-            Go to Shop
-          </Button>
-        </div>
-      ) : isLoading &&(
-        <div className="flex flex-col items-center justify-center">
-          <Spinner />
-        </div>
-      )}
-    </div>
+        ) : cartQty <= 0 ? (
+          <div className="flex flex-col h-[28em] items-center justify-center">
+            <p className="pb-4">Your cart is empty</p>
+            <Button
+              onClick={() => router.push("/")}
+              variant="contained"
+              className="px-3 w-64"
+            >
+              Go to Shop
+            </Button>
+          </div>
+        ) : (
+          isLoading && (
+            <div className="flex flex-col items-center justify-center">
+              <Spinner />
+            </div>
+          )
+        )}
+      </div>
     </>
   );
 }
