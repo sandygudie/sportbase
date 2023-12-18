@@ -6,13 +6,11 @@ import { useRouter } from "next/router";
 import { Button } from "@mui/material";
 import Link from "next/link";
 import { createCartReceiptRequest } from "@/utilis/checkout";
-import { AppContextState } from "@/types";
-import { AppContext } from "@/context";
+
 
 export default function Response() {
   const router = useRouter();
   const [isSuccess, setSuccess] = useState(false);
-  const { setCartQtyhandler } = useContext(AppContext) as AppContextState;
 
   useEffect(() => {
     let cartID = localStorage.getItem("cartID") || "";
@@ -28,7 +26,7 @@ export default function Response() {
       let response = await createCartReceiptRequest(cartId);
       let data = await response.json();
       localStorage.setItem("cart", JSON.stringify([]));
-      setCartQtyhandler(null);
+      // setCartQtyhandler(null);
  
     } catch (error) {
       console.log(error);
