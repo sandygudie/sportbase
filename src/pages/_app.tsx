@@ -37,7 +37,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   return getLayout(
 
       <ThemeProvider theme={theme}>
-        <Component key={router.asPath} {...pageProps} />{" "}
+        <Component  {...pageProps} />{" "}
       </ThemeProvider>
 
   );
