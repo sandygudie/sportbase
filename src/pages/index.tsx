@@ -94,13 +94,13 @@ export default function Home() {
               <h2 className="font-medium text-center mb-8 md:mb-20 text-3xl">
                 Our Brands
               </h2>
-              <div className="flex items-center justify-center flex-wrap gap-8 md:gap-10">
+              <div className="flex items-center justify-center flex-wrap">
                 {dropdownNav[3].category.map((item: any) => {
                   return (
                     <Link
                       href={`/collection${item.link}`}
                       key={item.id}
-                      className="relative flex items-center justify-center border border-1 border-gray-200/20 border-solid py-2 px-4"
+                      className="relative flex items-center justify-center py-2 px-4"
                     >
                       <img
                         className="w-16 md:w-20 h-16"
