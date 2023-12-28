@@ -73,7 +73,7 @@ const Checkout = () => {
       name: "paypal",
       image: "/images/brand-logo/paypal.webp",
       selected: () => "",
-      color: "bg-[#ffc43a]",
+ 
     },
   ];
   const totalamount: number = cartItems?.reduce(
@@ -84,7 +84,7 @@ const Checkout = () => {
   return (
     <>
       <Head>
-      <title>Sportbase</title>
+        <title>Sportbase</title>
       </Head>
       <div className="h-screen flex flex-col-reverse sm:grid grid-cols-2">
         <div className="h-full">
@@ -102,15 +102,18 @@ const Checkout = () => {
               <div className="text-center flex w-2/3 flex-wrap justify-center gap-4 items-center">
                 {paymentOptions.map((option: any) => (
                   <button
+                    disabled={option.name === "paypal"}
                     key={option.id}
                     onClick={option?.selected}
-                    className={`${option.color} border-0  rounded-lg  w-48 h-12 cursor-pointer flex flex-col justify-center items-center py-2`}
+                    className={`${
+                      option.name === "paypal" ? "opacity-30" : option.color
+                    } border-0  shadow-lg rounded-lg  w-48 h-12 flex flex-col justify-center items-center py-2`}
                   >
                     {isLoading && paymentMethod === option.name ? (
                       <Spinner />
                     ) : (
                       <img
-                        className="w-20"
+                        className="w-24"
                         src={option.image}
                         alt={option.name}
                       />

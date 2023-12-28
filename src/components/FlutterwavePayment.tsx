@@ -43,7 +43,6 @@ export default function FlutterwavePayment({ totalamount }: IProps) {
             callback: (response) => {
               console.log(response);
               if (response.status === "successful") {
-                
                 router.push("/checkout/response?success=true");
               } else {
                 router.push("/checkout/response?canceled=true");
@@ -101,7 +100,7 @@ export default function FlutterwavePayment({ totalamount }: IProps) {
           />
         </div>
         <div className="mt-6">
-          <Button type="submit" className="w-fit" variant="contained">
+          <Button type="submit" className="w-fit md:w-64" variant="contained">
             {isLoading ? (
               <Spinner />
             ) : (
