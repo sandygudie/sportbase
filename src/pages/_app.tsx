@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import type { ReactElement, ReactNode } from "react";
+import { Suspense, type ReactElement, type ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "@mui/material";
@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AppProvider } from "@/context";
 import { useRouter } from "next/router";
+import Spinner from "@/components/Spinner";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -22,7 +23,9 @@ function commonLayout(page: ReactElement) {
     <AppProvider>
       <ThemeProvider theme={theme}>
         <Navbar />
-        <div className="z-10 pb-36">{page}</div>
+      
+          <div className="z-10 pb-36">{page}</div>
+
         <Footer />
       </ThemeProvider>
     </AppProvider>
@@ -30,16 +33,13 @@ function commonLayout(page: ReactElement) {
 }
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
-  const router = useRouter();
-
+  
   const getLayout = Component.getLayout || commonLayout;
 
   return getLayout(
-
-      <ThemeProvider theme={theme}>
-        <Component  {...pageProps} />{" "}
-      </ThemeProvider>
-
+    <ThemeProvider theme={theme}>
+      <Component {...pageProps} />{" "}
+    </ThemeProvider>
   );
 };
 

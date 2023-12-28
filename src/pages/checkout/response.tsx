@@ -6,11 +6,22 @@ import { useRouter } from "next/router";
 import { Button } from "@mui/material";
 import Link from "next/link";
 import { createCartReceiptRequest } from "@/utilis/checkout";
-
+import Spinner from "@/components/Spinner";
 
 export default function Response() {
   const router = useRouter();
-  const [isSuccess, setSuccess] = useState(false);
+  const [isSuccess, setSuccess] = useState<boolean>();
+
+  const createReceipt = async (cartId: string) => {
+    try {
+      let response = await createCartReceiptRequest(cartId);
+      let data = await response.json();
+      localStorage.setItem("cart", JSON.stringify([]));
+      // setCartQtyhandler(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     let cartID = localStorage.getItem("cartID") || "";
@@ -21,17 +32,14 @@ export default function Response() {
     }
   }, [router.query]);
 
-  const createReceipt = async (cartId: string) => {
-    try {
-      let response = await createCartReceiptRequest(cartId);
-      let data = await response.json();
-      localStorage.setItem("cart", JSON.stringify([]));
-      // setCartQtyhandler(null);
- 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  if (isSuccess === undefined) {
+    return (
+      <div className="h-screen flex flex-col items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen px-8 font-medium text-center flex flex-col items-center justify-center ">
       {isSuccess ? (
