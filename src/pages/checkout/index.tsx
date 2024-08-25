@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { getStripe } from "@/utilis/getStripe";
 import FlutterwavePayment from "@/components/FlutterwavePayment";
 import Spinner from "@/components/Spinner";
+import CustomHead from "@/components/CustomHead";
 
 const Checkout = () => {
   const router = useRouter();
@@ -83,9 +84,10 @@ const Checkout = () => {
 
   return (
     <>
-      <Head>
-        <title>Sportbase</title>
-      </Head>
+       <CustomHead
+        title="Checkout"
+        content="Checkout cart items on Sportbase"
+      />
       <div className="h-screen flex flex-col-reverse sm:grid grid-cols-2">
         <div className="h-full">
           {paymentMethod !== "flutterwave" ? (

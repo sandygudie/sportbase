@@ -1,3 +1,4 @@
+import CustomHead from "@/components/CustomHead";
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
@@ -5,9 +6,10 @@ import React from "react";
 export default function CustomError() {
   return (
     <>
-      <Head>
-        <title>Sportbase</title>
-      </Head>
+        <CustomHead
+        title="Page Not Found"
+        content="Page Not Found"
+      />
 
       <div className="text-center px-6 lg:px-0 bg-gray-100 h-screen flex flex-col items-center justify-center">
         <h1 className="text-7xl lg:text-7xl font-bold text-primary font-kanit">

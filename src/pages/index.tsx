@@ -11,6 +11,7 @@ import Spinner from "@/components/Spinner";
 import { useRouter } from "next/router";
 import Image from "next/legacy/image";
 import Head from "next/head";
+import CustomHead from "@/components/CustomHead";
 
 export default function Home() {
   const [latestProduct, setlatestProducts] = useState<Product[]>([]);
@@ -39,10 +40,11 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Sportbase</title>
-      </Head>
-
+      <CustomHead
+        title="Home"
+        content='Find all your sport needs in this online sport shop'
+        pageSlug='/'
+      />
       <main>
         <div className="">
           <Swipeable />

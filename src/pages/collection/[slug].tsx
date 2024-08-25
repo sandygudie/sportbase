@@ -13,6 +13,7 @@ import { AppContext } from "@/context";
 import GridViewIcon from "@mui/icons-material/GridView";
 import AppsIcon from "@mui/icons-material/Apps";
 import { IconButton } from "@mui/material";
+import CustomHead from "@/components/CustomHead";
 
 type Props = {
   collectionData: Product[];
@@ -54,9 +55,10 @@ function Index({ collectionData, collectionSlug }: Props) {
 
   return (
     <>
-      <Head>
-      <title>Sportbase</title>
-      </Head>
+      <CustomHead
+        title="Collections"
+        content={`Get ${collectionSlug} collections on Sportbase`}
+      />
       <main>
         {isLoading || collection === undefined ? (
           <div className="flex items-center justify-center flex-col h-80">

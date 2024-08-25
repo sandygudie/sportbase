@@ -16,6 +16,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { AppContext } from "@/context";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import CustomHead from "@/components/CustomHead";
 
 type Props = {};
 
@@ -72,7 +73,7 @@ function Index({}: Props) {
       setDelete(true);
       let cartID = localStorage.getItem("cartID");
       await deleteCartProduct(cartID, id);
-      const tempProducts = cartItems.filter((ele) => ele._id !== id);
+      const tempProducts = cartItems.filter((ele: { _id: string; }) => ele._id !== id);
       localStorage.setItem("cart", JSON.stringify(tempProducts));
       setCartItems(tempProducts);
       setCartQtyhandler(tempProducts.length);
@@ -83,9 +84,10 @@ function Index({}: Props) {
 
   return (
     <>
-      <Head>
-        <title>Sportbase</title>
-      </Head>
+     <CustomHead
+        title="Cart"
+        content={`Cart items on Sportbase`}
+      />
       <div className=" px-5 md:px-8 ">
         {cartItems.length ? (
           <div className="py-4">
@@ -101,7 +103,7 @@ function Index({}: Props) {
                   <p className="hidden sm:block">Total</p>
                 </div>
                 <div className="">
-                  {cartItems.map((ele, index) => {
+                  {cartItems.map((ele:any, index: any) => {
                     return (
                       <div
                         className="sm:flex justify-between items-center border-t-1 border-b-0 border-x-0 border-primary/20 border-solid py-8 "

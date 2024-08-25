@@ -71,6 +71,7 @@ export default function Navbar() {
                   alt={ele.name}
                   blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
                   priority
+                  width={0}
                   height={0}
                   sizes="100vw"
                   className="object-cover w-full h-64"

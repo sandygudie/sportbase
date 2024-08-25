@@ -17,6 +17,7 @@ import Image from "next/image";
 import { Autoplay, Pagination } from "swiper";
 import Spinner from "@/components/Spinner";
 import Head from "next/head";
+import CustomHead from "@/components/CustomHead";
 
 interface Props {
   product: Product;
@@ -90,9 +91,10 @@ function Index({ product, similarProducts }: Props) {
   }
   return (
     <>
-      <Head>
-        <title>Sportbase</title>
-      </Head>
+       <CustomHead
+        title={ `${product?.name}` }
+        content={`Get ${product?.name} on Sportbase`}
+      />
       <div className="py-8 md:py-16 px-4 md:px-8">
         <div className="block md:flex gap-8 justify-between items-start">
           <div className="basis-7/12">
