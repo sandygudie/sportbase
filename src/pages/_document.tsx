@@ -22,6 +22,10 @@ export default function Document() {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta
+          name="Sport Base"
+          content="A one shop for all sport needs. Quick to deliver your sports needs to your doorstep."
+        />
       </Head>
       <body>
         <Main />
