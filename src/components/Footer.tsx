@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button } from "@mui/material";
 import Link from "next/link";
-import Image from 'next/image'
- 
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -80,28 +79,26 @@ export default function Footer() {
       </div>
 
       <div className="text-center flex flex-wrap justify-center gap-4 py-8 items-center">
-      {/* <p className="text-sm font-medium">Pay With</p> */}
-      <Image
-      src="/images/brand-logo/stripe.svg"
-      width={80}
-      height={80}
-      className="h-auto w-20"
-      alt="stripe"
-    />
-     <Image
-      src="/images/brand-logo/flutterwave.svg"
-      width={150}
-      height={150}
-      alt="flutterwave"
-      className="mr-2"
-    />
-     <Image
-      src="/images/brand-logo/paypal.svg"
-      width={80}
-      height={80}
-      alt="paypal"
-    />
-      
+        <Image
+          src="/images/brand-logo/stripe.svg"
+          width={80}
+          height={80}
+          className="h-20 w-20"
+          alt="stripe"
+        />
+        <Image
+          src="/images/brand-logo/flutterwave.svg"
+          width={150}
+          height={150}
+          alt="flutterwave"
+          className="mr-2"
+        />
+        <Image
+          src="/images/brand-logo/paypal.svg"
+          width={80}
+          height={80}
+          alt="paypal"
+        />
       </div>
       <div className="bg-dark p-8 text-white gap-4 text-xs flex items-center justify-center">
         <Link href="/">Privacy</Link>|<Link href="/">Terms and Condition</Link>|
