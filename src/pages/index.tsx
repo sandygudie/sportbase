@@ -65,7 +65,7 @@ export default function Home() {
                           src={item.image}
                           alt={item.name}
                           placeholder="blur"
-                          loading="eager"
+                          priority
                           blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
                           width={100}
                           height={130}

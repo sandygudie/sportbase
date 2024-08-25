@@ -69,10 +69,8 @@ export default function Navbar() {
                 <Image
                   src={ele.image}
                   alt={ele.name}
-                
                   blurDataURL="https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24"
-                  width={0}
-                  loading="eager"
+                  priority
                   height={0}
                   sizes="100vw"
                   className="object-cover w-full h-64"

@@ -24,10 +24,9 @@ export default function Card({
           alt={product?.name}
           width={0}
           height={0}
-          // placeholder="blur"
           blurDataURL='https://my-company-images-prd.imgix.net/public/bg-desktop.png?auto=format&blur=200&px=24'
           sizes="100vw"
-          loading="eager"
+          priority
           className={`object-cover w-full ${
             similarProducts
               ? `h-[11rem] md:h-[300px]`
